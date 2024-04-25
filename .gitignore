@@ -17,3 +17,9 @@ Cargo.lock
 # Added by cargo
 
 /target
+
+# Dawn build
+dawn.node
+
+# Output files
+test.js

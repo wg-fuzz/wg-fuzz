@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::prelude::*;
+use std::process::Command;
 
 fn main() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
@@ -131,5 +132,19 @@ async function init() {
 
 init();";
     file.write_all(sample_program)?;
+
+    let output = Command::new("node")
+        .env("LD_PRELOAD", "/usr/lib/gcc/x86_64-linux-gnu/11/libasan.so")
+        .env("ASAN_OPTIONS", "halt_on_error=1")
+        .arg("test.js")
+        .output()
+        .expect("Failed to run test.js");
+
+    println!("status: {}", output.status);
+    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+
+    assert!(output.status.success());
+
     Ok(())
 }
