@@ -1,8 +1,5 @@
 # wg-fuzz
-The WebGPU API Fuzzer
-
-## Description
-wg-fuzz is a tool for generating JavaScript programs with randomised WebGPU calls. It is intended to fuzz the WebGPU API.
+*wg-fuzz* is a tool for generating JavaScript programs with randomised WebGPU calls. It is intended to fuzz the WebGPU API.
 
 ## Build
 - Requires a dawn.node copied from Google's Dawn repo
