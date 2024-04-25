@@ -13,8 +13,10 @@
 ## TODO
 - Write a simple randomised WebGPU API fuzzer
 - Make it multithreaded
+- Input minimisation
 - Make the JS files multithreaded (workers?)
 - Implement swarm testing
 - Integrate WGSLSmith
 - Make it feedback-directed (grey-box)
-- Make it a tool for fuzzing APIs in general? Make description language, think about languages to support. wg-fuzz -> api-fuzz.
+- Differential testing with other WebGPU implementations, e.g. wgpu?
+- Make it a tool for fuzzing APIs in general? Make description language, think about languages to support. wg-fuzz -> api-fuzz
