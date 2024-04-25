@@ -1,21 +1,15 @@
-use std::fs::File;
-use std::io::prelude::*;
-
-fn main() -> std::io::Result<()> {
-    let mut file = File::create("test.js")?;
-    let sample_program = 
-b"const { create, globals } = require('./dawn.node');
+const { create, globals } = require('./dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
 let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,dump_shaders,disable_symbol_renaming']), };
 
 async function init() {
   if (!navigator.gpu) {
-    throw Error(\"WebGPU not supported.\");
+    throw Error("WebGPU not supported.");
   }
 
   const adapter = await navigator.gpu.requestAdapter();
   if (!adapter) {
-    throw Error(\"Couldn't request WebGPU adapter.\");
+    throw Error("Couldn't request WebGPU adapter.");
   }
 
   const device = await adapter.requestDevice();
@@ -67,7 +61,7 @@ async function init() {
         binding: 0,
         visibility: GPUShaderStage.COMPUTE,
         buffer: {
-          type: \"storage\",
+          type: "storage",
         },
       },
     ],
@@ -91,7 +85,7 @@ async function init() {
     }),
     compute: {
       module: shaderModule,
-      entryPoint: \"main\",
+      entryPoint: "main",
     },
   });
 
@@ -129,7 +123,4 @@ async function init() {
   console.log(new Float32Array(data));
 }
 
-init();";
-    file.write_all(sample_program)?;
-    Ok(())
-}
+init();
