@@ -1,13 +1,21 @@
 mod random_adapter;
+mod random_device;
 
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::Command;
 
-pub fn fuzz() -> std::io::Result<()> {
+pub fn fuzz() {
+    loop {
+        let _ = fuzz_once();
+    }
+}
+
+pub fn fuzz_once() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
     
     let random_adapter = random_adapter::get_random_adapter();
+    let random_device = random_device::get_random_device();
 
     let sample_program = 
 "const { create, globals } = require('./dawn.node');
@@ -17,13 +25,14 @@ let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,dump_shad
 async function init() {
   if (!navigator.gpu) {
     throw Error(\"WebGPU not supported.\");
-  }".to_owned() 
+  }
 
-  + &random_adapter +
+  ".to_owned() 
 
-  "const device = await adapter.requestDevice();
+  + &random_adapter
+  + &random_device
 
-  // Define global buffer size
+  + "// Define global buffer size
   const BUFFER_SIZE = 1000;
 
   const shader = `
@@ -143,10 +152,10 @@ init();";
         .expect("Failed to run test.js");
 
     println!("status: {}", output.status);
-    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    //println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+    //println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
-    assert!(output.status.success());
+    //assert!(output.status.success());
 
     Ok(())
 }
