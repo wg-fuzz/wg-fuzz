@@ -1,19 +1,13 @@
+mod random_adapter;
+
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::Command;
-use rand::prelude::*;
 
 pub fn fuzz() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
-
-    let mut rng = rand::thread_rng();
-    let n1: u8 = rng.gen_range(0..3);
-    let random_power_preference = match n1 {
-        0 => "undefined",
-        1 => "\"low-power\"",
-        2 => "\"high-performance\"",
-        _ => "undefined"
-    };
+    
+    let random_power_preference = random_adapter::get_random_adapter();
 
     let sample_program = 
 "const { create, globals } = require('./dawn.node');
@@ -25,7 +19,7 @@ async function init() {
     throw Error(\"WebGPU not supported.\");
   }
 
-  const adapter = await navigator.gpu.requestAdapter({powerPreference: ".to_owned() + random_power_preference + "});
+  const adapter = await navigator.gpu.requestAdapter({powerPreference: ".to_owned() + &random_power_preference + "});
   if (!adapter) {
     throw Error(\"Couldn't request WebGPU adapter.\");
   }
