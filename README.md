@@ -12,6 +12,8 @@
 
 ## TODO
 - Write a simple randomised WebGPU API fuzzer
+  - Write crates for creating randomised calls for different parts of the WebGPU API
+  - Write high-level algorithm for scheduling these randomly
 - Make it multithreaded
 - Input minimisation
 - Make the JS files multithreaded (workers?)
