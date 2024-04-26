@@ -1,11 +1,22 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::process::Command;
+use rand::prelude::*;
 
 fn main() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
+
+    let mut rng = rand::thread_rng();
+    let n1: u8 = rng.gen_range(0..3);
+    let random_power_preference = match n1 {
+        0 => "undefined",
+        1 => "\"low-power\"",
+        2 => "\"high-performance\"",
+        _ => "undefined"
+    };
+
     let sample_program = 
-b"const { create, globals } = require('./dawn.node');
+"const { create, globals } = require('./dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
 let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,dump_shaders,disable_symbol_renaming']), };
 
@@ -14,7 +25,7 @@ async function init() {
     throw Error(\"WebGPU not supported.\");
   }
 
-  const adapter = await navigator.gpu.requestAdapter();
+  const adapter = await navigator.gpu.requestAdapter({powerPreference: ".to_owned() + random_power_preference + "});
   if (!adapter) {
     throw Error(\"Couldn't request WebGPU adapter.\");
   }
@@ -131,7 +142,7 @@ async function init() {
 }
 
 init();";
-    file.write_all(sample_program)?;
+    file.write_all(sample_program.as_bytes())?;
 
     let output = Command::new("node")
         .env("LD_PRELOAD", "/usr/lib/gcc/x86_64-linux-gnu/11/libasan.so")
