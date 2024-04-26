@@ -7,7 +7,7 @@ use std::process::Command;
 pub fn fuzz() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
     
-    let random_power_preference = random_adapter::get_random_adapter();
+    let random_adapter = random_adapter::get_random_adapter();
 
     let sample_program = 
 "const { create, globals } = require('./dawn.node');
@@ -17,14 +17,11 @@ let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,dump_shad
 async function init() {
   if (!navigator.gpu) {
     throw Error(\"WebGPU not supported.\");
-  }
+  }".to_owned() 
 
-  const adapter = await navigator.gpu.requestAdapter({powerPreference: ".to_owned() + &random_power_preference + "});
-  if (!adapter) {
-    throw Error(\"Couldn't request WebGPU adapter.\");
-  }
+  + &random_adapter +
 
-  const device = await adapter.requestDevice();
+  "const device = await adapter.requestDevice();
 
   // Define global buffer size
   const BUFFER_SIZE = 1000;

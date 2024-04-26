@@ -7,8 +7,15 @@ pub fn get_random_adapter() -> String {
         0 => "undefined",
         1 => "\"low-power\"",
         2 => "\"high-performance\"",
-        _ => "undefined"
+        _ => "undefined",
     };
+    let random_adapter = "const adapter = await navigator.gpu.requestAdapter({powerPreference: "
+        .to_owned()
+        + &random_power_preference
+        + "});
+if (!adapter) {
+  throw Error(\"Couldn't request WebGPU adapter.\");
+}";
 
-    return random_power_preference.to_string();
+    return random_adapter.to_string();
 }
