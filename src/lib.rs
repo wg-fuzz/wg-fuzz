@@ -12,6 +12,8 @@ enum DawnType {
 
 struct WebGPUProgram {
   dawn_import: String,
+  random_adapter: String,
+  random_device: String,
   program: String,
 }
 
@@ -31,11 +33,10 @@ let navigator = {{ gpu: create([{dawn_import_arguments}]), }};");
 
     Self {
       dawn_import,
-      program: 
-      random_adapter
-      + &random_device
-    
-      + "// Define global buffer size
+      random_adapter,
+      random_device,
+      program: String::from("\
+      // Define global buffer size
       const BUFFER_SIZE = 1000;
     
       const shader = `
@@ -141,7 +142,7 @@ let navigator = {{ gpu: create([{dawn_import_arguments}]), }};");
       const copyArrayBuffer = stagingBuffer.getMappedRange(0, BUFFER_SIZE);
       const data = copyArrayBuffer.slice();
       stagingBuffer.unmap();
-      console.log(new Float32Array(data));"
+      console.log(new Float32Array(data));")
     }
   }
 
@@ -154,6 +155,8 @@ let navigator = {{ gpu: create([{dawn_import_arguments}]), }};");
 if (!navigator.gpu) {
   throw Error(\"WebGPU not supported.\");
 }\n\n");
+    program_content.push_str(&self.random_adapter);
+    program_content.push_str(&self.random_device);
     program_content.push_str(&self.program);
     program_content.push_str("}\n\ninit();");
 
