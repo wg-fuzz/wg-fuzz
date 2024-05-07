@@ -21,4 +21,5 @@
 - Integrate WGSLSmith
 - Make it feedback-directed (grey-box)
 - Differential testing with other WebGPU implementations, e.g. wgpu?
+- Coverage
 - Make it a tool for fuzzing APIs in general? Make description language, think about languages to support. wg-fuzz -> api-fuzz
