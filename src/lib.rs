@@ -7,7 +7,7 @@ use std::process::Command;
 
 pub fn fuzz() {
     loop {
-        let _ = fuzz_once();
+        fuzz_once().unwrap();
     }
 }
 
