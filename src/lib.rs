@@ -26,7 +26,10 @@ enum APICall {
 
 impl fmt::Display for APICall {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-      write!(f, "{:?}", self)
+      match self {
+        APICall::CreateAdapter => write!(f, "adapter1 = {:?}", self),
+        _ => write!(f, "{:?}", self)
+      }
   }
 }
 
