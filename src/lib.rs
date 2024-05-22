@@ -1,7 +1,6 @@
 mod random_adapter;
 mod random_device;
 
-use std::fmt;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
@@ -10,8 +9,9 @@ use rand::{
   distributions::{Distribution, Standard},
   Rng,
 };
+use std::collections::HashMap;
 
-#[derive(Debug)]
+#[derive(PartialEq, Eq, Hash)]
 enum APICall {
   CreateAdapter,
   CreateDevice,
@@ -24,22 +24,33 @@ enum APICall {
   Bug
 }
 
-impl fmt::Display for APICall {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-      match self {
-        APICall::CreateAdapter => write!(f, "adapter1 = {:?}", self),
-        APICall::CreateDevice => write!(f, "device1 = {:?}", self),
-        APICall::CreateBuffer => write!(f, "buffer1 = {:?}", self),
-        APICall::CreateCommandEncoder => write!(f, "commandEncoder1 = {:?}", self),
-        APICall::CreateComputePipeline => write!(f, "computePipeline1 = {:?}", self),
-        APICall::CreateRenderPipeline => write!(f, "renderPipeline1 = {:?}", self),
-        APICall::CreateShaderModule => write!(f, "shaderModule1 = {:?}", self),
-        APICall::SubmitWork => write!(f, "{:?}", self),
-        _ => write!(f, "{:?}", self)
-      }
-  }
+struct Adapter {
+  var_name: String
 }
 
+struct Device {
+  var_name: String
+}
+
+struct Buffer {
+  var_name: String
+}
+
+struct CommandEncoder {
+  var_name: String
+}
+
+struct ComputePipeline {
+  var_name: String
+}
+
+struct RenderPipeline {
+  var_name: String
+}
+
+struct ShaderModule {
+  var_name: String
+}
 
 impl Distribution<APICall> for Standard {
   fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> APICall {
@@ -76,9 +87,48 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
     sample_program.push_str("async function init() {\n");
     sample_program.push_str(&fs::read_to_string("code_samples/navigator_check.txt").unwrap());
 
+    let mut js_var_namespace: HashMap<APICall, Vec<String>> = HashMap::new();
+
     for _ in 1..100 {
+      // pick random API call
       let api_call: APICall = rand::random();
-      sample_program.push_str(&format!("\n\n    {}", api_call.to_string()))
+
+      sample_program.push_str("\n\n    ");
+
+      // handle it appropriately
+      match api_call {
+        APICall::CreateAdapter => {
+          sample_program.push_str("adapter1 = CreateAdapter")
+        }
+        APICall::CreateDevice => {
+          sample_program.push_str("device1 = CreateDevice")
+        }
+        APICall::CreateBuffer => {
+          sample_program.push_str("buffer1 = CreateBuffer")
+        }
+        APICall::CreateCommandEncoder => {
+          sample_program.push_str("commandEncoder1 = CreateCommandEncoder")
+        }
+        APICall::CreateComputePipeline => {
+          sample_program.push_str("computePipeline1 = CreateComputePipeline")
+        }
+        APICall::CreateRenderPipeline => {
+          sample_program.push_str("renderPipeline1 = CreateRenderPipeline")
+        }
+        APICall::CreateShaderModule => {
+          sample_program.push_str("shaderModule1 = CreateShaderModule")
+        }
+        APICall::SubmitWork => {
+          sample_program.push_str("SubmitWork")
+        }
+        APICall::Bug => {
+          panic!("Bug in API call random distribution");
+        }
+
+        // let name_num = js_var_namespace.get(&api_call).unwrap().len();
+
+        // js_var_namespace.insert(api_call, );
+      }
     }
 
     sample_program.push_str("\n}\n\ninit();");
