@@ -1,4 +1,4 @@
-if (!navigator.gpu) {
-    throw Error("WebGPU not supported.");
-}
+    if (!navigator.gpu) {
+        throw Error("WebGPU not supported.");
+    }
 
