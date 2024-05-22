@@ -28,6 +28,13 @@ impl fmt::Display for APICall {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
       match self {
         APICall::CreateAdapter => write!(f, "adapter1 = {:?}", self),
+        APICall::CreateDevice => write!(f, "device1 = {:?}", self),
+        APICall::CreateBuffer => write!(f, "buffer1 = {:?}", self),
+        APICall::CreateCommandEncoder => write!(f, "commandEncoder1 = {:?}", self),
+        APICall::CreateComputePipeline => write!(f, "computePipeline1 = {:?}", self),
+        APICall::CreateRenderPipeline => write!(f, "renderPipeline1 = {:?}", self),
+        APICall::CreateShaderModule => write!(f, "shaderModule1 = {:?}", self),
+        APICall::SubmitWork => write!(f, "{:?}", self),
         _ => write!(f, "{:?}", self)
       }
   }
