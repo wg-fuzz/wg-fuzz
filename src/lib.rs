@@ -49,17 +49,17 @@ pub fn fuzz() {
 }
 
 pub fn fuzz_once() -> std::io::Result<()> {
-    let mut requirementMap: HashMap<APICall, Vec<APICall>> = HashMap::new();
-    requirementMap.insert(APICall::CreateAdapter, vec![]);
-    requirementMap.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
-    requirementMap.insert(APICall::CreateBuffer, vec![APICall::CreateDevice]);
-    requirementMap.insert(APICall::CreateCommandEncoder, vec![APICall::CreateDevice]);
-    requirementMap.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
-    requirementMap.insert(APICall::CreateRenderPipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
-    requirementMap.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
-    requirementMap.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
-    requirementMap.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
-    requirementMap.insert(APICall::Bug, vec![]);
+    let mut requirement_map: HashMap<APICall, Vec<APICall>> = HashMap::new();
+    requirement_map.insert(APICall::CreateAdapter, vec![]);
+    requirement_map.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
+    requirement_map.insert(APICall::CreateBuffer, vec![APICall::CreateDevice]);
+    requirement_map.insert(APICall::CreateCommandEncoder, vec![APICall::CreateDevice]);
+    requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
+    requirement_map.insert(APICall::CreateRenderPipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
+    requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
+    requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
+    requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
+    requirement_map.insert(APICall::Bug, vec![]);
 
     let mut file = File::create("test.js")?;
 
