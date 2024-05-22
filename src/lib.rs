@@ -13,6 +13,17 @@ enum DawnType {
   AllowUnsafeAPIs,
 }
 
+enum APICall {
+  CreateAdapter,
+  CreateDevice,
+  CreateBuffer,
+  CreateCommandEncoder,
+  CreateComputePipeline,
+  CreateRenderPipeline,
+  CreateShaderModule,
+  SubmitWork
+}
+
 struct WebGPUProgram {
   dawn_import: String,
   random_adapter: String,
@@ -69,7 +80,23 @@ pub fn fuzz() {
 pub fn fuzz_once() -> std::io::Result<()> {
     let mut file = File::create("test.js")?;
 
-    let sample_program = WebGPUProgram::new(DawnType::AllowUnsafeAPIs).to_string();
+    // let sample_program = WebGPUProgram::new(DawnType::AllowUnsafeAPIs).to_string();
+
+    let mut sample_program = String::from("");
+
+    sample_program.push_str("\
+const {{ create, globals }} = require('./dawn.node');
+Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
+let navigator = {{ gpu: create([]), }};");
+    sample_program.push_str("\n\n");
+    sample_program.push_str("async function init() {\n");
+    sample_program.push_str(&fs::read_to_string("code_samples/navigator_check.txt").unwrap());
+
+    for _ in 1..100 {
+      sample_program.push_str("\n\n    hello")
+    }
+
+    sample_program.push_str("\n}\n\ninit();");
     
     file.write_all(sample_program.as_bytes())?;
 

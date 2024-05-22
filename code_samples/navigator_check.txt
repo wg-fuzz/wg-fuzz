@@ -1,4 +1,3 @@
     if (!navigator.gpu) {
         throw Error("WebGPU not supported.");
     }
-
