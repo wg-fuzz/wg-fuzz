@@ -4,7 +4,7 @@ mod random_device;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
-use std::process::Command;
+// use std::process::Command;
 use rand::{
   distributions::{Distribution, Standard},
   Rng,
