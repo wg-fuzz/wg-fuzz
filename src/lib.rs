@@ -11,7 +11,7 @@ use rand::{
 };
 use std::collections::HashMap;
 
-#[derive(PartialEq, Eq, Hash)]
+#[derive(PartialEq, Eq, Hash, Clone, Copy)]
 enum APICall {
   CreateAdapter,
   CreateDevice,
@@ -98,25 +98,67 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
       // handle it appropriately
       match api_call {
         APICall::CreateAdapter => {
-          sample_program.push_str("adapter1 = CreateAdapter")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("adapter{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateAdapter", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateDevice => {
-          sample_program.push_str("device1 = CreateDevice")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("device{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateDevice", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateBuffer => {
-          sample_program.push_str("buffer1 = CreateBuffer")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("buffer{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateBuffer", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateCommandEncoder => {
-          sample_program.push_str("commandEncoder1 = CreateCommandEncoder")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("commandEncoder{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateCommandEncoder", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateComputePipeline => {
-          sample_program.push_str("computePipeline1 = CreateComputePipeline")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("computerPipeline{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateComputerPipeline", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateRenderPipeline => {
-          sample_program.push_str("renderPipeline1 = CreateRenderPipeline")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("renderPipeline{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateRenderPipeline", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateShaderModule => {
-          sample_program.push_str("shaderModule1 = CreateShaderModule")
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("shaderModule{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateShaderModule", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
         }
         APICall::SubmitWork => {
           sample_program.push_str("SubmitWork")
@@ -124,10 +166,6 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
         APICall::Bug => {
           panic!("Bug in API call random distribution");
         }
-
-        // let name_num = js_var_namespace.get(&api_call).unwrap().len();
-
-        // js_var_namespace.insert(api_call, );
       }
     }
 
