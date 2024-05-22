@@ -13,11 +13,11 @@ pub fn get_random_adapter() -> String {
         .to_owned()
         + &random_power_preference
         + "});
-  if (!adapter) {
-    throw Error(\"Couldn't request WebGPU adapter.\");
-  }
+    if (!adapter) {
+        throw Error(\"Couldn't request WebGPU adapter.\");
+    }
 
-  ";
+    ";
 
     return random_adapter.to_string();
 }
