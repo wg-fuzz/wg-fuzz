@@ -21,40 +21,13 @@ enum APICall {
   CreateRenderPipeline,
   CreateShaderModule,
   SubmitWork,
+  CreateCommandBuffer,
   Bug
-}
-
-struct Adapter {
-  var_name: String
-}
-
-struct Device {
-  var_name: String
-}
-
-struct Buffer {
-  var_name: String
-}
-
-struct CommandEncoder {
-  var_name: String
-}
-
-struct ComputePipeline {
-  var_name: String
-}
-
-struct RenderPipeline {
-  var_name: String
-}
-
-struct ShaderModule {
-  var_name: String
 }
 
 impl Distribution<APICall> for Standard {
   fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> APICall {
-      match rng.gen_range(0..8) {
+      match rng.gen_range(0..9) {
           0 => APICall::CreateAdapter,
           1 => APICall::CreateDevice,
           2 => APICall::CreateBuffer,
@@ -63,6 +36,7 @@ impl Distribution<APICall> for Standard {
           5 => APICall::CreateRenderPipeline,
           6 => APICall::CreateShaderModule,
           7 => APICall::SubmitWork,
+          8 => APICall::CreateCommandBuffer,
           _ => APICall::Bug
       }
   }
@@ -75,6 +49,18 @@ pub fn fuzz() {
 }
 
 pub fn fuzz_once() -> std::io::Result<()> {
+    let mut requirementMap: HashMap<APICall, Vec<APICall>> = HashMap::new();
+    requirementMap.insert(APICall::CreateAdapter, vec![]);
+    requirementMap.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
+    requirementMap.insert(APICall::CreateBuffer, vec![APICall::CreateDevice]);
+    requirementMap.insert(APICall::CreateCommandEncoder, vec![APICall::CreateDevice]);
+    requirementMap.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
+    requirementMap.insert(APICall::CreateRenderPipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
+    requirementMap.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
+    requirementMap.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
+    requirementMap.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
+    requirementMap.insert(APICall::Bug, vec![]);
+
     let mut file = File::create("test.js")?;
 
     let mut sample_program = String::from("");
@@ -157,6 +143,15 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .to_owned();
           let name = format!("shaderModule{}", names_vec.len());
           sample_program.push_str(&format!("{} = CreateShaderModule", name));
+          names_vec.push(name);
+          js_var_namespace.insert(api_call, names_vec);
+        }
+        APICall::CreateCommandBuffer => {
+          let mut names_vec = js_var_namespace.entry(api_call)
+                                                           .or_insert(Vec::new())
+                                                           .to_owned();
+          let name = format!("commandBuffer{}", names_vec.len());
+          sample_program.push_str(&format!("{} = CreateCommandBuffer", name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
