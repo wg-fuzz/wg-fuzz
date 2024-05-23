@@ -132,7 +132,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let index = rng.gen_range(0..available_names.len());
           let param_name = &available_names[index];
 
-          let file_name = format!("out/shader{}.wgsl", names_vec.len());
+          let file_name = format!("out/{}.wgsl", name);
 
           let file = File::create(&file_name)?;
 

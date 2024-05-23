@@ -32,7 +32,8 @@ pub fn create_device(var_name: &String, adapter: &String) -> String {
 }
 
 pub fn create_shader_module(var_name: &String, device: &String) -> String {
-    format!("const {} = await {}.createShaderModule({{code: ...}})", var_name, device)
+    format!("import {}-file from '{}.wgsl';
+    const {} = await {}.createShaderModule({{code: {}-file}})", var_name, var_name, var_name, device, var_name)
 }
 
 pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {
