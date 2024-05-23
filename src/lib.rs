@@ -88,7 +88,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("adapter{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateAdapter", name));
+          sample_program.push_str(&format!("{} = CreateAdapter()", name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -97,7 +97,12 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("device{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateDevice", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateAdapter).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name = &available_names[index];
+          
+          sample_program.push_str(&format!("{} = CreateDevice({})", name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -106,7 +111,12 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("buffer{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateBuffer", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateBuffer({})", name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -115,7 +125,12 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("commandEncoder{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateCommandEncoder", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateCommandEncoder({})", name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -124,7 +139,16 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("computerPipeline{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateComputerPipeline", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name1 = &available_names[index];
+
+          let available_names = js_var_namespace.get(&APICall::CreateShaderModule).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name2 = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateComputerPipeline({}, {})", name, param_name1, param_name2));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -133,7 +157,16 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("renderPipeline{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateRenderPipeline", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name1 = &available_names[index];
+
+          let available_names = js_var_namespace.get(&APICall::CreateShaderModule).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name2 = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateRenderPipeline({}, {})", name, param_name1, param_name2));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -142,7 +175,12 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("shaderModule{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateShaderModule", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateShaderModule({})", name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
@@ -151,12 +189,25 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("commandBuffer{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateCommandBuffer", name));
+
+          let available_names = js_var_namespace.get(&APICall::CreateCommandEncoder).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name = &available_names[index];
+
+          sample_program.push_str(&format!("{} = CreateCommandBuffer({})", name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
         APICall::SubmitWork => {
-          sample_program.push_str("SubmitWork")
+          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name1 = &available_names[index];
+
+          let available_names = js_var_namespace.get(&APICall::CreateCommandBuffer).unwrap();
+          let index = rng.gen_range(0..available_names.len());
+          let param_name2 = &available_names[index];
+
+          sample_program.push_str(&format!("SubmitWork({}, {})", param_name1, param_name2))
         }
       }
     }
