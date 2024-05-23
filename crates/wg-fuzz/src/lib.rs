@@ -11,6 +11,8 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
+mod calls;
+
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
 enum APICall {
   CreateAdapter,
@@ -33,8 +35,8 @@ pub fn fuzz_once() -> std::io::Result<()> {
     requirement_map.insert(APICall::CreateAdapter, vec![]);
     requirement_map.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
     requirement_map.insert(APICall::CreateCommandEncoder, vec![APICall::CreateDevice]);
-    requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
     requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
+    requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
     requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
 
@@ -91,7 +93,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
                                                            .unwrap()
                                                            .to_owned();
           let name = format!("adapter{}", names_vec.len());
-          sample_program.push_str(&format!("{} = CreateAdapter()", name));
+          sample_program.push_str(&calls::create_adapter(&name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
