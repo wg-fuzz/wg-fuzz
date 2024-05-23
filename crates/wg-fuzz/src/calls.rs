@@ -33,10 +33,13 @@ pub fn create_device(var_name: &String, adapter: &String) -> String {
 
 pub fn create_shader_module(var_name: &String, device: &String) -> String {
     format!("var {}_file = \"\";
-    fs.readFile('./{}.wgsl', 'utf8', (err, data) => {{
-        {}_file = data;
-    }})
-    const {} = await {}.createShaderModule({{code: {}_file}})", var_name, var_name, var_name, var_name, device, var_name)
+    try {{
+        {}_file = await fs.readFile('out/{}.wgsl', {{ encoding: 'utf8' }});
+        // console.log({}_file);
+    }} catch (err) {{
+        console.log(err);
+    }}
+    const {} = await {}.createShaderModule({{code: {}_file}})", var_name, var_name, var_name, var_name, var_name, device, var_name)
 }
 
 pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {

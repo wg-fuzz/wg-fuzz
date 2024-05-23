@@ -8,8 +8,6 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
-use crate::calls::create_adapter;
-
 mod calls;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
@@ -50,7 +48,7 @@ pub fn fuzz_once() -> std::io::Result<()> {
 const { create, globals } = require('../dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
 let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), };
-const fs = require('node:fs')");
+const fs = require('node:fs/promises')");
     sample_program.push_str("\n\n");
     sample_program.push_str("async function init() {\n");
     sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/navigator_check.txt").unwrap());
