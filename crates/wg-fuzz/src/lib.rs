@@ -8,6 +8,8 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
+use crate::calls::create_adapter;
+
 mod calls;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
@@ -27,8 +29,8 @@ pub fn fuzz() {
 
 pub fn fuzz_once() -> std::io::Result<()> {
     let mut requirement_map: HashMap<APICall, Vec<APICall>> = HashMap::new();
-    requirement_map.insert(APICall::CreateAdapter, vec![]);
-    requirement_map.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
+    // requirement_map.insert(APICall::CreateAdapter, vec![]);
+    // requirement_map.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
     requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateDevice, APICall::CreateComputePipeline]);
@@ -59,6 +61,26 @@ const fs = require('node:fs')");
     }
     let mut available_api_calls: Vec<APICall> = Vec::new();
 
+    let mut names_vec = js_var_namespace.get(&APICall::CreateAdapter)
+        .unwrap()
+        .to_owned();
+    let name = format!("adapter0");
+    sample_program.push_str(&calls::create_adapter(&name));
+    names_vec.push(name);
+    js_var_namespace.insert(APICall::CreateAdapter, names_vec);
+
+
+    let mut names_vec = js_var_namespace.get(&APICall::CreateDevice)
+                                                      .unwrap()
+                                                      .to_owned();
+    let name = format!("device{}", names_vec.len());
+
+    let param_name = &String::from("adapter0");
+    
+    sample_program.push_str(&calls::create_device(  &name, param_name));
+    names_vec.push(name);
+    js_var_namespace.insert(APICall::CreateDevice, names_vec);
+
     for _ in 1..100 {
       // find which api calls are available
       for (call, names) in &requirement_map {
@@ -83,27 +105,27 @@ const fs = require('node:fs')");
       // handle it appropriately
       match api_call {
         APICall::CreateAdapter => {
-          let mut names_vec = js_var_namespace.get(&api_call)
-                                                           .unwrap()
-                                                           .to_owned();
-          let name = format!("adapter{}", names_vec.len());
-          sample_program.push_str(&calls::create_adapter(&name));
-          names_vec.push(name);
-          js_var_namespace.insert(api_call, names_vec);
+          // let mut names_vec = js_var_namespace.get(&api_call)
+          //                                                  .unwrap()
+          //                                                  .to_owned();
+          // let name = format!("adapter{}", names_vec.len());
+          // sample_program.push_str(&calls::create_adapter(&name));
+          // names_vec.push(name);
+          // js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateDevice => {
-          let mut names_vec = js_var_namespace.get(&api_call)
-                                                           .unwrap()
-                                                           .to_owned();
-          let name = format!("device{}", names_vec.len());
+          // let mut names_vec = js_var_namespace.get(&api_call)
+          //                                                  .unwrap()
+          //                                                  .to_owned();
+          // let name = format!("device{}", names_vec.len());
 
-          let available_names = js_var_namespace.get(&APICall::CreateAdapter).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name = &available_names[index];
+          // let available_names = js_var_namespace.get(&APICall::CreateAdapter).unwrap();
+          // let index = rng.gen_range(0..available_names.len());
+          // let param_name = &available_names[index];
           
-          sample_program.push_str(&calls::create_device(  &name, param_name));
-          names_vec.push(name);
-          js_var_namespace.insert(api_call, names_vec);
+          // sample_program.push_str(&calls::create_device(  &name, param_name));
+          // names_vec.push(name);
+          // js_var_namespace.insert(api_call, names_vec);
         }
         APICall::CreateComputePipeline => {
           let mut names_vec = js_var_namespace.get(&api_call)
