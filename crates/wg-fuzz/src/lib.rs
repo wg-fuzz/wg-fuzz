@@ -1,6 +1,3 @@
-mod random_adapter;
-mod random_device;
-
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
