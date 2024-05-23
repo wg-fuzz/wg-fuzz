@@ -1,0 +1,61 @@
+---
+source: crates/parser/src/lib.rs
+expression: module
+---
+Module {
+    structs: [
+        StructDecl {
+            name: "MyStruct",
+            members: [
+                StructMember {
+                    attrs: [],
+                    name: "field",
+                    data_type: Scalar(
+                        U32,
+                    ),
+                },
+            ],
+            accessors: {
+                Scalar(
+                    U32,
+                ): [
+                    StructMember {
+                        attrs: [],
+                        name: "field",
+                        data_type: Scalar(
+                            U32,
+                        ),
+                    },
+                ],
+            },
+        },
+        StructDecl {
+            name: "Struct2",
+            members: [
+                StructMember {
+                    attrs: [],
+                    name: "field",
+                    data_type: Scalar(
+                        I32,
+                    ),
+                },
+            ],
+            accessors: {
+                Scalar(
+                    I32,
+                ): [
+                    StructMember {
+                        attrs: [],
+                        name: "field",
+                        data_type: Scalar(
+                            I32,
+                        ),
+                    },
+                ],
+            },
+        },
+    ],
+    consts: [],
+    vars: [],
+    functions: [],
+}

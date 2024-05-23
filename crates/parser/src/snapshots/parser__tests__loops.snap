@@ -1,0 +1,44 @@
+---
+source: crates/parser/src/lib.rs
+expression: module
+---
+Module {
+    structs: [],
+    consts: [],
+    vars: [],
+    functions: [
+        FnDecl {
+            attrs: [],
+            name: "main",
+            inputs: [],
+            output: None,
+            body: [
+                Loop(
+                    LoopStatement {
+                        body: [
+                            VarDecl(
+                                VarDeclStatement {
+                                    ident: "x",
+                                    data_type: None,
+                                    initializer: Some(
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: Lit(
+                                                I32(
+                                                    0,
+                                                ),
+                                            ),
+                                        },
+                                    ),
+                                },
+                            ),
+                            Break,
+                        ],
+                    },
+                ),
+            ],
+        },
+    ],
+}

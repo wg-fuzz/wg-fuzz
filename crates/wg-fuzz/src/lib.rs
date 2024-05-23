@@ -11,6 +11,8 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
+use generator;
+
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
 enum APICall {
   CreateAdapter,

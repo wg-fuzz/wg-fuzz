@@ -1,0 +1,944 @@
+---
+source: crates/parser/src/lib.rs
+expression: module
+---
+Module {
+    structs: [
+        StructDecl {
+            name: "Buffer",
+            members: [
+                StructMember {
+                    attrs: [],
+                    name: "data",
+                    data_type: Array(
+                        Scalar(
+                            U32,
+                        ),
+                        None,
+                    ),
+                },
+            ],
+            accessors: {
+                Array(
+                    Scalar(
+                        U32,
+                    ),
+                    None,
+                ): [
+                    StructMember {
+                        attrs: [],
+                        name: "data",
+                        data_type: Array(
+                            Scalar(
+                                U32,
+                            ),
+                            None,
+                        ),
+                    },
+                ],
+            },
+        },
+    ],
+    consts: [],
+    vars: [
+        GlobalVarDecl {
+            attrs: [
+                Group(
+                    0,
+                ),
+                Binding(
+                    0,
+                ),
+            ],
+            qualifier: Some(
+                VarQualifier {
+                    storage_class: Storage,
+                    access_mode: Some(
+                        ReadWrite,
+                    ),
+                },
+            ),
+            name: "output",
+            data_type: Struct(
+                "Buffer",
+            ),
+            initializer: None,
+        },
+    ],
+    functions: [
+        FnDecl {
+            attrs: [
+                Stage(
+                    Compute,
+                ),
+                WorkgroupSize(
+                    1,
+                ),
+            ],
+            name: "main",
+            inputs: [],
+            output: None,
+            body: [
+                Compound(
+                    [
+                        VarDecl(
+                            VarDeclStatement {
+                                ident: "var_0",
+                                data_type: None,
+                                initializer: Some(
+                                    ExprNode {
+                                        data_type: Scalar(
+                                            U32,
+                                        ),
+                                        expr: Lit(
+                                            U32(
+                                                2877481056,
+                                            ),
+                                        ),
+                                    },
+                                ),
+                            },
+                        ),
+                    ],
+                ),
+                LetDecl(
+                    LetDeclStatement {
+                        ident: "var_0",
+                        initializer: ExprNode {
+                            data_type: Vector(
+                                2,
+                                I32,
+                            ),
+                            expr: TypeCons(
+                                TypeConsExpr {
+                                    data_type: Vector(
+                                        2,
+                                        I32,
+                                    ),
+                                    args: [
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: UnOp(
+                                                UnOpExpr {
+                                                    op: Neg,
+                                                    inner: ExprNode {
+                                                        data_type: Scalar(
+                                                            I32,
+                                                        ),
+                                                        expr: Lit(
+                                                            I32(
+                                                                1438992099,
+                                                            ),
+                                                        ),
+                                                    },
+                                                },
+                                            ),
+                                        },
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: UnOp(
+                                                UnOpExpr {
+                                                    op: BitNot,
+                                                    inner: ExprNode {
+                                                        data_type: Scalar(
+                                                            I32,
+                                                        ),
+                                                        expr: UnOp(
+                                                            UnOpExpr {
+                                                                op: Neg,
+                                                                inner: ExprNode {
+                                                                    data_type: Scalar(
+                                                                        I32,
+                                                                    ),
+                                                                    expr: BinOp(
+                                                                        BinOpExpr {
+                                                                            op: Divide,
+                                                                            left: ExprNode {
+                                                                                data_type: Scalar(
+                                                                                    I32,
+                                                                                ),
+                                                                                expr: Lit(
+                                                                                    I32(
+                                                                                        1930906661,
+                                                                                    ),
+                                                                                ),
+                                                                            },
+                                                                            right: ExprNode {
+                                                                                data_type: Scalar(
+                                                                                    I32,
+                                                                                ),
+                                                                                expr: UnOp(
+                                                                                    UnOpExpr {
+                                                                                        op: Neg,
+                                                                                        inner: ExprNode {
+                                                                                            data_type: Scalar(
+                                                                                                I32,
+                                                                                            ),
+                                                                                            expr: UnOp(
+                                                                                                UnOpExpr {
+                                                                                                    op: BitNot,
+                                                                                                    inner: ExprNode {
+                                                                                                        data_type: Scalar(
+                                                                                                            I32,
+                                                                                                        ),
+                                                                                                        expr: Lit(
+                                                                                                            I32(
+                                                                                                                -1891348788,
+                                                                                                            ),
+                                                                                                        ),
+                                                                                                    },
+                                                                                                },
+                                                                                            ),
+                                                                                        },
+                                                                                    },
+                                                                                ),
+                                                                            },
+                                                                        },
+                                                                    ),
+                                                                },
+                                                            },
+                                                        ),
+                                                    },
+                                                },
+                                            ),
+                                        },
+                                    ],
+                                },
+                            ),
+                        },
+                    },
+                ),
+                LetDecl(
+                    LetDeclStatement {
+                        ident: "var_1",
+                        initializer: ExprNode {
+                            data_type: Vector(
+                                2,
+                                I32,
+                            ),
+                            expr: TypeCons(
+                                TypeConsExpr {
+                                    data_type: Vector(
+                                        2,
+                                        I32,
+                                    ),
+                                    args: [
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: Lit(
+                                                I32(
+                                                    -1562281905,
+                                                ),
+                                            ),
+                                        },
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: UnOp(
+                                                UnOpExpr {
+                                                    op: BitNot,
+                                                    inner: ExprNode {
+                                                        data_type: Scalar(
+                                                            I32,
+                                                        ),
+                                                        expr: UnOp(
+                                                            UnOpExpr {
+                                                                op: BitNot,
+                                                                inner: ExprNode {
+                                                                    data_type: Scalar(
+                                                                        I32,
+                                                                    ),
+                                                                    expr: Lit(
+                                                                        I32(
+                                                                            -398497245,
+                                                                        ),
+                                                                    ),
+                                                                },
+                                                            },
+                                                        ),
+                                                    },
+                                                },
+                                            ),
+                                        },
+                                    ],
+                                },
+                            ),
+                        },
+                    },
+                ),
+                VarDecl(
+                    VarDeclStatement {
+                        ident: "var_2",
+                        data_type: None,
+                        initializer: Some(
+                            ExprNode {
+                                data_type: Scalar(
+                                    I32,
+                                ),
+                                expr: Lit(
+                                    I32(
+                                        918007174,
+                                    ),
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                If(
+                    IfStatement {
+                        condition: ExprNode {
+                            data_type: Scalar(
+                                Bool,
+                            ),
+                            expr: Lit(
+                                Bool(
+                                    true,
+                                ),
+                            ),
+                        },
+                        body: [
+                            If(
+                                IfStatement {
+                                    condition: ExprNode {
+                                        data_type: Scalar(
+                                            Bool,
+                                        ),
+                                        expr: Lit(
+                                            Bool(
+                                                true,
+                                            ),
+                                        ),
+                                    },
+                                    body: [
+                                        Assignment(
+                                            AssignmentStatement {
+                                                lhs: Expr(
+                                                    LhsExprNode {
+                                                        data_type: Ref(
+                                                            MemoryViewType {
+                                                                inner: Scalar(
+                                                                    I32,
+                                                                ),
+                                                                storage_class: Function,
+                                                                access_mode: ReadWrite,
+                                                            },
+                                                        ),
+                                                        expr: Ident(
+                                                            "var_2",
+                                                        ),
+                                                    },
+                                                ),
+                                                op: Simple,
+                                                rhs: ExprNode {
+                                                    data_type: Scalar(
+                                                        I32,
+                                                    ),
+                                                    expr: UnOp(
+                                                        UnOpExpr {
+                                                            op: Neg,
+                                                            inner: ExprNode {
+                                                                data_type: Scalar(
+                                                                    I32,
+                                                                ),
+                                                                expr: Lit(
+                                                                    I32(
+                                                                        -1075723491,
+                                                                    ),
+                                                                ),
+                                                            },
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    ],
+                                    else_: None,
+                                },
+                            ),
+                        ],
+                        else_: None,
+                    },
+                ),
+                Assignment(
+                    AssignmentStatement {
+                        lhs: Expr(
+                            LhsExprNode {
+                                data_type: Ref(
+                                    MemoryViewType {
+                                        inner: Scalar(
+                                            I32,
+                                        ),
+                                        storage_class: Function,
+                                        access_mode: ReadWrite,
+                                    },
+                                ),
+                                expr: Ident(
+                                    "var_2",
+                                ),
+                            },
+                        ),
+                        op: Simple,
+                        rhs: ExprNode {
+                            data_type: Scalar(
+                                I32,
+                            ),
+                            expr: Lit(
+                                I32(
+                                    -1016159679,
+                                ),
+                            ),
+                        },
+                    },
+                ),
+                LetDecl(
+                    LetDeclStatement {
+                        ident: "var_3",
+                        initializer: ExprNode {
+                            data_type: Vector(
+                                2,
+                                I32,
+                            ),
+                            expr: BinOp(
+                                BinOpExpr {
+                                    op: Minus,
+                                    left: ExprNode {
+                                        data_type: Vector(
+                                            2,
+                                            I32,
+                                        ),
+                                        expr: BinOp(
+                                            BinOpExpr {
+                                                op: Mod,
+                                                left: ExprNode {
+                                                    data_type: Vector(
+                                                        2,
+                                                        I32,
+                                                    ),
+                                                    expr: Var(
+                                                        VarExpr {
+                                                            ident: "var_1",
+                                                        },
+                                                    ),
+                                                },
+                                                right: ExprNode {
+                                                    data_type: Vector(
+                                                        2,
+                                                        I32,
+                                                    ),
+                                                    expr: UnOp(
+                                                        UnOpExpr {
+                                                            op: BitNot,
+                                                            inner: ExprNode {
+                                                                data_type: Vector(
+                                                                    2,
+                                                                    I32,
+                                                                ),
+                                                                expr: TypeCons(
+                                                                    TypeConsExpr {
+                                                                        data_type: Vector(
+                                                                            2,
+                                                                            I32,
+                                                                        ),
+                                                                        args: [
+                                                                            ExprNode {
+                                                                                data_type: Scalar(
+                                                                                    I32,
+                                                                                ),
+                                                                                expr: Lit(
+                                                                                    I32(
+                                                                                        2065972074,
+                                                                                    ),
+                                                                                ),
+                                                                            },
+                                                                            ExprNode {
+                                                                                data_type: Scalar(
+                                                                                    I32,
+                                                                                ),
+                                                                                expr: Lit(
+                                                                                    I32(
+                                                                                        -2062616943,
+                                                                                    ),
+                                                                                ),
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                ),
+                                                            },
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    },
+                                    right: ExprNode {
+                                        data_type: Vector(
+                                            2,
+                                            I32,
+                                        ),
+                                        expr: UnOp(
+                                            UnOpExpr {
+                                                op: BitNot,
+                                                inner: ExprNode {
+                                                    data_type: Vector(
+                                                        2,
+                                                        I32,
+                                                    ),
+                                                    expr: Var(
+                                                        VarExpr {
+                                                            ident: "var_0",
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    },
+                                },
+                            ),
+                        },
+                    },
+                ),
+                VarDecl(
+                    VarDeclStatement {
+                        ident: "var_4",
+                        data_type: None,
+                        initializer: Some(
+                            ExprNode {
+                                data_type: Scalar(
+                                    I32,
+                                ),
+                                expr: UnOp(
+                                    UnOpExpr {
+                                        op: Neg,
+                                        inner: ExprNode {
+                                            data_type: Scalar(
+                                                I32,
+                                            ),
+                                            expr: BinOp(
+                                                BinOpExpr {
+                                                    op: BitOr,
+                                                    left: ExprNode {
+                                                        data_type: Ref(
+                                                            MemoryViewType {
+                                                                inner: Scalar(
+                                                                    I32,
+                                                                ),
+                                                                storage_class: Function,
+                                                                access_mode: ReadWrite,
+                                                            },
+                                                        ),
+                                                        expr: Var(
+                                                            VarExpr {
+                                                                ident: "var_2",
+                                                            },
+                                                        ),
+                                                    },
+                                                    right: ExprNode {
+                                                        data_type: Scalar(
+                                                            I32,
+                                                        ),
+                                                        expr: UnOp(
+                                                            UnOpExpr {
+                                                                op: Neg,
+                                                                inner: ExprNode {
+                                                                    data_type: Scalar(
+                                                                        I32,
+                                                                    ),
+                                                                    expr: UnOp(
+                                                                        UnOpExpr {
+                                                                            op: BitNot,
+                                                                            inner: ExprNode {
+                                                                                data_type: Ref(
+                                                                                    MemoryViewType {
+                                                                                        inner: Scalar(
+                                                                                            I32,
+                                                                                        ),
+                                                                                        storage_class: Function,
+                                                                                        access_mode: ReadWrite,
+                                                                                    },
+                                                                                ),
+                                                                                expr: Var(
+                                                                                    VarExpr {
+                                                                                        ident: "var_2",
+                                                                                    },
+                                                                                ),
+                                                                            },
+                                                                        },
+                                                                    ),
+                                                                },
+                                                            },
+                                                        ),
+                                                    },
+                                                },
+                                            ),
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Assignment(
+                    AssignmentStatement {
+                        lhs: Expr(
+                            LhsExprNode {
+                                data_type: Ref(
+                                    MemoryViewType {
+                                        inner: Scalar(
+                                            I32,
+                                        ),
+                                        storage_class: Function,
+                                        access_mode: ReadWrite,
+                                    },
+                                ),
+                                expr: Ident(
+                                    "var_2",
+                                ),
+                            },
+                        ),
+                        op: Simple,
+                        rhs: ExprNode {
+                            data_type: Scalar(
+                                I32,
+                            ),
+                            expr: BinOp(
+                                BinOpExpr {
+                                    op: Minus,
+                                    left: ExprNode {
+                                        data_type: Ref(
+                                            MemoryViewType {
+                                                inner: Scalar(
+                                                    I32,
+                                                ),
+                                                storage_class: Function,
+                                                access_mode: ReadWrite,
+                                            },
+                                        ),
+                                        expr: Var(
+                                            VarExpr {
+                                                ident: "var_4",
+                                            },
+                                        ),
+                                    },
+                                    right: ExprNode {
+                                        data_type: Ref(
+                                            MemoryViewType {
+                                                inner: Scalar(
+                                                    I32,
+                                                ),
+                                                storage_class: Function,
+                                                access_mode: ReadWrite,
+                                            },
+                                        ),
+                                        expr: Var(
+                                            VarExpr {
+                                                ident: "var_2",
+                                            },
+                                        ),
+                                    },
+                                },
+                            ),
+                        },
+                    },
+                ),
+                VarDecl(
+                    VarDeclStatement {
+                        ident: "var_5",
+                        data_type: None,
+                        initializer: Some(
+                            ExprNode {
+                                data_type: Vector(
+                                    2,
+                                    I32,
+                                ),
+                                expr: TypeCons(
+                                    TypeConsExpr {
+                                        data_type: Vector(
+                                            2,
+                                            I32,
+                                        ),
+                                        args: [
+                                            ExprNode {
+                                                data_type: Ref(
+                                                    MemoryViewType {
+                                                        inner: Scalar(
+                                                            I32,
+                                                        ),
+                                                        storage_class: Function,
+                                                        access_mode: ReadWrite,
+                                                    },
+                                                ),
+                                                expr: Var(
+                                                    VarExpr {
+                                                        ident: "var_4",
+                                                    },
+                                                ),
+                                            },
+                                            ExprNode {
+                                                data_type: Scalar(
+                                                    I32,
+                                                ),
+                                                expr: Lit(
+                                                    I32(
+                                                        632992769,
+                                                    ),
+                                                ),
+                                            },
+                                        ],
+                                    },
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                Compound(
+                    [
+                        Compound(
+                            [
+                                Assignment(
+                                    AssignmentStatement {
+                                        lhs: Expr(
+                                            LhsExprNode {
+                                                data_type: Ref(
+                                                    MemoryViewType {
+                                                        inner: Scalar(
+                                                            I32,
+                                                        ),
+                                                        storage_class: Function,
+                                                        access_mode: ReadWrite,
+                                                    },
+                                                ),
+                                                expr: Ident(
+                                                    "var_2",
+                                                ),
+                                            },
+                                        ),
+                                        op: Simple,
+                                        rhs: ExprNode {
+                                            data_type: Ref(
+                                                MemoryViewType {
+                                                    inner: Scalar(
+                                                        I32,
+                                                    ),
+                                                    storage_class: Function,
+                                                    access_mode: ReadWrite,
+                                                },
+                                            ),
+                                            expr: Var(
+                                                VarExpr {
+                                                    ident: "var_4",
+                                                },
+                                            ),
+                                        },
+                                    },
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+                LetDecl(
+                    LetDeclStatement {
+                        ident: "var_6",
+                        initializer: ExprNode {
+                            data_type: Scalar(
+                                Bool,
+                            ),
+                            expr: BinOp(
+                                BinOpExpr {
+                                    op: GreaterEqual,
+                                    left: ExprNode {
+                                        data_type: Scalar(
+                                            I32,
+                                        ),
+                                        expr: BinOp(
+                                            BinOpExpr {
+                                                op: Mod,
+                                                left: ExprNode {
+                                                    data_type: Scalar(
+                                                        I32,
+                                                    ),
+                                                    expr: Lit(
+                                                        I32(
+                                                            840502795,
+                                                        ),
+                                                    ),
+                                                },
+                                                right: ExprNode {
+                                                    data_type: Scalar(
+                                                        I32,
+                                                    ),
+                                                    expr: Lit(
+                                                        I32(
+                                                            -624860520,
+                                                        ),
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    },
+                                    right: ExprNode {
+                                        data_type: Scalar(
+                                            I32,
+                                        ),
+                                        expr: UnOp(
+                                            UnOpExpr {
+                                                op: Neg,
+                                                inner: ExprNode {
+                                                    data_type: Ref(
+                                                        MemoryViewType {
+                                                            inner: Scalar(
+                                                                I32,
+                                                            ),
+                                                            storage_class: Function,
+                                                            access_mode: ReadWrite,
+                                                        },
+                                                    ),
+                                                    expr: Var(
+                                                        VarExpr {
+                                                            ident: "var_4",
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    },
+                                },
+                            ),
+                        },
+                    },
+                ),
+                Assignment(
+                    AssignmentStatement {
+                        lhs: Expr(
+                            LhsExprNode {
+                                data_type: Ref(
+                                    MemoryViewType {
+                                        inner: Scalar(
+                                            U32,
+                                        ),
+                                        storage_class: Storage,
+                                        access_mode: ReadWrite,
+                                    },
+                                ),
+                                expr: Postfix(
+                                    LhsExprNode {
+                                        data_type: Ref(
+                                            MemoryViewType {
+                                                inner: Array(
+                                                    Scalar(
+                                                        U32,
+                                                    ),
+                                                    None,
+                                                ),
+                                                storage_class: Storage,
+                                                access_mode: ReadWrite,
+                                            },
+                                        ),
+                                        expr: Postfix(
+                                            LhsExprNode {
+                                                data_type: Ref(
+                                                    MemoryViewType {
+                                                        inner: Struct(
+                                                            "Buffer",
+                                                        ),
+                                                        storage_class: Storage,
+                                                        access_mode: ReadWrite,
+                                                    },
+                                                ),
+                                                expr: Ident(
+                                                    "output",
+                                                ),
+                                            },
+                                            Member(
+                                                "data",
+                                            ),
+                                        ),
+                                    },
+                                    Index(
+                                        ExprNode {
+                                            data_type: Scalar(
+                                                U32,
+                                            ),
+                                            expr: Lit(
+                                                U32(
+                                                    0,
+                                                ),
+                                            ),
+                                        },
+                                    ),
+                                ),
+                            },
+                        ),
+                        op: Simple,
+                        rhs: ExprNode {
+                            data_type: Scalar(
+                                U32,
+                            ),
+                            expr: UnOp(
+                                UnOpExpr {
+                                    op: BitNot,
+                                    inner: ExprNode {
+                                        data_type: Scalar(
+                                            U32,
+                                        ),
+                                        expr: UnOp(
+                                            UnOpExpr {
+                                                op: BitNot,
+                                                inner: ExprNode {
+                                                    data_type: Scalar(
+                                                        U32,
+                                                    ),
+                                                    expr: BinOp(
+                                                        BinOpExpr {
+                                                            op: LShift,
+                                                            left: ExprNode {
+                                                                data_type: Scalar(
+                                                                    U32,
+                                                                ),
+                                                                expr: Lit(
+                                                                    U32(
+                                                                        3623004314,
+                                                                    ),
+                                                                ),
+                                                            },
+                                                            right: ExprNode {
+                                                                data_type: Scalar(
+                                                                    U32,
+                                                                ),
+                                                                expr: UnOp(
+                                                                    UnOpExpr {
+                                                                        op: BitNot,
+                                                                        inner: ExprNode {
+                                                                            data_type: Scalar(
+                                                                                U32,
+                                                                            ),
+                                                                            expr: Lit(
+                                                                                U32(
+                                                                                    1089322513,
+                                                                                ),
+                                                                            ),
+                                                                        },
+                                                                    },
+                                                                ),
+                                                            },
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ),
+                                    },
+                                },
+                            ),
+                        },
+                    },
+                ),
+            ],
+        },
+    ],
+}
