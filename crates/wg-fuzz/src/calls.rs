@@ -35,6 +35,10 @@ pub fn create_shader_module(var_name: &String, device: &String) -> String {
     format!("const {} = await {}.createShaderModule({{code: ...}})", var_name, device)
 }
 
+pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {
+    format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}}})", var_name, device, shader_module)
+}
+
 pub fn create_command_buffer(var_name: &String, device: &String) -> String {
     format!("const {} = await {}.createCommandEncoder();", var_name, device)
 }

@@ -120,7 +120,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let index = rng.gen_range(0..available_names.len());
           let param_name2 = &available_names[index];
 
-          sample_program.push_str(&format!("{} = CreateComputePipeline({}, {})", name, param_name1, param_name2));
+          sample_program.push_str(&calls::create_compute_pipeline(&name, param_name1, param_name2));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
