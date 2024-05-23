@@ -11,7 +11,8 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
-use generator;
+use generator::Options;
+use clap::StructOpt;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
 enum APICall {
@@ -48,6 +49,12 @@ pub fn fuzz_once() -> std::io::Result<()> {
       Ok(_) => {},
       Err(_) => {}
     }
+    let _ = generator::run({
+      let mut options = Options::parse();
+      options.recondition = true;
+      options.output = "out/shader.wgsl".to_owned();
+      options
+    });
     let mut file = File::create("out/test.js")?;
 
     let mut sample_program = String::from("");
