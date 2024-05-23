@@ -5,10 +5,7 @@ use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 // use std::process::Command;
-use rand::{
-  distributions::{Distribution, Standard},
-  Rng,
-};
+use rand::Rng;
 use std::collections::HashMap;
 
 use strum::IntoEnumIterator;
@@ -27,23 +24,6 @@ enum APICall {
   CreateCommandBuffer
 }
 
-// impl Distribution<APICall> for Standard {
-//   fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> APICall {
-//       match rng.gen_range(0..9) {
-//           0 => APICall::CreateAdapter,
-//           1 => APICall::CreateDevice,
-//           2 => APICall::CreateBuffer,
-//           3 => APICall::CreateCommandEncoder,
-//           4 => APICall::CreateComputePipeline,
-//           5 => APICall::CreateRenderPipeline,
-//           6 => APICall::CreateShaderModule,
-//           7 => APICall::SubmitWork,
-//           8 => APICall::CreateCommandBuffer,
-//           _ => APICall::Bug
-//       }
-//   }
-// }
-
 pub fn fuzz() {
     loop {
         fuzz_once().unwrap();
@@ -61,7 +41,6 @@ pub fn fuzz_once() -> std::io::Result<()> {
     requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
-    // requirement_map.insert(APICall::Bug, vec![]);
 
     let mut file = File::create("test.js")?;
 
@@ -179,9 +158,6 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
         APICall::SubmitWork => {
           sample_program.push_str("SubmitWork")
         }
-        // APICall::Bug => {
-        //   panic!("Bug in API call random distribution");
-        // }
       }
     }
 
