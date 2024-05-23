@@ -39,6 +39,16 @@ pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module
     format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}}})", var_name, device, shader_module)
 }
 
-pub fn create_command_buffer(var_name: &String, device: &String) -> String {
-    format!("const {} = await {}.createCommandEncoder();", var_name, device)
+pub fn create_command_buffer(var_number: &String, device: &String, compute_pipeline: &String) -> String {
+    format!("const commandEncoder{} = await {}.createCommandEncoder();
+    const passEncoder{} = commandEncoder{}.beginComputePass();
+    
+    passEncoder{}.setPipeline({});
+    passEncoder{}.dispatchWorkgroups(1);
+
+    passEncoder{}.end();
+
+    {}.queue.submit([commandEncoder{}.finish()]);
+    ", var_number, device, var_number, var_number, var_number, 
+       compute_pipeline, var_number, var_number, device, var_number)
 }

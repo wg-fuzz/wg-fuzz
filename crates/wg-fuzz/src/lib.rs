@@ -17,7 +17,6 @@ enum APICall {
   CreateShaderModule,
   CreateComputePipeline,
   CreateCommandBuffer,
-  SubmitWork,
 }
 
 pub fn fuzz() {
@@ -33,7 +32,6 @@ pub fn fuzz_once() -> std::io::Result<()> {
     requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateDevice, APICall::CreateComputePipeline]);
-    requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
 
     match std::fs::remove_dir_all("out/") {
       Ok(_) => {},
@@ -152,7 +150,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let mut names_vec = js_var_namespace.get(&api_call)
                                                            .unwrap()
                                                            .to_owned();
-          let name = format!("commandBuffer{}", names_vec.len());
+          let name = format!("{}", names_vec.len());
 
           let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
           let index = rng.gen_range(0..available_names.len());
@@ -162,20 +160,9 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let index = rng.gen_range(0..available_names.len());
           let param_name2 = &available_names[index];
 
-          sample_program.push_str(&format!("{} = CreateCommandBuffer({}, {})", name, param_name1, param_name2));
+          sample_program.push_str(&calls::create_command_buffer(&name, param_name1, param_name2));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
-        }
-        APICall::SubmitWork => {
-          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name1 = &available_names[index];
-
-          let available_names = js_var_namespace.get(&APICall::CreateCommandBuffer).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name2 = &available_names[index];
-
-          sample_program.push_str(&format!("SubmitWork({}, {})", param_name1, param_name2))
         }
       }
     }
