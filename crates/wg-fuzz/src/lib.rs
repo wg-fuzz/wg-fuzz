@@ -162,6 +162,7 @@ const fs = require('node:fs/promises')");
           let stdio = Stdio::from(file);
 
           Command::new("target/debug/generator")
+            .arg("--recondition")
             .stdout(stdio)
             .output()?;
 
