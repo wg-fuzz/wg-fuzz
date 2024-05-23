@@ -22,4 +22,4 @@ Cargo.lock
 dawn.node
 
 # Output files
-test.js
+out/
