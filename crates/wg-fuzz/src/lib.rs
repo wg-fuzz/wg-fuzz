@@ -44,7 +44,10 @@ pub fn fuzz_once() -> std::io::Result<()> {
     requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
 
-    std::fs::create_dir("out")?;
+    match std::fs::create_dir("out") {
+      Ok(_) => {},
+      Err(_) => {}
+    }
     let mut file = File::create("out/test.js")?;
 
     let mut sample_program = String::from("");
