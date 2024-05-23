@@ -32,12 +32,15 @@ pub fn create_device(var_name: &String, adapter: &String) -> String {
 }
 
 pub fn create_shader_module(var_name: &String, device: &String) -> String {
-    format!("import {}-file from '{}.wgsl';
-    const {} = await {}.createShaderModule({{code: {}-file}})", var_name, var_name, var_name, device, var_name)
+    format!("var {}_file = \"\";
+    fs.readFile('./{}.wgsl', 'utf8', (err, data) => {{
+        {}_file = data;
+    }})
+    const {} = await {}.createShaderModule({{code: {}_file}})", var_name, var_name, var_name, var_name, device, var_name)
 }
 
 pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {
-    format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}}})", var_name, device, shader_module)
+    format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}, layout: \"auto\"}})", var_name, device, shader_module)
 }
 
 pub fn create_command_buffer(var_number: &String, device: &String, compute_pipeline: &String) -> String {

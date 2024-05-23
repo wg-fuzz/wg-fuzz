@@ -45,9 +45,10 @@ pub fn fuzz_once() -> std::io::Result<()> {
     let mut sample_program = String::from("");
 
     sample_program.push_str("\
-const {{ create, globals }} = require('./dawn.node');
+const { create, globals } = require('../dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
-let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), }};");
+let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), };
+const fs = require('node:fs')");
     sample_program.push_str("\n\n");
     sample_program.push_str("async function init() {\n");
     sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/navigator_check.txt").unwrap());
@@ -171,18 +172,18 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
     
     file.write_all(sample_program.as_bytes())?;
 
-    // let output = Command::new("node")
-    //     .env("LD_PRELOAD", "/usr/lib/gcc/x86_64-linux-gnu/11/libasan.so")
-    //     .env("ASAN_OPTIONS", "halt_on_error=1")
-    //     .arg("test.js")
-    //     .output()
-    //     .expect("Failed to run test.js");
+    let output = Command::new("node")
+        .env("LD_PRELOAD", "/usr/lib/gcc/x86_64-linux-gnu/11/libasan.so")
+        .env("ASAN_OPTIONS", "halt_on_error=1")
+        .arg("out/test.js")
+        .output()
+        .expect("Failed to run test.js");
 
-    // println!("status: {}", output.status);
-    //println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    //println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    println!("status: {}", output.status);
+    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
-    //assert!(output.status.success());
+    assert!(output.status.success());
 
     Ok(())
 }
