@@ -144,7 +144,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
             .stdout(stdio)
             .output()?;
 
-          sample_program.push_str(&format!("{} = CreateShaderModule({}, {})", name, param_name, file_name));
+          sample_program.push_str(&calls::create_shader_module(&name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }

@@ -31,6 +31,10 @@ pub fn create_device(var_name: &String, adapter: &String) -> String {
     format!("const {} = await {}.requestDevice();", var_name, adapter)
 }
 
-pub fn create_command_encoder(var_name: &String, device: &String) -> String {
+pub fn create_shader_module(var_name: &String, device: &String) -> String {
+    format!("const {} = await {}.createShaderModule({{code: ...}})", var_name, device)
+}
+
+pub fn create_command_buffer(var_name: &String, device: &String) -> String {
     format!("const {} = await {}.createCommandEncoder();", var_name, device)
 }
