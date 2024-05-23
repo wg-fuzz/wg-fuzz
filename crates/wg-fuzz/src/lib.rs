@@ -15,13 +15,11 @@ use strum_macros::EnumIter;
 enum APICall {
   CreateAdapter,
   CreateDevice,
-  CreateBuffer,
   CreateCommandEncoder,
-  CreateComputePipeline,
-  CreateRenderPipeline,
   CreateShaderModule,
+  CreateComputePipeline,
+  CreateCommandBuffer,
   SubmitWork,
-  CreateCommandBuffer
 }
 
 pub fn fuzz() {
@@ -34,10 +32,8 @@ pub fn fuzz_once() -> std::io::Result<()> {
     let mut requirement_map: HashMap<APICall, Vec<APICall>> = HashMap::new();
     requirement_map.insert(APICall::CreateAdapter, vec![]);
     requirement_map.insert(APICall::CreateDevice, vec![APICall::CreateAdapter]);
-    requirement_map.insert(APICall::CreateBuffer, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::CreateCommandEncoder, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::CreateComputePipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
-    requirement_map.insert(APICall::CreateRenderPipeline, vec![APICall::CreateDevice, APICall::CreateShaderModule]);
     requirement_map.insert(APICall::CreateShaderModule, vec![APICall::CreateDevice]);
     requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
@@ -113,20 +109,6 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
-        APICall::CreateBuffer => {
-          let mut names_vec = js_var_namespace.get(&api_call)
-                                                           .unwrap()
-                                                           .to_owned();
-          let name = format!("buffer{}", names_vec.len());
-
-          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name = &available_names[index];
-
-          sample_program.push_str(&format!("{} = CreateBuffer({})", name, param_name));
-          names_vec.push(name);
-          js_var_namespace.insert(api_call, names_vec);
-        }
         APICall::CreateCommandEncoder => {
           let mut names_vec = js_var_namespace.get(&api_call)
                                                            .unwrap()
@@ -156,24 +138,6 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let param_name2 = &available_names[index];
 
           sample_program.push_str(&format!("{} = CreateComputerPipeline({}, {})", name, param_name1, param_name2));
-          names_vec.push(name);
-          js_var_namespace.insert(api_call, names_vec);
-        }
-        APICall::CreateRenderPipeline => {
-          let mut names_vec = js_var_namespace.get(&api_call)
-                                                           .unwrap()
-                                                           .to_owned();
-          let name = format!("renderPipeline{}", names_vec.len());
-
-          let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name1 = &available_names[index];
-
-          let available_names = js_var_namespace.get(&APICall::CreateShaderModule).unwrap();
-          let index = rng.gen_range(0..available_names.len());
-          let param_name2 = &available_names[index];
-
-          sample_program.push_str(&format!("{} = CreateRenderPipeline({}, {})", name, param_name1, param_name2));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
