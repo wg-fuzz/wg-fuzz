@@ -52,7 +52,7 @@ Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MA
 let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), }};");
     sample_program.push_str("\n\n");
     sample_program.push_str("async function init() {\n");
-    sample_program.push_str(&fs::read_to_string("code_samples/navigator_check.txt").unwrap());
+    sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/navigator_check.txt").unwrap());
 
     let mut js_var_namespace: HashMap<APICall, Vec<String>> = HashMap::new();
     for api_call in APICall::iter() {
