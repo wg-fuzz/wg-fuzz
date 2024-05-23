@@ -4,15 +4,12 @@ mod random_device;
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
-// use std::process::Command;
+use std::process::{Command, Stdio};
 use rand::Rng;
 use std::collections::HashMap;
 
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
-
-use generator::Options;
-use clap::StructOpt;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
 enum APICall {
@@ -45,16 +42,13 @@ pub fn fuzz_once() -> std::io::Result<()> {
     requirement_map.insert(APICall::SubmitWork, vec![APICall::CreateDevice, APICall::CreateCommandBuffer]);
     requirement_map.insert(APICall::CreateCommandBuffer, vec![APICall::CreateCommandEncoder]);
 
-    match std::fs::create_dir("out") {
+    match std::fs::remove_dir_all("out/") {
       Ok(_) => {},
       Err(_) => {}
     }
-    let _ = generator::run({
-      let mut options = Options::parse();
-      options.recondition = true;
-      options.output = "out/shader.wgsl".to_owned();
-      options
-    });
+
+    std::fs::create_dir("out")?;
+
     let mut file = File::create("out/test.js")?;
 
     let mut sample_program = String::from("");
@@ -193,7 +187,17 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let index = rng.gen_range(0..available_names.len());
           let param_name = &available_names[index];
 
-          sample_program.push_str(&format!("{} = CreateShaderModule({})", name, param_name));
+          let file_name = format!("out/shader{}.wgsl", names_vec.len());
+
+          let file = File::create(&file_name)?;
+
+          let stdio = Stdio::from(file);
+
+          Command::new("target/debug/generator")
+            .stdout(stdio)
+            .output()?;
+
+          sample_program.push_str(&format!("{} = CreateShaderModule({}, {})", name, param_name, file_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }
