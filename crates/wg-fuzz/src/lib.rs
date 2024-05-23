@@ -104,7 +104,7 @@ let navigator = {{ gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_
           let index = rng.gen_range(0..available_names.len());
           let param_name = &available_names[index];
           
-          sample_program.push_str(&format!("{} = CreateDevice({})", name, param_name));
+          sample_program.push_str(&calls::create_device(&name, param_name));
           names_vec.push(name);
           js_var_namespace.insert(api_call, names_vec);
         }

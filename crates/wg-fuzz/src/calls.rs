@@ -27,8 +27,6 @@ pub fn create_adapter(var_name: &String) -> String {
     format!("const {} = await navigator.gpu.requestAdapter();", var_name)
 }
 
-pub fn get_random_device() -> String {
-    return "const device = await adapter.requestDevice();
-
-".to_string();
+pub fn create_device(var_name: &String, adapter: &String) -> String {
+    format!("const {} = await {}.requestDevice();", var_name, adapter)
 }
