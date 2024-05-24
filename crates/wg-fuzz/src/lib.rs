@@ -48,7 +48,7 @@ pub fn fuzz_once() -> std::io::Result<()> {
 const { create, globals } = require('../dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
 let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), };
-const fs = require('node:fs/promises')");
+const fs = require('node:fs/promises');");
     sample_program.push_str("\n\n");
     sample_program.push_str("async function init() {\n");
     sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/navigator_check.txt").unwrap());
@@ -81,7 +81,7 @@ const fs = require('node:fs/promises')");
     names_vec.push(name);
     js_var_namespace.insert(APICall::CreateDevice, names_vec);
 
-    for _ in 1..100 {
+    for _ in 1..5 {
       // find which api calls are available
       for (call, names) in &requirement_map {
         let mut allow = true;
@@ -163,6 +163,14 @@ const fs = require('node:fs/promises')");
 
           Command::new("target/debug/generator")
             .arg("--recondition")
+            // .args(["--fn-min-stmts", "1"])
+            // .arg("--fn-max-stmts 2")
+            // .arg("--block-min-stmts 1")
+            // .arg("--block-max-stmts 2")
+            // .arg("--max-block-depth 2")
+            // .arg("--max-fns 2")
+            // .arg("--max-structs 2")
+            // .arg("--max-struct-members 2")
             .stdout(stdio)
             .output()?;
 
