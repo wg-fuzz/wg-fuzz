@@ -1,3 +1,5 @@
+#![allow(deprecated)]
+
 use std::hash::Hash;
 use std::rc::Rc;
 
