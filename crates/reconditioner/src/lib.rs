@@ -1,7 +1,10 @@
 mod safe_wrappers;
+mod eval_value;
+mod eval_builtin;
 
 pub mod analysis;
 pub mod cli;
+pub mod evaluator;
 
 use std::collections::HashSet;
 use std::fmt::Display;
