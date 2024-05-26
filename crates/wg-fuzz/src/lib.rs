@@ -8,6 +8,9 @@ use std::collections::HashMap;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
+use reconditioner::cli;
+use reconditioner::cli::Options;
+
 mod calls;
 
 #[derive(PartialEq, Eq, Hash, Clone, Copy, EnumIter)]
@@ -162,17 +165,16 @@ const fs = require('node:fs/promises');");
           let stdio = Stdio::from(file);
 
           Command::new("target/debug/generator")
-            .arg("--recondition")
-            // .args(["--fn-min-stmts", "1"])
-            // .arg("--fn-max-stmts 2")
-            // .arg("--block-min-stmts 1")
-            // .arg("--block-max-stmts 2")
-            // .arg("--max-block-depth 2")
-            // .arg("--max-fns 2")
-            // .arg("--max-structs 2")
-            // .arg("--max-struct-members 2")
             .stdout(stdio)
             .output()?;
+
+          //TODO: add args to generator?
+
+          let _ = cli::run(Options {
+            input: file_name.clone(),
+            output: file_name.clone(),
+            enable: Vec::new()
+          });
 
           sample_program.push_str(&calls::create_shader_module(&name, param_name));
           names_vec.push(name);
@@ -204,7 +206,7 @@ const fs = require('node:fs/promises');");
     file.write_all(sample_program.as_bytes())?;
 
     let output = Command::new("node")
-        .env("LD_PRELOAD", "/usr/lib/gcc/x86_64-linux-gnu/11/libasan.so")
+        .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         .env("ASAN_OPTIONS", "halt_on_error=1")
         .arg("out/test.js")
         .output()
