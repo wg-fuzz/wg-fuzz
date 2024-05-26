@@ -51,7 +51,7 @@ pub fn create_command_buffer(var_number: &String, device: &String, compute_pipel
     const passEncoder{} = commandEncoder{}.beginComputePass();
     
     passEncoder{}.setPipeline({});
-    passEncoder{}.dispatchWorkgroups(1);
+    passEncoder{}.dispatchWorkgroups(100);
 
     passEncoder{}.end();
 
