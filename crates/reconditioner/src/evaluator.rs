@@ -456,6 +456,11 @@ impl Evaluator {
 
 
     fn concretize_lit(&self, lit : Lit) -> ConNode {
+        let lit = match lit {
+            Lit::I32(-2147483648) => Lit::I32(-2147483647),
+            _ => lit
+        };
+
         ConNode {
             node : ExprNode {
                 data_type : lit.data_type(),
