@@ -208,7 +208,7 @@ const fs = require('node:fs/promises');");
     file.write_all(sample_program.as_bytes())?;
 
     let output = Command::new("node")
-        .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
+        // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         // .env("ASAN_OPTIONS", "halt_on_error=1")
         .arg("out/test.js")
         .output()
