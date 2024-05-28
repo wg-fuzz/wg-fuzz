@@ -6,25 +6,27 @@
 
 use art::*;
 
-pub struct Program {
-    pub calls: Vec<APICall>
+#[derive(Debug)]
+pub struct Program<'a> {
+    pub calls: Vec<APICall<'a>>
 }
 
-pub enum APICall {
+#[derive(Debug)]
+pub enum APICall<'a> {
     CreateAdapter(),
-    CreateDevice(GPUAdapter),
-    CreateBuffer(GPUDevice),
-    CreateTexture(GPUDevice),
-    CreateExternalTexture(GPUDevice, HTMLVideo),
+    CreateDevice(&'a GPUAdapter),
+    CreateBuffer(&'a GPUDevice),
+    CreateTexture(&'a GPUDevice),
+    CreateExternalTexture(&'a GPUDevice, &'a HTMLVideo),
     CreateHTMLVideo(),
-    CreateSampler(GPUDevice),
-    CreateQuerySet(GPUDevice),
-    CreateShaderModule(GPUDevice),
-    CreateBindGroup(GPUDevice),
-    CreateBindGroupLayout(GPUDevice),
-    CreatePipelineLayout(GPUDevice),
-    CreateComputePipeline(GPUDevice, GPUShaderModule),
-    CreateRenderPipeline(GPUDevice, GPUShaderModule),
-    CreateRenderBundleEncoder(GPUDevice),
-    CreateCommandEncoder(GPUDevice),
+    CreateSampler(&'a GPUDevice),
+    CreateQuerySet(&'a GPUDevice),
+    CreateShaderModule(&'a GPUDevice),
+    CreateBindGroup(&'a GPUDevice),
+    CreateBindGroupLayout(&'a GPUDevice),
+    CreatePipelineLayout(&'a GPUDevice),
+    CreateComputePipeline(&'a GPUDevice, &'a GPUShaderModule),
+    CreateRenderPipeline(&'a GPUDevice, &'a GPUShaderModule),
+    CreateRenderBundleEncoder(&'a GPUDevice),
+    CreateCommandEncoder(&'a GPUDevice),
 }
