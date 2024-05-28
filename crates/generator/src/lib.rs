@@ -28,6 +28,30 @@ pub fn generate<'a>(resources: &'a ProgramResources) -> Program<'a> {
     program
 }
 
+fn update_program_resources(resources: &ProgramResources, call: &APICall) {
+    match call {
+        // CreateAdapter() => {resources.adapters.push()}
+        _ => {}
+    }
+}
+
+// CreateAdapter(),
+// CreateDevice(&'a GPUAdapter),
+// CreateBuffer(&'a GPUDevice),
+// CreateTexture(&'a GPUDevice),
+// CreateExternalTexture(&'a GPUDevice, &'a HTMLVideo),
+// CreateHTMLVideo(),
+// CreateSampler(&'a GPUDevice),
+// CreateQuerySet(&'a GPUDevice),
+// CreateShaderModule(&'a GPUDevice),
+// CreateBindGroup(&'a GPUDevice),
+// CreateBindGroupLayout(&'a GPUDevice),
+// CreatePipelineLayout(&'a GPUDevice),
+// CreateComputePipeline(&'a GPUDevice, &'a GPUShaderModule),
+// CreateRenderPipeline(&'a GPUDevice, &'a GPUShaderModule),
+// CreateRenderBundleEncoder(&'a GPUDevice),
+// CreateCommandEncoder(&'a GPUDevice),
+
 fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
     available_api_calls.extend([CreateAdapter(), CreateHTMLVideo()]);
