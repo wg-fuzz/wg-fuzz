@@ -18,6 +18,7 @@ pub struct GPUDevice {
     pub buffers: Vec<GPUBuffer>,
     pub textures: Vec<GPUTexture>,
     pub external_textures: Vec<GPUExternalTexture>,
+    pub html_video: Vec<HTMLVideo>,
 
     pub samplers: Vec<GPUSampler>,
     pub query_sets: Vec<GPUQuerySet>,
@@ -30,7 +31,7 @@ pub struct GPUDevice {
     pub compute_pipelines: Vec<GPUComputePipeline>,
     pub render_pipelines: Vec<GPURenderPipeline>,
     pub render_bundle_encoders: Vec<GPURenderBundleEncoder>,
-    pub encoders: Vec<GPUCommandEncoder>,
+    pub command_encoders: Vec<GPUCommandEncoder>,
 }
 
 pub struct GPUBuffer {
@@ -48,6 +49,10 @@ pub struct GPUTextureView {
 }
 
 pub struct GPUExternalTexture {
+    pub var_name: String
+}
+
+pub struct HTMLVideo {
     pub var_name: String
 }
 
