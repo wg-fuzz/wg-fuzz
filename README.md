@@ -5,7 +5,7 @@
 - Requires a dawn.node copied from Google's Dawn repo (alias c++ to clang)
 - Requires a recent Node
 - Run `cargo build` (important it's separate to cargo run)
-- Run `cargo run --bin wg-fuzz`
+- Run `cargo run`
 
 ## Notes
 - Built in Rust for speed and correctness. Also integrates with the WGSLSmith tool easily.
