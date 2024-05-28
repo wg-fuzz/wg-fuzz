@@ -18,8 +18,8 @@ Cargo.lock
 
 /target
 
-# Dawn build
-dawn.node
+# Dawn builds
+*.node
 
 # Output files
 out/
