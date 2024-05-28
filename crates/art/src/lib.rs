@@ -2,7 +2,7 @@
 
 // module: check available calls
 
-pub struct Program {
+pub struct ProgramResources {
     pub adapters: Vec<GPUAdapter>
 }
 
