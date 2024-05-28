@@ -9,7 +9,7 @@ pub struct ProgramResources {
 }
 
 impl ProgramResources {
-    fn new() -> ProgramResources {
+    pub fn new() -> ProgramResources {
         ProgramResources {
             adapters: Vec::new(),
             html_videos: Vec::new()
@@ -26,7 +26,7 @@ pub struct GPUAdapter {
 }
 
 impl GPUAdapter {
-    fn new(resources: &ProgramResources) -> GPUAdapter {
+    pub fn new(resources: &ProgramResources) -> GPUAdapter {
         let num = resources.adapters.len();
         let name = format!("adapter{}", num);
 
@@ -63,7 +63,7 @@ pub struct GPUDevice {
 }
 
 impl GPUDevice {
-    fn new(adapter: &GPUAdapter) -> GPUDevice {
+    pub fn new(adapter: &GPUAdapter) -> GPUDevice {
         let num_adapter = adapter.num;
         let num = adapter.devices.len();
         let name = format!("device{}{}", num_adapter, num);
@@ -100,7 +100,7 @@ pub struct GPUBuffer {
 }
 
 impl GPUBuffer {
-    fn new(device: &GPUDevice) -> GPUBuffer {
+    pub fn new(device: &GPUDevice) -> GPUBuffer {
         let num_device = device.num;
         let num = device.buffers.len();
         let name = format!("buffer{}{}", num_device, num);
@@ -121,7 +121,7 @@ pub struct GPUTexture {
 }
 
 impl GPUTexture {
-    fn new(device: &GPUDevice) -> GPUTexture {
+    pub fn new(device: &GPUDevice) -> GPUTexture {
         let num_device = device.num;
         let num = device.textures.len();
         let name = format!("texture{}{}", num_device, num);
@@ -142,7 +142,7 @@ pub struct GPUTextureView {
 }
 
 impl GPUTextureView {
-    fn new(device: &GPUDevice, texture: &GPUTexture) -> GPUTextureView {
+    pub fn new(device: &GPUDevice, texture: &GPUTexture) -> GPUTextureView {
         let num_device = device.num;
         let num_texture = texture.num;
         let num = texture.texture_views.len();
@@ -162,7 +162,7 @@ pub struct GPUExternalTexture {
 }
 
 impl GPUExternalTexture {
-    fn new(device: &GPUDevice) -> GPUExternalTexture {
+    pub fn new(device: &GPUDevice) -> GPUExternalTexture {
         let num_device = device.num;
         let num = device.external_textures.len();
         let name = format!("external_textures{}{}", num_device, num);
@@ -181,7 +181,7 @@ pub struct HTMLVideo {
 }
 
 impl HTMLVideo {
-    fn new(resources: &ProgramResources) -> HTMLVideo {
+    pub fn new(resources: &ProgramResources) -> HTMLVideo {
         let num = resources.html_videos.len();
         let name = format!("html_video{}", num);
 
@@ -199,7 +199,7 @@ pub struct GPUSampler {
 }
 
 impl GPUSampler {
-    fn new(device: &GPUDevice) -> GPUSampler {
+    pub fn new(device: &GPUDevice) -> GPUSampler {
         let num_device = device.num;
         let num = device.samplers.len();
         let name = format!("sampler{}{}", num_device, num);
@@ -218,7 +218,7 @@ pub struct GPUQuerySet {
 }
 
 impl GPUQuerySet {
-    fn new(device: &GPUDevice) -> GPUQuerySet {
+    pub fn new(device: &GPUDevice) -> GPUQuerySet {
         let num_device = device.num;
         let num = device.query_sets.len();
         let name = format!("query{}{}", num_device, num);
@@ -237,7 +237,7 @@ pub struct GPUShaderModule {
 }
 
 impl GPUShaderModule {
-    fn new(device: &GPUDevice) -> GPUShaderModule {
+    pub fn new(device: &GPUDevice) -> GPUShaderModule {
         let num_device = device.num;
         let num = device.shader_modules.len();
         let name = format!("shader_module{}{}", num_device, num);
@@ -256,7 +256,7 @@ pub struct GPUBindGroup {
 }
 
 impl GPUBindGroup {
-    fn new(device: &GPUDevice) -> GPUBindGroup {
+    pub fn new(device: &GPUDevice) -> GPUBindGroup {
         let num_device = device.num;
         let num = device.bind_groups.len();
         let name = format!("bind_group{}{}", num_device, num);
@@ -275,7 +275,7 @@ pub struct GPUBindGroupLayout {
 }
 
 impl GPUBindGroupLayout {
-    fn new(device: &GPUDevice) -> GPUBindGroupLayout {
+    pub fn new(device: &GPUDevice) -> GPUBindGroupLayout {
         let num_device = device.num;
         let num = device.bind_group_layouts.len();
         let name = format!("bind_group_layout{}{}", num_device, num);
@@ -294,7 +294,7 @@ pub struct GPUPipelineLayout {
 }
 
 impl GPUPipelineLayout {
-    fn new(device: &GPUDevice) -> GPUPipelineLayout {
+    pub fn new(device: &GPUDevice) -> GPUPipelineLayout {
         let num_device = device.num;
         let num = device.pipeline_layouts.len();
         let name = format!("pipeline_layout{}{}", num_device, num);
@@ -313,7 +313,7 @@ pub struct GPUComputePipeline {
 }
 
 impl GPUComputePipeline {
-    fn new(device: &GPUDevice) -> GPUComputePipeline {
+    pub fn new(device: &GPUDevice) -> GPUComputePipeline {
         let num_device = device.num;
         let num = device.compute_pipelines.len();
         let name = format!("compute_pipeline{}{}", num_device, num);
@@ -332,7 +332,7 @@ pub struct GPURenderPipeline {
 }
 
 impl GPURenderPipeline {
-    fn new(device: &GPUDevice) -> GPURenderPipeline {
+    pub fn new(device: &GPUDevice) -> GPURenderPipeline {
         let num_device = device.num;
         let num = device.render_pipelines.len();
         let name = format!("render_pipeline{}{}", num_device, num);
@@ -349,15 +349,15 @@ pub struct GPURenderBundleEncoder {
     pub num: usize,
     pub var_name: String,
 
-    vertex_buffer_set: bool,
-    render_pipeline_set: bool,
-    index_buffer_set: bool,
-    bind_group_set: bool,
-    finished: bool
+    // vertex_buffer_set: bool,
+    // render_pipeline_set: bool,
+    // index_buffer_set: bool,
+    // bind_group_set: bool,
+    // finished: bool
 }
 
 impl GPURenderBundleEncoder {
-    fn new(device: &GPUDevice) -> GPURenderBundleEncoder {
+    pub fn new(device: &GPUDevice) -> GPURenderBundleEncoder {
         let num_device = device.num;
         let num = device.render_bundle_encoders.len();
         let name = format!("render_bundle_encoder{}{}", num_device, num);
@@ -366,11 +366,11 @@ impl GPURenderBundleEncoder {
             num,
             var_name: name,
 
-            vertex_buffer_set: false,
-            render_pipeline_set: false,
-            index_buffer_set: false,
-            bind_group_set: false,
-            finished: false
+            // vertex_buffer_set: false,
+            // render_pipeline_set: false,
+            // index_buffer_set: false,
+            // bind_group_set: false,
+            // finished: false
         }
     }
 }
@@ -380,11 +380,11 @@ pub struct GPUCommandEncoder {
     pub num: usize,
     pub var_name: String,
 
-    finished: bool
+    // finished: bool
 }
 
 impl GPUCommandEncoder {
-    fn new(device: &GPUDevice) -> GPUCommandEncoder {
+    pub fn new(device: &GPUDevice) -> GPUCommandEncoder {
         let num_device = device.num;
         let num = device.command_encoders.len();
         let name = format!("command_encoder{}{}", num_device, num);
@@ -393,7 +393,7 @@ impl GPUCommandEncoder {
             num,
             var_name: name,
 
-            finished: false
+            // finished: false
         }
     }
 }

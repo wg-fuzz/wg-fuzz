@@ -28,9 +28,9 @@ pub fn generate<'a>(resources: &'a ProgramResources) -> Program<'a> {
     program
 }
 
-fn update_program_resources(resources: &ProgramResources, call: &APICall) {
+fn update_program_resources(mut resources: ProgramResources, call: &APICall) {
     match call {
-        // CreateAdapter() => {resources.adapters.push()}
+        CreateAdapter() => {resources.adapters.push(GPUAdapter::new(&resources))}
         _ => {}
     }
 }
