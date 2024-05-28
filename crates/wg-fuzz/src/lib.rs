@@ -47,16 +47,7 @@ pub fn fuzz_once() -> std::io::Result<()> {
 
     let mut sample_program = String::from("");
 
-    sample_program.push_str("\
-const { create, globals } = require('../dawn.node');
-Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
-let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), };
-const fs = require('node:fs/promises');");
-    sample_program.push_str("\n\n");
-    sample_program.push_str("async function init() {\n");
-    sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/navigator_check.txt").unwrap());
-
-    sample_program.push_str("\n\n    ");
+    sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/prelude.txt").unwrap());
 
     let mut js_var_namespace: HashMap<APICall, Vec<String>> = HashMap::new();
     for api_call in APICall::iter() {
@@ -203,7 +194,7 @@ const fs = require('node:fs/promises');");
       }
     }
 
-    sample_program.push_str("\n}\n\ninit();");
+    sample_program.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/postlude.txt").unwrap());
     
     file.write_all(sample_program.as_bytes())?;
 
