@@ -2,7 +2,7 @@
 *wg-fuzz* is a tool for generating JavaScript programs with randomised WebGPU calls. It is intended to fuzz the WebGPU API.
 
 ## Build
-- Requires a dawn.node copied from Google's Dawn repo
+- Requires a dawn.node copied from Google's Dawn repo (alias c++ to clang)
 - Requires a recent Node
 - Run `cargo run`
 
