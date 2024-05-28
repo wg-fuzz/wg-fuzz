@@ -1,7 +1,7 @@
 use clap::StructOpt;
-use generator::Options;
+use wgsl_generator::Options;
 
 fn main() -> eyre::Result<()> {
     color_eyre::install()?;
-    generator::run(Options::parse())
+    wgsl_generator::run(Options::parse())
 }

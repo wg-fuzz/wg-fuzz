@@ -7,7 +7,7 @@ default-run = "wg-fuzz"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-generator = { path = "../wgslsmith/generator" }
+wgsl_generator = { path = "../wgslsmith/wgsl_generator" }
 reconditioner = { path = "../wgslsmith/reconditioner" }
 rand = "0.8.5"
 strum = "0.26.2"

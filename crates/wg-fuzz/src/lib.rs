@@ -155,7 +155,7 @@ pub fn fuzz_once() -> std::io::Result<()> {
 
           let stdio = Stdio::from(file);
 
-          Command::new("target/debug/generator")
+          Command::new("target/debug/wgsl_generator")
             .arg("--max-block-depth=1")
             .arg("--max-fns=2")
             .stdout(stdio)

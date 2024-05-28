@@ -1,4 +1,5 @@
 [workspace]
 
-members = ["crates/*"]
+members = ["crates/act", "crates/art", "crates/generator", "crates/reducer", "crates/wg-fuzz", 
+           "crates/wgslsmith/ast", "crates/wgslsmith/common", "crates/wgslsmith/parser", "crates/wgslsmith/reconditioner", "crates/wgslsmith/wgsl_generator"]
 resolver = "2"
