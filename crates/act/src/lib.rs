@@ -4,6 +4,7 @@
 
 // for now just resource creation. use all fields eventually.
 
+use std::fs;
 use art::*;
 
 #[derive(Debug, Clone)]
@@ -16,6 +17,13 @@ impl Program {
         Program {
             calls: Vec::new()
         }
+    }
+
+    pub fn to_javascript(self) -> String {
+        let mut js = String::new();
+        js.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/prelude.txt").unwrap());
+        js.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/postlude.txt").unwrap());
+        js
     }
 }
 
