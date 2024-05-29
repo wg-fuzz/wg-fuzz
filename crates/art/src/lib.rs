@@ -2,7 +2,10 @@
 
 // module: check available calls
 
-#[derive(Debug)]
+
+// RESTRICTION: in impls, never store parameter reference on struct. it is cloned in generator
+
+#[derive(Debug, Clone)]
 pub struct ProgramResources {
     pub adapters: Vec<GPUAdapter>,
     pub html_videos: Vec<HTMLVideo>
@@ -17,7 +20,7 @@ impl ProgramResources {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUAdapter {
     pub num: usize,
     pub var_name: String,
@@ -38,10 +41,10 @@ impl GPUAdapter {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUDevice {
     pub num: usize,
-    // pub num_adapter: usize,
+    pub num_adapter: usize,
     pub var_name: String,
 
     pub buffers: Vec<GPUBuffer>,
@@ -70,7 +73,7 @@ impl GPUDevice {
 
         GPUDevice {
             num,
-            // num_adapter,
+            num_adapter,
             var_name: name,
 
             buffers: Vec::new(),
@@ -93,7 +96,7 @@ impl GPUDevice {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUBuffer {
     pub num: usize,
     pub var_name: String
@@ -112,7 +115,7 @@ impl GPUBuffer {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUTexture {
     pub num: usize,
     pub var_name: String,
@@ -135,7 +138,7 @@ impl GPUTexture {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUTextureView {
     pub num: usize,
     pub var_name: String
@@ -155,7 +158,7 @@ impl GPUTextureView {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUExternalTexture {
     pub num: usize,
     pub var_name: String
@@ -174,7 +177,7 @@ impl GPUExternalTexture {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct HTMLVideo {
     pub num: usize,
     pub var_name: String
@@ -192,7 +195,7 @@ impl HTMLVideo {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUSampler {
     pub num: usize,
     pub var_name: String
@@ -211,7 +214,7 @@ impl GPUSampler {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUQuerySet {
     pub num: usize,
     pub var_name: String
@@ -230,7 +233,7 @@ impl GPUQuerySet {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUShaderModule {
     pub num: usize,
     pub var_name: String
@@ -249,7 +252,7 @@ impl GPUShaderModule {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUBindGroup {
     pub num: usize,
     pub var_name: String
@@ -268,7 +271,7 @@ impl GPUBindGroup {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUBindGroupLayout {
     pub num: usize,
     pub var_name: String
@@ -287,7 +290,7 @@ impl GPUBindGroupLayout {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUPipelineLayout {
     pub num: usize,
     pub var_name: String
@@ -306,7 +309,7 @@ impl GPUPipelineLayout {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUComputePipeline {
     pub num: usize,
     pub var_name: String
@@ -325,7 +328,7 @@ impl GPUComputePipeline {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPURenderPipeline {
     pub num: usize,
     pub var_name: String
@@ -344,7 +347,7 @@ impl GPURenderPipeline {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPURenderBundleEncoder {
     pub num: usize,
     pub var_name: String,
@@ -375,7 +378,7 @@ impl GPURenderBundleEncoder {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct GPUCommandEncoder {
     pub num: usize,
     pub var_name: String,
