@@ -1,4 +1,4 @@
-// generates an act
+// generates an act (and art)
 
 use art::*;
 use act::*;

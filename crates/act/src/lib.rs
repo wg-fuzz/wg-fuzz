@@ -1,7 +1,5 @@
 // act = abstract call tree
 
-// module: writer
-
 // for now just resource creation. use all fields eventually.
 
 use std::fs;
