@@ -11,6 +11,14 @@ pub struct Program {
     pub calls: Vec<APICall>
 }
 
+impl Program {
+    pub fn new() -> Program {
+        Program {
+            calls: Vec::new()
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub enum APICall {
     CreateAdapter(),
