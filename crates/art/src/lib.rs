@@ -104,9 +104,10 @@ pub struct GPUBuffer {
 
 impl GPUBuffer {
     pub fn new(device: &GPUDevice) -> GPUBuffer {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.buffers.len();
-        let name = format!("buffer{}{}", num_device, num);
+        let name = format!("buffer{}{}{}", num_adapter, num_device, num);
 
         GPUBuffer {
             num,
@@ -125,9 +126,10 @@ pub struct GPUTexture {
 
 impl GPUTexture {
     pub fn new(device: &GPUDevice) -> GPUTexture {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.textures.len();
-        let name = format!("texture{}{}", num_device, num);
+        let name = format!("texture{}{}{}", num_adapter, num_device, num);
 
         GPUTexture {
             num,
@@ -146,10 +148,11 @@ pub struct GPUTextureView {
 
 impl GPUTextureView {
     pub fn new(device: &GPUDevice, texture: &GPUTexture) -> GPUTextureView {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num_texture = texture.num;
         let num = texture.texture_views.len();
-        let name = format!("texture_view{}{}{}", num_device, num_texture, num);
+        let name = format!("texture_view{}{}{}{}", num_adapter, num_device, num_texture, num);
 
         GPUTextureView {
             num,
@@ -166,9 +169,10 @@ pub struct GPUExternalTexture {
 
 impl GPUExternalTexture {
     pub fn new(device: &GPUDevice) -> GPUExternalTexture {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.external_textures.len();
-        let name = format!("external_textures{}{}", num_device, num);
+        let name = format!("external_textures{}{}{}", num_adapter, num_device, num);
 
         GPUExternalTexture {
             num,
@@ -203,9 +207,10 @@ pub struct GPUSampler {
 
 impl GPUSampler {
     pub fn new(device: &GPUDevice) -> GPUSampler {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.samplers.len();
-        let name = format!("sampler{}{}", num_device, num);
+        let name = format!("sampler{}{}{}", num_adapter, num_device, num);
 
         GPUSampler {
             num,
@@ -222,9 +227,10 @@ pub struct GPUQuerySet {
 
 impl GPUQuerySet {
     pub fn new(device: &GPUDevice) -> GPUQuerySet {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.query_sets.len();
-        let name = format!("query{}{}", num_device, num);
+        let name = format!("query{}{}{}", num_adapter, num_device, num);
 
         GPUQuerySet {
             num,
@@ -241,9 +247,10 @@ pub struct GPUShaderModule {
 
 impl GPUShaderModule {
     pub fn new(device: &GPUDevice) -> GPUShaderModule {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.shader_modules.len();
-        let name = format!("shader_module{}{}", num_device, num);
+        let name = format!("shader_module{}{}{}", num_adapter, num_device, num);
 
         GPUShaderModule {
             num,
@@ -260,9 +267,10 @@ pub struct GPUBindGroup {
 
 impl GPUBindGroup {
     pub fn new(device: &GPUDevice) -> GPUBindGroup {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.bind_groups.len();
-        let name = format!("bind_group{}{}", num_device, num);
+        let name = format!("bind_group{}{}{}", num_adapter, num_device, num);
 
         GPUBindGroup {
             num,
@@ -279,9 +287,10 @@ pub struct GPUBindGroupLayout {
 
 impl GPUBindGroupLayout {
     pub fn new(device: &GPUDevice) -> GPUBindGroupLayout {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.bind_group_layouts.len();
-        let name = format!("bind_group_layout{}{}", num_device, num);
+        let name = format!("bind_group_layout{}{}{}", num_adapter, num_device, num);
 
         GPUBindGroupLayout {
             num,
@@ -298,9 +307,10 @@ pub struct GPUPipelineLayout {
 
 impl GPUPipelineLayout {
     pub fn new(device: &GPUDevice) -> GPUPipelineLayout {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.pipeline_layouts.len();
-        let name = format!("pipeline_layout{}{}", num_device, num);
+        let name = format!("pipeline_layout{}{}{}", num_adapter, num_device, num);
 
         GPUPipelineLayout {
             num,
@@ -317,9 +327,10 @@ pub struct GPUComputePipeline {
 
 impl GPUComputePipeline {
     pub fn new(device: &GPUDevice) -> GPUComputePipeline {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.compute_pipelines.len();
-        let name = format!("compute_pipeline{}{}", num_device, num);
+        let name = format!("compute_pipeline{}{}{}", num_adapter, num_device, num);
 
         GPUComputePipeline {
             num,
@@ -336,9 +347,10 @@ pub struct GPURenderPipeline {
 
 impl GPURenderPipeline {
     pub fn new(device: &GPUDevice) -> GPURenderPipeline {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.render_pipelines.len();
-        let name = format!("render_pipeline{}{}", num_device, num);
+        let name = format!("render_pipeline{}{}{}", num_adapter, num_device, num);
 
         GPURenderPipeline {
             num,
@@ -361,9 +373,10 @@ pub struct GPURenderBundleEncoder {
 
 impl GPURenderBundleEncoder {
     pub fn new(device: &GPUDevice) -> GPURenderBundleEncoder {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.render_bundle_encoders.len();
-        let name = format!("render_bundle_encoder{}{}", num_device, num);
+        let name = format!("render_bundle_encoder{}{}{}", num_adapter, num_device, num);
 
         GPURenderBundleEncoder {
             num,
@@ -388,9 +401,10 @@ pub struct GPUCommandEncoder {
 
 impl GPUCommandEncoder {
     pub fn new(device: &GPUDevice) -> GPUCommandEncoder {
+        let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.command_encoders.len();
-        let name = format!("command_encoder{}{}", num_device, num);
+        let name = format!("command_encoder{}{}{}", num_adapter, num_device, num);
 
         GPUCommandEncoder {
             num,
