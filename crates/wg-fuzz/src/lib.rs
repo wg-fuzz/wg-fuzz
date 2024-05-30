@@ -33,6 +33,12 @@ pub fn fuzz_once() -> std::io::Result<()> {
     
     file.write_all(program.to_javascript().as_bytes())?;
 
+    run_test();
+
+    Ok(())
+}
+
+fn run_test() {
     let output = Command::new("node")
         // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         // .env("ASAN_OPTIONS", "halt_on_error=0")
@@ -45,42 +51,4 @@ pub fn fuzz_once() -> std::io::Result<()> {
     println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
     assert!(output.status.success());
-
-    Ok(())
 }
-
-
-        // APICall::CreateShaderModule => {
-        //   let mut names_vec = js_var_namespace.get(&api_call)
-        //                                                    .unwrap()
-        //                                                    .to_owned();
-        //   let name = format!("shaderModule{}", names_vec.len());
-
-        //   let available_names = js_var_namespace.get(&APICall::CreateDevice).unwrap();
-        //   let index = rng.gen_range(0..available_names.len());
-        //   let param_name = &available_names[index];
-
-        //   let file_name = format!("out/{}.wgsl", name);
-
-        //   let file = File::create(&file_name)?;
-
-        //   let stdio = Stdio::from(file);
-
-        //   Command::new("target/debug/wgsl_generator")
-        //     .arg("--max-block-depth=1")
-        //     .arg("--max-fns=2")
-        //     .stdout(stdio)
-        //     .output()?;
-
-        //   //TODO: add args to generator?
-
-        //   let _ = cli::run(Options {
-        //     input: file_name.clone(),
-        //     output: file_name.clone(),
-        //     enable: Vec::new()
-        //   });
-
-        //   sample_program.push_str(&calls::create_shader_module(&name, param_name));
-        //   names_vec.push(name);
-        //   js_var_namespace.insert(api_call, names_vec);
-        // }
