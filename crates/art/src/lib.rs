@@ -470,8 +470,14 @@ impl GPUCommandBuffer {
 
 #[derive(Debug, Clone)]
 pub struct GPUComputePassEncoder {
+    pub var_name: String,
+
+    pub finished: bool,
+
+    pub num_adapter: usize,
+    pub num_device: usize,
+    pub num_encoder: usize,
     pub num: usize,
-    pub var_name: String
 }
 
 impl GPUComputePassEncoder {
@@ -483,8 +489,14 @@ impl GPUComputePassEncoder {
         let name = format!("compute_pass_encoder{}{}{}{}", num_adapter, num_device, num_encoder, num_pass);
 
         GPUComputePassEncoder {
-            num: num_encoder,
-            var_name: name
+            var_name: name,
+
+            finished: false,
+
+            num_adapter,
+            num_device,
+            num_encoder,
+            num: num_pass,
         }
     }
 }

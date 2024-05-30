@@ -93,6 +93,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
+        EndComputePass(compute_pass_encoder) => {
+            resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
+        },
     }
     new_resource
 }
@@ -111,8 +114,21 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
             for command_encoder in &device.command_encoders {
+                let mut all_passes_finished = true;
+                for compute_pass in &command_encoder.compute_pass_encoders {
+                    if !compute_pass.finished {
+                        available_api_calls.extend([EndComputePass(compute_pass.clone())]);
+                        all_passes_finished = false;
+                    }
+                }
+
                 if let None = command_encoder.command_buffer {
-                    available_api_calls.extend([CreateCommandBuffer(command_encoder.clone()), CreateComputePass(command_encoder.clone())])
+                    if all_passes_finished {
+                        available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())])
+                    }
+                    if command_encoder.compute_pass_encoders.len() < 2 {
+                        available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                    }
                 }
             }
 

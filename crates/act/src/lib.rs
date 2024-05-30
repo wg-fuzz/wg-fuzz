@@ -51,6 +51,7 @@ pub enum APICall {
     CreateCommandEncoder(GPUDevice),
     CreateCommandBuffer(GPUCommandEncoder),
     CreateComputePass(GPUCommandEncoder),
+    EndComputePass(GPUComputePassEncoder),
 }
 
 impl APICall {
@@ -181,6 +182,9 @@ impl APICall {
                 } else {
                     panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
                 }
+            },
+            EndComputePass(compute_pass_encoder) => {
+                return format!("{}.end();", compute_pass_encoder.var_name);
             },
         }
     }
