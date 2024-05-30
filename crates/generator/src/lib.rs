@@ -10,11 +10,21 @@ pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
     for _ in 1..100 {
-        let mut available_api_calls = available_api_calls(resources);
+        let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
         let new_resource = update_program_resources(resources, &api_call);
         program.calls.push((api_call, new_resource));
+    }
+
+    let mut terminating_api_calls = available_api_calls(resources, true);
+    while terminating_api_calls.len() > 0 {
+        let call_index = rng.gen_range(0..terminating_api_calls.len());
+        let api_call = terminating_api_calls.remove(call_index);
+        let new_resource = update_program_resources(resources, &api_call);
+        program.calls.push((api_call, new_resource));
+
+        terminating_api_calls = available_api_calls(resources, true);
     }
 }
 
@@ -101,7 +111,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
 }
 
 
-fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
+fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
     available_api_calls.extend([CreateAdapter(), /*CreateHTMLVideo()*/]);
 
@@ -140,6 +150,16 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
             //     available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateRenderPipeline(device.clone(), shader_module.clone())])
             // }
         }
+    }
+
+    if terminate {
+        available_api_calls.retain(|call| match call {
+            CreateAdapter() => false,
+            CreateDevice(_) => false,
+            CreateCommandEncoder(_) => false,
+            CreateComputePass(_) => false,
+            _ => true
+        });
     }
 
     available_api_calls
