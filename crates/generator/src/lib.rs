@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..30 {
+    for _ in 1..100 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -106,6 +106,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         SetComputePassPipeline(_, _) => {
             // resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
+        SetComputePassWorkgroups(_) => {
+
+        },
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
@@ -130,10 +133,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 let mut all_passes_finished = true;
                 for compute_pass in &command_encoder.compute_pass_encoders {
                     if !compute_pass.finished {
-                        available_api_calls.extend([EndComputePass(compute_pass.clone())]);
                         for compute_pipeline in &device.compute_pipelines {
                             available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
                         }
+                        available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone()), EndComputePass(compute_pass.clone())]);
                         all_passes_finished = false;
                     }
                 }
@@ -169,6 +172,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
             SetComputePassPipeline(_, _) => false,
+            SetComputePassWorkgroups(_) => false,
         });
     }
 
