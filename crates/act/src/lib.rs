@@ -48,7 +48,7 @@ pub enum APICall {
     // CreateBindGroup(GPUDevice),
     // CreateBindGroupLayout(GPUDevice),
     // CreatePipelineLayout(GPUDevice),
-    // CreateComputePipeline(GPUDevice, GPUShaderModule),
+    CreateComputePipeline(GPUDevice, GPUShaderModule),
     // CreateRenderPipeline(GPUDevice, GPUShaderModule),
     // CreateRenderBundleEncoder(GPUDevice),
     CreateCommandEncoder(GPUDevice),
@@ -174,13 +174,13 @@ impl APICall {
             //         panic!("created_resource for CreatePipelineLayout() call is not a pipeline layout!")
             //     }
             // },
-            // CreateComputePipeline(device, shader_module) => {
-            //     if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
-            //         return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module:  }} }});", adapter.var_name);
-            //     } else {
-            //         panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
-            //     }
-            // },
+            CreateComputePipeline(device, shader_module) => {
+                if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
+                    return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
+                }
+            },
             // CreateRenderPipeline(device, shader_module) => {
             //     if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
             //         return format!("const {} = await navigator.gpu.requestAdapter();", adapter.var_name);

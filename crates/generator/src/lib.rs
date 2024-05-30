@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..10 {
+    for _ in 1..30 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -79,10 +79,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
         // }
-        // CreateComputePipeline(device, _) => {
-        //     new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
-        // }
+        CreateComputePipeline(device, _) => {
+            new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
+        }
         // CreateRenderPipeline(device, _) => {
         //     new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
@@ -146,9 +146,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
             // }
 
-            // for shader_module in &device.shader_modules {
-            //     available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateRenderPipeline(device.clone(), shader_module.clone())])
-            // }
+            for shader_module in &device.shader_modules {
+                available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone())/*, CreateRenderPipeline(device.clone(), shader_module.clone())*/])
+            }
         }
     }
 
@@ -161,6 +161,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateShaderModule(_) => false,
             EndComputePass(_) => true,
             CreateCommandBuffer(_) => true,
+            CreateComputePipeline(_, _) => false,
         });
     }
 
