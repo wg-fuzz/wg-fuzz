@@ -48,7 +48,7 @@ pub enum APICall {
     // CreateComputePipeline(GPUDevice, GPUShaderModule),
     // CreateRenderPipeline(GPUDevice, GPUShaderModule),
     // CreateRenderBundleEncoder(GPUDevice),
-    // CreateCommandEncoder(GPUDevice),
+    CreateCommandEncoder(GPUDevice),
 }
 
 impl APICall {
@@ -159,13 +159,13 @@ impl APICall {
             //         panic!("created_resource for CreateRenderBundleEncoder() call is not a render bundle encoder!")
             //     }
             // },
-            // CreateCommandEncoder(device) => {
-            //     if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
-            //         return format!("const {} = {}.createCommandEncoder();", command_encoder.var_name, device.var_name);
-            //     } else {
-            //         panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
-            //     }
-            // }
+            CreateCommandEncoder(device) => {
+                if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
+                    return format!("const {} = {}.createCommandEncoder();", command_encoder.var_name, device.var_name);
+                } else {
+                    panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
+                }
+            }
         }
     }
 }

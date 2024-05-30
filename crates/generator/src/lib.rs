@@ -81,10 +81,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPURenderBundleEncoder(GPURenderBundleEncoder::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].render_bundle_encoders.push(GPURenderBundleEncoder::new(device))
         // }
-        // CreateCommandEncoder(device) => {
-        //     new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
-        // }
+        CreateCommandEncoder(device) => {
+            new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
+        }
     }
     new_resource
 }
@@ -97,10 +97,10 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
     for adapter in &resources.adapters {
         available_api_calls.extend([CreateDevice(adapter.clone())]);
 
-        // for device in &adapter.devices {
-            // available_api_calls.extend([CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
-            //             CreateShaderModule(device.clone()), CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
-            //             CreateRenderBundleEncoder(device.clone()), CreateCommandEncoder(device.clone())]);
+        for device in &adapter.devices {
+            available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
+                        CreateShaderModule(device.clone()), CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
+                        CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
             // for html_video in &resources.html_videos {
             //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
@@ -109,7 +109,7 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
             // for shader_module in &device.shader_modules {
             //     available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateRenderPipeline(device.clone(), shader_module.clone())])
             // }
-        // }
+        }
     }
 
     available_api_calls
