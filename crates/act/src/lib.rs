@@ -49,9 +49,9 @@ pub enum APICall {
     // CreateRenderPipeline(GPUDevice, GPUShaderModule),
     // CreateRenderBundleEncoder(GPUDevice),
     CreateCommandEncoder(GPUDevice),
-    CreateCommandBuffer(GPUCommandEncoder),
     CreateComputePass(GPUCommandEncoder),
     EndComputePass(GPUComputePassEncoder),
+    CreateCommandBuffer(GPUCommandEncoder),
 }
 
 impl APICall {
@@ -59,14 +59,14 @@ impl APICall {
         match self {
             CreateAdapter() => {
                 if let Resource::GPUAdapter(adapter) = created_resource {
-                    return format!("const {} = await navigator.gpu.requestAdapter();", adapter.var_name);
+                    return format!("const {} = await navigator.gpu.requestAdapter({{ label: \"{}\" }});", adapter.var_name, adapter.var_name);
                 } else {
                     panic!("created_resource for CreateAdapter() call is not an adapter!")
                 }
             },
             CreateDevice(adapter) => {
                 if let Resource::GPUDevice(device) = created_resource {
-                    return format!("const {} = await {}.requestDevice();", device.var_name, adapter.var_name);
+                    return format!("const {} = await {}.requestDevice({{ label: \"{}\" }});", device.var_name, adapter.var_name, device.var_name);
                 } else {
                     panic!("created_resource for CreateDevice() call is not a device!")
                 }
@@ -164,10 +164,20 @@ impl APICall {
             // },
             CreateCommandEncoder(device) => {
                 if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
-                    return format!("const {} = {}.createCommandEncoder();", command_encoder.var_name, device.var_name);
+                    return format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", command_encoder.var_name, device.var_name, command_encoder.var_name);
                 } else {
                     panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
                 }
+            },
+            CreateComputePass(encoder) => {
+                if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
+                    return format!("const {} = {}.beginComputePass({{ label: \"{}\" }});", compute_pass_encoder.var_name, encoder.var_name, compute_pass_encoder.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
+                }
+            },
+            EndComputePass(compute_pass_encoder) => {
+                return format!("{}.end();", compute_pass_encoder.var_name);
             },
             CreateCommandBuffer(encoder) => {
                 if let Resource::GPUCommandBuffer(command_buffer) = created_resource {
@@ -175,16 +185,6 @@ impl APICall {
                 } else {
                     panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
                 }
-            },
-            CreateComputePass(encoder) => {
-                if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
-                    return format!("const {} = {}.beginComputePass();", compute_pass_encoder.var_name, encoder.var_name);
-                } else {
-                    panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
-                }
-            },
-            EndComputePass(compute_pass_encoder) => {
-                return format!("{}.end();", compute_pass_encoder.var_name);
             },
         }
     }
