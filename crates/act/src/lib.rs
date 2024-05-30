@@ -57,6 +57,7 @@ pub enum APICall {
     SetComputePassWorkgroups(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
     CreateCommandBuffer(GPUCommandEncoder),
+    SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
 }
 
 impl APICall {
@@ -227,6 +228,15 @@ impl APICall {
                     panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
                 }
             },
+            SubmitQueueRandom(device, command_encoders) => {
+                let mut command_buffers_str = String::from("[");
+                for command_encoder in command_encoders {
+                    command_buffers_str.push_str(&command_encoder.command_buffer.as_ref().unwrap().var_name);
+                    command_buffers_str.push_str(", ");
+                }
+                command_buffers_str.push_str("]");
+                return format!("{}.queue.submit({});", device.var_name, command_buffers_str);
+            }
         }
     }
 }

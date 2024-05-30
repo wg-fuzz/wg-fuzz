@@ -103,8 +103,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
-        SetComputePassPipeline(_, _) => {
-            // resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
+        SetComputePassPipeline(compute_pass, _) => {
+            resources.adapters[compute_pass.num_adapter].devices[compute_pass.num_device].command_encoders[compute_pass.num_encoder].compute_pass_encoders[compute_pass.num].pipeline_set = true;
         },
         SetComputePassWorkgroups(_) => {
 
@@ -112,6 +112,11 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
+        SubmitQueueRandom(_, command_encoders) => {
+            for command_encoder in command_encoders {
+                resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].submitted = true;
+            }
+        }
     }
     new_resource
 }
@@ -129,6 +134,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                         CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
+            let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
+
             for command_encoder in &device.command_encoders {
                 let mut all_passes_finished = true;
                 for compute_pass in &command_encoder.compute_pass_encoders {
@@ -136,7 +143,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                         for compute_pipeline in &device.compute_pipelines {
                             available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
                         }
-                        available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone()), EndComputePass(compute_pass.clone())]);
+                        if compute_pass.pipeline_set {
+                            available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
+                        }
+                        available_api_calls.extend([EndComputePass(compute_pass.clone())]);
                         all_passes_finished = false;
                     }
                 }
@@ -149,6 +159,16 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                         available_api_calls.extend([CreateComputePass(command_encoder.clone())])
                     }
                 }
+
+                if let Some(_) = command_encoder.command_buffer {
+                    if command_encoder.submitted == false && rand::random() {
+                        queue_command_encoders.push(command_encoder.clone());
+                    }
+                }
+            }
+
+            if queue_command_encoders.len() > 0 {
+                available_api_calls.extend([SubmitQueueRandom(device.clone(), queue_command_encoders)]);
             }
 
             // for html_video in &resources.html_videos {
@@ -173,6 +193,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateComputePipeline(_, _) => false,
             SetComputePassPipeline(_, _) => false,
             SetComputePassWorkgroups(_) => false,
+            SubmitQueueRandom(_, _) => true
         });
     }
 

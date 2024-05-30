@@ -426,6 +426,7 @@ pub struct GPUCommandEncoder {
 
     pub compute_pass_encoders: Vec<GPUComputePassEncoder>,
     pub command_buffer: Option<GPUCommandBuffer>,
+    pub submitted: bool
 }
 
 impl GPUCommandEncoder {
@@ -444,6 +445,7 @@ impl GPUCommandEncoder {
 
             compute_pass_encoders: Vec::new(),
             command_buffer: None,
+            submitted: false
         }
     }
 }
@@ -452,6 +454,7 @@ impl GPUCommandEncoder {
 pub struct GPUComputePassEncoder {
     pub var_name: String,
 
+    pub pipeline_set: bool,
     pub finished: bool,
 
     pub num_adapter: usize,
@@ -471,6 +474,7 @@ impl GPUComputePassEncoder {
         GPUComputePassEncoder {
             var_name: name,
 
+            pipeline_set: false,
             finished: false,
 
             num_adapter,
