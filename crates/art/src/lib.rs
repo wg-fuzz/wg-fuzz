@@ -26,6 +26,7 @@ pub enum Resource {
     GPURenderBundleEncoder(GPURenderBundleEncoder),
     GPUCommandEncoder(GPUCommandEncoder),
     GPUCommandBuffer(GPUCommandBuffer),
+    GPUComputePassEncoder(GPUComputePassEncoder),
     None
 }
 
@@ -423,6 +424,7 @@ pub struct GPUCommandEncoder {
     pub num_adapter: usize,
     pub num_device: usize,
 
+    pub compute_pass_encoders: Vec<GPUComputePassEncoder>,
     pub command_buffer: Option<GPUCommandBuffer>,
 }
 
@@ -440,12 +442,9 @@ impl GPUCommandEncoder {
             num_adapter,
             num_device,
 
+            compute_pass_encoders: Vec::new(),
             command_buffer: None,
         }
-    }
-
-    pub fn finish(&mut self) -> () {
-        self.command_buffer = Some(GPUCommandBuffer::new(self))
     }
 }
 
@@ -463,6 +462,27 @@ impl GPUCommandBuffer {
         let name = format!("command_buffer{}{}{}", num_adapter, num_device, num_encoder);
 
         GPUCommandBuffer {
+            num: num_encoder,
+            var_name: name
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct GPUComputePassEncoder {
+    pub num: usize,
+    pub var_name: String
+}
+
+impl GPUComputePassEncoder {
+    pub fn new(encoder: &GPUCommandEncoder) -> GPUComputePassEncoder {
+        let num_adapter = encoder.num_adapter;
+        let num_device = encoder.num_device;
+        let num_encoder = encoder.num;
+        let num_pass = encoder.compute_pass_encoders.len();
+        let name = format!("compute_pass_encoder{}{}{}{}", num_adapter, num_device, num_encoder, num_pass);
+
+        GPUComputePassEncoder {
             num: num_encoder,
             var_name: name
         }

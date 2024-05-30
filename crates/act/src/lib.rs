@@ -50,6 +50,7 @@ pub enum APICall {
     // CreateRenderBundleEncoder(GPUDevice),
     CreateCommandEncoder(GPUDevice),
     CreateCommandBuffer(GPUCommandEncoder),
+    CreateComputePass(GPUCommandEncoder),
 }
 
 impl APICall {
@@ -171,7 +172,14 @@ impl APICall {
                 if let Resource::GPUCommandBuffer(command_buffer) = created_resource {
                     return format!("const {} = {}.finish();", command_buffer.var_name, encoder.var_name);
                 } else {
-                    panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
+                    panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
+                }
+            },
+            CreateComputePass(encoder) => {
+                if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
+                    return format!("const {} = {}.beginComputePass();", compute_pass_encoder.var_name, encoder.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
                 }
             },
         }

@@ -87,7 +87,11 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         },
         CreateCommandBuffer(encoder) => {
             new_resource = Resource::GPUCommandBuffer(GPUCommandBuffer::new(encoder));
-            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].finish();
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].command_buffer = Some(GPUCommandBuffer::new(encoder));
+        },
+        CreateComputePass(encoder) => {
+            new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
     }
     new_resource
@@ -108,7 +112,7 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
 
             for command_encoder in &device.command_encoders {
                 if let None = command_encoder.command_buffer {
-                    available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())])
+                    available_api_calls.extend([CreateCommandBuffer(command_encoder.clone()), CreateComputePass(command_encoder.clone())])
                 }
             }
 
