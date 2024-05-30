@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..10 {
+    for _ in 1..100 {
         let mut available_api_calls = available_api_calls(resources);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -84,7 +84,11 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         CreateCommandEncoder(device) => {
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
             resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
-        }
+        },
+        CreateCommandBuffer(encoder) => {
+            new_resource = Resource::GPUCommandBuffer(GPUCommandBuffer::new(encoder));
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].finish();
+        },
     }
     new_resource
 }
@@ -101,6 +105,12 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
             available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
                         CreateShaderModule(device.clone()), CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
+
+            for command_encoder in &device.command_encoders {
+                if let None = command_encoder.command_buffer {
+                    available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())])
+                }
+            }
 
             // for html_video in &resources.html_videos {
             //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])

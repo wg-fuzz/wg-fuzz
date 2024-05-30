@@ -25,6 +25,7 @@ pub enum Resource {
     GPURenderPipeline(GPURenderPipeline),
     GPURenderBundleEncoder(GPURenderBundleEncoder),
     GPUCommandEncoder(GPUCommandEncoder),
+    GPUCommandBuffer(GPUCommandBuffer),
     None
 }
 
@@ -419,7 +420,10 @@ pub struct GPUCommandEncoder {
     pub num: usize,
     pub var_name: String,
 
-    // finished: bool
+    pub num_adapter: usize,
+    pub num_device: usize,
+
+    pub command_buffer: Option<GPUCommandBuffer>,
 }
 
 impl GPUCommandEncoder {
@@ -433,7 +437,34 @@ impl GPUCommandEncoder {
             num,
             var_name: name,
 
-            // finished: false
+            num_adapter,
+            num_device,
+
+            command_buffer: None,
+        }
+    }
+
+    pub fn finish(&mut self) -> () {
+        self.command_buffer = Some(GPUCommandBuffer::new(self))
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct GPUCommandBuffer {
+    pub num: usize,
+    pub var_name: String
+}
+
+impl GPUCommandBuffer {
+    pub fn new(encoder: &GPUCommandEncoder) -> GPUCommandBuffer {
+        let num_adapter = encoder.num_adapter;
+        let num_device = encoder.num_device;
+        let num_encoder = encoder.num;
+        let name = format!("command_buffer{}{}{}", num_adapter, num_device, num_encoder);
+
+        GPUCommandBuffer {
+            num: num_encoder,
+            var_name: name
         }
     }
 }
