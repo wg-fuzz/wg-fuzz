@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 art = { path = "../art" }
+wgsl_generator = { path = "../wgslsmith/wgsl_generator" }
+reconditioner = { path = "../wgslsmith/reconditioner" }

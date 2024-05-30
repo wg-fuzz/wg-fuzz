@@ -23,39 +23,20 @@
 // }
 
 
-pub fn create_adapter(var_name: &String) -> String {
-    format!("const {} = await navigator.gpu.requestAdapter();", var_name)
-}
+// pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {
+//     format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}, layout: \"auto\"}})", var_name, device, shader_module)
+// }
 
-pub fn create_device(var_name: &String, adapter: &String) -> String {
-    format!("const {} = await {}.requestDevice();", var_name, adapter)
-}
-
-pub fn create_shader_module(var_name: &String, device: &String) -> String {
-    format!("var {}_file = \"\";
-    try {{
-        {}_file = await fs.readFile('out/{}.wgsl', {{ encoding: 'utf8' }});
-        // console.log({}_file);
-    }} catch (err) {{
-        console.log(err);
-    }}
-    const {} = await {}.createShaderModule({{code: {}_file}})", var_name, var_name, var_name, var_name, var_name, device, var_name)
-}
-
-pub fn create_compute_pipeline(var_name: &String, device: &String, shader_module: &String) -> String {
-    format!("const {} = await {}.createComputePipeline({{compute: {{module: {}, entryPoint: \"main\"}}, layout: \"auto\"}})", var_name, device, shader_module)
-}
-
-pub fn create_command_buffer(var_number: &String, device: &String, compute_pipeline: &String) -> String {
-    format!("const commandEncoder{} = await {}.createCommandEncoder();
-    const passEncoder{} = commandEncoder{}.beginComputePass();
+// pub fn create_command_buffer(var_number: &String, device: &String, compute_pipeline: &String) -> String {
+//     format!("const commandEncoder{} = await {}.createCommandEncoder();
+//     const passEncoder{} = commandEncoder{}.beginComputePass();
     
-    passEncoder{}.setPipeline({});
-    passEncoder{}.dispatchWorkgroups(100);
+//     passEncoder{}.setPipeline({});
+//     passEncoder{}.dispatchWorkgroups(100);
 
-    passEncoder{}.end();
+//     passEncoder{}.end();
 
-    {}.queue.submit([commandEncoder{}.finish()]);
-    ", var_number, device, var_number, var_number, var_number, 
-       compute_pipeline, var_number, var_number, device, var_number)
-}
+//     {}.queue.submit([commandEncoder{}.finish()]);
+//     ", var_number, device, var_number, var_number, var_number, 
+//        compute_pipeline, var_number, var_number, device, var_number)
+// }

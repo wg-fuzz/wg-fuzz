@@ -1,13 +1,9 @@
 use std::fs::File;
 use std::io::prelude::*;
-use std::process::{Command, /*Stdio*/};
-
-// use reconditioner::cli;
-// use reconditioner::cli::Options;
+use std::process::Command;
 
 use art::*;
 use act::*;
-// use act::APICall::*;
 use generator::*;
 
 mod calls;

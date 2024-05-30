@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..100 {
+    for _ in 1..10 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -63,10 +63,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPUQuerySet(GPUQuerySet::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].query_sets.push(GPUQuerySet::new(device))
         // }
-        // CreateShaderModule(device) => {
-        //     new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
-        // }
+        CreateShaderModule(device) => {
+            new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
+        }
         // CreateBindGroup(device) => {
         //     new_resource = Resource::GPUBindGroup(GPUBindGroup::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].bind_groups.push(GPUBindGroup::new(device))
@@ -119,8 +119,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         available_api_calls.extend([CreateDevice(adapter.clone())]);
 
         for device in &adapter.devices {
-            available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
-                        CreateShaderModule(device.clone()), CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
+            available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
+                        CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
             for command_encoder in &device.command_encoders {
@@ -158,7 +158,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateDevice(_) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
-            _ => true
+            CreateShaderModule(_) => false,
+            EndComputePass(_) => true,
+            CreateCommandBuffer(_) => true,
         });
     }
 

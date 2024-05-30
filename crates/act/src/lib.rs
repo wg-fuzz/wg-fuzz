@@ -2,8 +2,11 @@
 
 // for now just resource creation. use all fields eventually.
 
-use std::fs;
+use std::{fs::{self, File}, process::{Command, Stdio}};
 use art::*;
+
+use reconditioner::cli;
+use reconditioner::cli::Options;
 
 use APICall::*;
 
@@ -41,7 +44,7 @@ pub enum APICall {
     // CreateHTMLVideo(),
     // CreateSampler(GPUDevice),
     // CreateQuerySet(GPUDevice),
-    // CreateShaderModule(GPUDevice),
+    CreateShaderModule(GPUDevice),
     // CreateBindGroup(GPUDevice),
     // CreateBindGroupLayout(GPUDevice),
     // CreatePipelineLayout(GPUDevice),
@@ -113,13 +116,43 @@ impl APICall {
             //         panic!("created_resource for CreateQuerySet() call is not a query set!")
             //     }
             // },
-            // CreateShaderModule(device) => {
-            //     if let Resource::GPUShaderModule(shader_module) = created_resource {
-            //         return format!("const {} = {}.createShaderModule({{  }});", adapter.var_name);
-            //     } else {
-            //         panic!("created_resource for CreateShaderModule() call is not a shader module!")
-            //     }
-            // },
+            CreateShaderModule(device) => {
+                if let Resource::GPUShaderModule(shader_module) = created_resource {
+                    let file_name = format!("out/{}.wgsl", shader_module.var_name);
+
+                    let file = File::create(&file_name).unwrap();
+
+                    let stdio = Stdio::from(file);
+
+                    Command::new("target/debug/wgsl_generator")
+                        .arg("--max-block-depth=1")
+                        .arg("--max-fns=2")
+                        .stdout(stdio)
+                        .output().unwrap();
+
+                    //TODO: add args to generator?
+
+                    let _ = cli::run(Options {
+                        input: file_name.clone(),
+                        output: file_name.clone(),
+                        enable: Vec::new()
+                    });
+
+                    let var_name = &shader_module.var_name;
+                    return format!("\
+    var {}_code = \"\";
+    try {{
+        {}_code = await fs.readFile('out/{}.wgsl', 'utf8');
+    }} catch (err) {{
+        console.log(err);
+    }}
+    const {} = await {}.createShaderModule({{ code: {}_code }})", 
+                        var_name, var_name, var_name, var_name, device.var_name, var_name)
+
+                } else {
+                    panic!("created_resource for CreateShaderModule() call is not a shader module!")
+                }
+            },
             // CreateBindGroup(device) => {
             //     if let Resource::GPUBindGroup(bind_group) = created_resource {
             //         return format!("const {} = {}.createBindGroup({{ entries: [], layout: \"auto\" }});", bind_group.var_name, device.var_name);
