@@ -29,14 +29,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUDevice(GPUDevice::new(adapter));
             resources.adapters[adapter.num].devices.push(GPUDevice::new(adapter))
         }
-        CreateBuffer(device) => {
-            new_resource = Resource::GPUBuffer(GPUBuffer::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device))
-        }
-        CreateTexture(device) => {
-            new_resource = Resource::GPUTexture(GPUTexture::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device))
-        }
+        // CreateBuffer(device) => {
+        //     new_resource = Resource::GPUBuffer(GPUBuffer::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device))
+        // }
+        // CreateTexture(device) => {
+        //     new_resource = Resource::GPUTexture(GPUTexture::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device))
+        // }
         // CreateExternalTexture(device, _) => {
         //     new_resource = Resource::GPUExternalTexture(GPUExternalTexture::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].external_textures.push(GPUExternalTexture::new(device))
@@ -45,14 +45,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::HTMLVideo(HTMLVideo::new(&resources));
         //     resources.html_videos.push(HTMLVideo::new(&resources))
         // }
-        CreateSampler(device) => {
-            new_resource = Resource::GPUSampler(GPUSampler::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
-        }
-        CreateQuerySet(device) => {
-            new_resource = Resource::GPUQuerySet(GPUQuerySet::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].query_sets.push(GPUQuerySet::new(device))
-        }
+        // CreateSampler(device) => {
+        //     new_resource = Resource::GPUSampler(GPUSampler::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
+        // }
+        // CreateQuerySet(device) => {
+        //     new_resource = Resource::GPUQuerySet(GPUQuerySet::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].query_sets.push(GPUQuerySet::new(device))
+        // }
         // CreateShaderModule(device) => {
         //     new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
@@ -61,14 +61,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPUBindGroup(GPUBindGroup::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].bind_groups.push(GPUBindGroup::new(device))
         // }
-        CreateBindGroupLayout(device) => {
-            new_resource = Resource::GPUBindGroupLayout(GPUBindGroupLayout::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].bind_group_layouts.push(GPUBindGroupLayout::new(device))
-        }
-        CreatePipelineLayout(device) => {
-            new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
-        }
+        // CreateBindGroupLayout(device) => {
+        //     new_resource = Resource::GPUBindGroupLayout(GPUBindGroupLayout::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].bind_group_layouts.push(GPUBindGroupLayout::new(device))
+        // }
+        // CreatePipelineLayout(device) => {
+        //     new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
+        // }
         // CreateComputePipeline(device, _) => {
         //     new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
@@ -77,14 +77,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
         // }
-        CreateRenderBundleEncoder(device) => {
-            new_resource = Resource::GPURenderBundleEncoder(GPURenderBundleEncoder::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].render_bundle_encoders.push(GPURenderBundleEncoder::new(device))
-        }
-        CreateCommandEncoder(device) => {
-            new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
-        }
+        // CreateRenderBundleEncoder(device) => {
+        //     new_resource = Resource::GPURenderBundleEncoder(GPURenderBundleEncoder::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].render_bundle_encoders.push(GPURenderBundleEncoder::new(device))
+        // }
+        // CreateCommandEncoder(device) => {
+        //     new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
+        //     resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
+        // }
     }
     new_resource
 }
@@ -97,10 +97,10 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
     for adapter in &resources.adapters {
         available_api_calls.extend([CreateDevice(adapter.clone())]);
 
-        for device in &adapter.devices {
-            available_api_calls.extend([CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
-                        /*CreateShaderModule(device.clone()), CreateBindGroup(device.clone()),*/ CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
-                        CreateRenderBundleEncoder(device.clone()), CreateCommandEncoder(device.clone())]);
+        // for device in &adapter.devices {
+            // available_api_calls.extend([CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), 
+            //             CreateShaderModule(device.clone()), CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
+            //             CreateRenderBundleEncoder(device.clone()), CreateCommandEncoder(device.clone())]);
 
             // for html_video in &resources.html_videos {
             //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
@@ -109,7 +109,7 @@ fn available_api_calls(resources: &ProgramResources) -> Vec<APICall> {
             // for shader_module in &device.shader_modules {
             //     available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateRenderPipeline(device.clone(), shader_module.clone())])
             // }
-        }
+        // }
     }
 
     available_api_calls

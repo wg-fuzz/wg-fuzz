@@ -35,20 +35,20 @@ impl Program {
 pub enum APICall {
     CreateAdapter(),
     CreateDevice(GPUAdapter),
-    CreateBuffer(GPUDevice),
-    CreateTexture(GPUDevice),
+    // CreateBuffer(GPUDevice),
+    // CreateTexture(GPUDevice),
     // CreateExternalTexture(GPUDevice, HTMLVideo),
     // CreateHTMLVideo(),
-    CreateSampler(GPUDevice),
-    CreateQuerySet(GPUDevice),
+    // CreateSampler(GPUDevice),
+    // CreateQuerySet(GPUDevice),
     // CreateShaderModule(GPUDevice),
     // CreateBindGroup(GPUDevice),
-    CreateBindGroupLayout(GPUDevice),
-    CreatePipelineLayout(GPUDevice),
+    // CreateBindGroupLayout(GPUDevice),
+    // CreatePipelineLayout(GPUDevice),
     // CreateComputePipeline(GPUDevice, GPUShaderModule),
     // CreateRenderPipeline(GPUDevice, GPUShaderModule),
-    CreateRenderBundleEncoder(GPUDevice),
-    CreateCommandEncoder(GPUDevice),
+    // CreateRenderBundleEncoder(GPUDevice),
+    // CreateCommandEncoder(GPUDevice),
 }
 
 impl APICall {
@@ -68,20 +68,20 @@ impl APICall {
                     panic!("created_resource for CreateDevice() call is not a device!")
                 }
             },
-            CreateBuffer(device) => {
-                if let Resource::GPUBuffer(buffer) = created_resource {
-                    return format!("const {} = {}.createBuffer({{ size: 1000, usage: GPUBufferUsage.STORAGE }});", buffer.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateBuffer() call is not a buffer!")
-                }
-            },
-            CreateTexture(device) => {
-                if let Resource::GPUTexture(texture) = created_resource {
-                    return format!("const {} = {}.createTexture({{ size: [1000], usage: GPUTextureUsage.STORAGE_BINDING, format: \"r8unorm\" }});", texture.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateTexture() call is not a texture!")
-                }
-            },
+            // CreateBuffer(device) => {
+            //     if let Resource::GPUBuffer(buffer) = created_resource {
+            //         return format!("const {} = {}.createBuffer({{ size: 1000, usage: GPUBufferUsage.STORAGE }});", buffer.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateBuffer() call is not a buffer!")
+            //     }
+            // },
+            // CreateTexture(device) => {
+            //     if let Resource::GPUTexture(texture) = created_resource {
+            //         return format!("const {} = {}.createTexture({{ size: [1000], usage: GPUTextureUsage.STORAGE_BINDING, format: \"r8unorm\" }});", texture.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateTexture() call is not a texture!")
+            //     }
+            // },
             // CreateExternalTexture(device, html_video) => {
             //     if let Resource::GPUExternalTexture(external_texture) = created_resource {
             //         return format!("const {} = {}.importExternalTexture({{  }});", adapter.var_name);
@@ -96,20 +96,20 @@ impl APICall {
             //         panic!("created_resource for CreateHTMLVideo() call is not a HTML video!")
             //     }
             // },
-            CreateSampler(device) => {
-                if let Resource::GPUSampler(sampler) = created_resource {
-                    return format!("const {} = {}.createSampler();", sampler.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateSampler() call is not a sampler!")
-                }
-            },
-            CreateQuerySet(device) => {
-                if let Resource::GPUQuerySet(query_set) = created_resource {
-                    return format!("const {} = {}.createQuerySet({{ count: 100, type: \"occlusion\" }});", query_set.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateQuerySet() call is not a query set!")
-                }
-            },
+            // CreateSampler(device) => {
+            //     if let Resource::GPUSampler(sampler) = created_resource {
+            //         return format!("const {} = {}.createSampler();", sampler.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateSampler() call is not a sampler!")
+            //     }
+            // },
+            // CreateQuerySet(device) => {
+            //     if let Resource::GPUQuerySet(query_set) = created_resource {
+            //         return format!("const {} = {}.createQuerySet({{ count: 100, type: \"occlusion\" }});", query_set.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateQuerySet() call is not a query set!")
+            //     }
+            // },
             // CreateShaderModule(device) => {
             //     if let Resource::GPUShaderModule(shader_module) = created_resource {
             //         return format!("const {} = {}.createShaderModule({{  }});", adapter.var_name);
@@ -124,20 +124,20 @@ impl APICall {
             //         panic!("created_resource for CreateBindGroup() call is not an bind group!")
             //     }
             // },
-            CreateBindGroupLayout(device) => {
-                if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
-                    return format!("const {} = {}.createBindGroupLayout({{ entries: [] }});", bind_group_layout.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateBindGroupLayout() call is not a bind group layout!")
-                }
-            },
-            CreatePipelineLayout(device) => {
-                if let Resource::GPUPipelineLayout(pipeline_layout) = created_resource {
-                    return format!("const {} = {}.createPipelineLayout({{ bindGroupLayouts: [] }});", pipeline_layout.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreatePipelineLayout() call is not a pipeline layout!")
-                }
-            },
+            // CreateBindGroupLayout(device) => {
+            //     if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
+            //         return format!("const {} = {}.createBindGroupLayout({{ entries: [] }});", bind_group_layout.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateBindGroupLayout() call is not a bind group layout!")
+            //     }
+            // },
+            // CreatePipelineLayout(device) => {
+            //     if let Resource::GPUPipelineLayout(pipeline_layout) = created_resource {
+            //         return format!("const {} = {}.createPipelineLayout({{ bindGroupLayouts: [] }});", pipeline_layout.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreatePipelineLayout() call is not a pipeline layout!")
+            //     }
+            // },
             // CreateComputePipeline(device, shader_module) => {
             //     if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
             //         return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module:  }} }});", adapter.var_name);
@@ -152,20 +152,20 @@ impl APICall {
             //         panic!("created_resource for CreateRenderPipeline() call is not a compute pipeline!")
             //     }
             // },
-            CreateRenderBundleEncoder(device) => {
-                if let Resource::GPURenderBundleEncoder(render_bundle_encoder) = created_resource {
-                    return format!("const {} = {}.createRenderBundleEncoder({{ colorFormats: [] }});", render_bundle_encoder.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateRenderBundleEncoder() call is not a render bundle encoder!")
-                }
-            },
-            CreateCommandEncoder(device) => {
-                if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
-                    return format!("const {} = {}.createCommandEncoder();", command_encoder.var_name, device.var_name);
-                } else {
-                    panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
-                }
-            }
+            // CreateRenderBundleEncoder(device) => {
+            //     if let Resource::GPURenderBundleEncoder(render_bundle_encoder) = created_resource {
+            //         return format!("const {} = {}.createRenderBundleEncoder({{ colorFormats: [] }});", render_bundle_encoder.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateRenderBundleEncoder() call is not a render bundle encoder!")
+            //     }
+            // },
+            // CreateCommandEncoder(device) => {
+            //     if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
+            //         return format!("const {} = {}.createCommandEncoder();", command_encoder.var_name, device.var_name);
+            //     } else {
+            //         panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
+            //     }
+            // }
         }
     }
 }
