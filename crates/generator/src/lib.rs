@@ -103,6 +103,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
+        SetComputePassPipeline(_, _) => {
+            // resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
+        },
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
@@ -128,6 +131,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 for compute_pass in &command_encoder.compute_pass_encoders {
                     if !compute_pass.finished {
                         available_api_calls.extend([EndComputePass(compute_pass.clone())]);
+                        for compute_pipeline in &device.compute_pipelines {
+                            available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
+                        }
                         all_passes_finished = false;
                     }
                 }
@@ -162,6 +168,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             EndComputePass(_) => true,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
+            SetComputePassPipeline(_, _) => false,
         });
     }
 
