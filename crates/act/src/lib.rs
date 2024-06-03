@@ -48,7 +48,7 @@ pub enum APICall {
     WaitSubmittedWork(GPUDevice),
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
-    // CreateTexture(GPUDevice),
+    CreateRandomTexture(GPUDevice),
     CreateShaderModule(GPUDevice),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
@@ -177,13 +177,18 @@ impl APICall {
             WriteBuffer(device, buffer, array) => {
                 return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
             },
-            // CreateTexture(device) => {
-            //     if let Resource::GPUTexture(texture) = created_resource {
-            //         return format!("const {} = {}.createTexture({{ size: [400], usage: GPUTextureUsage.STORAGE_BINDING, format: \"r8unorm\" }});", texture.var_name, device.var_name);
-            //     } else {
-            //         panic!("created_resource for CreateTexture() call is not a texture!")
-            //     }
-            // },
+            CreateRandomTexture(device) => {
+                if let Resource::GPUTexture(texture) = created_resource {
+                    return format!("const {} = {}.createTexture({{
+        size: [400],
+        usage: {},
+        format: {},
+        dimension: {}
+    }});", texture.var_name, device.var_name, texture.usage, texture.format, texture.dimension);
+                } else {
+                    panic!("created_resource for CreateTexture() call is not a texture!")
+                }
+            },
             CreateShaderModule(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {
                     let file_name = format!("out/{}.wgsl", shader_module.var_name);
