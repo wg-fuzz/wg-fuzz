@@ -45,6 +45,7 @@ pub enum APICall {
     PrintAdapterInfo(GPUAdapter),
     CreateDevice(GPUAdapter),
     PrintDeviceInfo(GPUDevice),
+    WaitSubmittedWork(GPUDevice),
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     // CreateTexture(GPUDevice),
@@ -156,6 +157,9 @@ impl APICall {
         console.log(info.reason);
     }});", device.var_name, device.var_name, device.var_name, device.var_name, device.var_name);
             },
+            WaitSubmittedWork(device) => {
+                return format!("{}.queue.onSubmittedWorkDone();", device.var_name);
+            }
             CreateRandomBuffer(device) => {
                 if let Resource::GPUBuffer(buffer) = created_resource {
                     return format!("const {} = {}.createBuffer({{ 
