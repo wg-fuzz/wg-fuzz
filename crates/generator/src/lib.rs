@@ -148,8 +148,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
             for buffer in &device.buffers {
-                for array in &resources.random_arrays {
-                    available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
+                    for array in &resources.random_arrays {
+                        available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                    }
                 }
             }
 
