@@ -43,10 +43,27 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUDevice(GPUDevice::new(adapter));
             resources.adapters[adapter.num].devices.push(GPUDevice::new(adapter))
         }
-        // CreateBuffer(device) => {
-        //     new_resource = Resource::GPUBuffer(GPUBuffer::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device))
-        // }
+        CreateRandomBuffer(device) => {
+            let mut rng = rand::thread_rng();
+            let i = rng.gen_range(0..10);
+            let random_buffer_use_case = String::from(
+                match i {
+                    0 => "GPUBufferUsage.COPY_SRC",
+                    1 => "GPUBufferUsage.COPY_DST",
+                    2 => "GPUBufferUsage.INDEX",
+                    3 => "GPUBufferUsage.INDIRECT",
+                    4 => "GPUBufferUsage.COPY_DST | GPUBufferUsage.MAP_READ",
+                    5 => "GPUBufferUsage.COPY_SRC | GPUBufferUsage.MAP_WRITE",
+                    6 => "GPUBufferUsage.QUERY_RESOLVE",
+                    7 => "GPUBufferUsage.STORAGE",
+                    8 => "GPUBufferUsage.UNIFORM",
+                    9 => "GPUBufferUsage.VERTEX",
+                    _ => "GPUBufferUsage.UNIFORM",
+                });
+
+            new_resource = Resource::GPUBuffer(GPUBuffer::new(device, random_buffer_use_case.clone(), 0));
+            resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device, random_buffer_use_case, 0))
+        }
         WriteBuffer(_, _, _) => {
 
         }
@@ -78,8 +95,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             resources.adapters[compute_pass.num_adapter].devices[compute_pass.num_device].command_encoders[compute_pass.num_encoder].compute_pass_encoders[compute_pass.num].pipeline = Some(compute_pipeline.clone());
         },
         SetComputePassBindGroupTemplate(device, compute_pass_encoder, _) => {
-            let uniform_buffer = GPUBuffer::new(device, 0);
-            let storage_buffer = GPUBuffer::new(device, 1);
+            let uniform_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.UNIFORM"), 0);
+            let storage_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.STORAGE"), 1);
             let bind_group_layout = GPUBindGroupLayout::new(device);
             let bind_group = GPUBindGroup::new(device);
             new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group_layout.clone(), bind_group.clone());
@@ -126,7 +143,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         available_api_calls.extend([CreateDevice(adapter.clone())]);
 
         for device in &adapter.devices {
-            available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
+            available_api_calls.extend([CreateRandomBuffer(device.clone()), /*CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
                         CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
@@ -197,6 +214,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             WriteBuffer(_, _, _) => false,
             CreateAdapter() => false,
             CreateDevice(_) => false,
+            CreateRandomBuffer(_) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,

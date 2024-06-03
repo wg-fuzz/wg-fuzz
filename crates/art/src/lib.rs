@@ -146,11 +146,13 @@ impl RandomArray {
 #[derive(Debug, Clone)]
 pub struct GPUBuffer {
     pub num: usize,
-    pub var_name: String
+    pub var_name: String,
+
+    pub use_case: String,
 }
 
 impl GPUBuffer {
-    pub fn new(device: &GPUDevice, offset: usize) -> GPUBuffer {
+    pub fn new(device: &GPUDevice, use_case: String, offset: usize) -> GPUBuffer {
         let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.buffers.len() + offset;
@@ -158,7 +160,9 @@ impl GPUBuffer {
 
         GPUBuffer {
             num,
-            var_name: name
+            var_name: name,
+
+            use_case,
         }
     }
 }

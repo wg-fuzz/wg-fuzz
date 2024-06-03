@@ -41,7 +41,7 @@ pub enum APICall {
     CreateArray(),
     CreateAdapter(),
     CreateDevice(GPUAdapter),
-    // CreateBuffer(GPUDevice),
+    CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     // CreateTexture(GPUDevice),
     CreateShaderModule(GPUDevice),
@@ -99,13 +99,16 @@ impl APICall {
                     panic!("created_resource for CreateDevice() call is not a device!")
                 }
             },
-            // CreateBuffer(device) => {
-            //     if let Resource::GPUBuffer(buffer) = created_resource {
-            //         return format!("const {} = {}.createBuffer({{ size: 400, usage: GPUBufferUsage.STORAGE }});", buffer.var_name, device.var_name);
-            //     } else {
-            //         panic!("created_resource for CreateBuffer() call is not a buffer!")
-            //     }
-            // },
+            CreateRandomBuffer(device) => {
+                if let Resource::GPUBuffer(buffer) = created_resource {
+                    return format!("const {} = {}.createBuffer({{ 
+        size: 400,
+        usage: {}
+    }});", buffer.var_name, device.var_name, buffer.use_case);
+                } else {
+                    panic!("created_resource for CreateBuffer() call is not a buffer!")
+                }
+            },
             WriteBuffer(device, buffer, array) => {
                 return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
             },

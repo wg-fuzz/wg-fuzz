@@ -48,6 +48,9 @@ dependencies = [
 [[package]]
 name = "art"
 version = "0.1.0"
+dependencies = [
+ "rand",
+]
 
 [[package]]
 name = "ast"
