@@ -182,10 +182,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                 if let None = command_encoder.command_buffer {
                     if all_passes_finished {
-                        available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())])
-                    }
-                    if command_encoder.compute_pass_encoders.len() < 2 {
-                        available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                        available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())]);
+                        if command_encoder.compute_pass_encoders.len() < 2 {
+                            available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                        }
                     }
                 }
 
