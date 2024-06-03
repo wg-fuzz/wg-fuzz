@@ -33,6 +33,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
     match call {
         PrintWGSLLanguageFeatures() => {},
         PrintPreferredCanvasFormat() => {},
+        PrintAdapterInfo(_) => {},
         CreateArray() => {
             new_resource = Resource::RandomArray(RandomArray::new(&resources));
             resources.random_arrays.push(RandomArray::new(&resources))
@@ -140,7 +141,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
     available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat(), /*CreateHTMLVideo()*/]);
 
     for adapter in &resources.adapters {
-        available_api_calls.extend([CreateDevice(adapter.clone())]);
+        available_api_calls.extend([CreateDevice(adapter.clone()), PrintAdapterInfo(adapter.clone())]);
 
         for device in &adapter.devices {
             available_api_calls.extend([CreateRandomBuffer(device.clone()), /*CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
@@ -217,6 +218,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateArray() => false,
             WriteBuffer(_, _, _) => false,
             CreateAdapter() => false,
+            PrintAdapterInfo(_) => false,
             CreateDevice(_) => false,
             CreateRandomBuffer(_) => false,
             CreateCommandEncoder(_) => false,
