@@ -6,8 +6,6 @@ use art::*;
 use act::*;
 use generator::*;
 
-mod calls;
-
 pub fn fuzz() {
     loop {
         fuzz_once().unwrap();

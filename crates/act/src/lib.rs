@@ -76,7 +76,18 @@ impl APICall {
             }
             CreateAdapter() => {
                 if let Resource::GPUAdapter(adapter) = created_resource {
-                    return format!("const {} = await navigator.gpu.requestAdapter({{ label: \"{}\" }});", adapter.var_name, adapter.var_name);
+                    let mut rng = rand::thread_rng();
+                    let i = rng.gen_range(0..3);
+                    let random_power_preference = match i {
+                        0 => "undefined",
+                        1 => "\"low-power\"",
+                        2 => "\"high-performance\"",
+                        _ => "undefined",
+                    };
+                    return format!("const {} = await navigator.gpu.requestAdapter({{
+        powerPreference: {},
+        label: \"{}\"
+    }});", adapter.var_name, random_power_preference, adapter.var_name);
                 } else {
                     panic!("created_resource for CreateAdapter() call is not an adapter!")
                 }
