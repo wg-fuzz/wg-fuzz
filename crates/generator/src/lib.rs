@@ -31,7 +31,8 @@ pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
 fn update_program_resources(resources: &mut ProgramResources, call: &APICall) -> Resource {
     let mut new_resource = Resource::None;
     match call {
-        PrintWGSLLanguageFeatures() => {}
+        PrintWGSLLanguageFeatures() => {},
+        PrintPreferredCanvasFormat() => {},
         CreateArray() => {
             new_resource = Resource::RandomArray(RandomArray::new(&resources));
             resources.random_arrays.push(RandomArray::new(&resources))
@@ -136,7 +137,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
 
 fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
-    available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), /*CreateHTMLVideo()*/]);
+    available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat(), /*CreateHTMLVideo()*/]);
 
     for adapter in &resources.adapters {
         available_api_calls.extend([CreateDevice(adapter.clone())]);
@@ -212,6 +213,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
     if terminate {
         available_api_calls.retain(|call| match call {
             PrintWGSLLanguageFeatures() => false,
+            PrintPreferredCanvasFormat() => false,
             CreateArray() => false,
             WriteBuffer(_, _, _) => false,
             CreateAdapter() => false,

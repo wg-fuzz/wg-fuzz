@@ -39,6 +39,7 @@ impl Program {
 #[derive(Debug, Clone)]
 pub enum APICall {
     PrintWGSLLanguageFeatures(),
+    PrintPreferredCanvasFormat(),
     CreateArray(),
     CreateAdapter(),
     CreateDevice(GPUAdapter),
@@ -66,6 +67,9 @@ impl APICall {
     for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
         console.log(value);
     }");
+            }
+            PrintPreferredCanvasFormat() => {
+                return String::from("console.log(navigator.gpu.getPreferredCanvasFormat());");
             }
             CreateArray() => {
                 if let Resource::RandomArray(array) = created_resource {
