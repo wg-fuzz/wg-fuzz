@@ -38,6 +38,7 @@ impl Program {
 
 #[derive(Debug, Clone)]
 pub enum APICall {
+    PrintWGSLLanguageFeatures(),
     CreateArray(),
     CreateAdapter(),
     CreateDevice(GPUAdapter),
@@ -59,6 +60,13 @@ pub enum APICall {
 impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
         match self {
+            PrintWGSLLanguageFeatures() => {
+                return String::from("console.log(navigator.gpu.wgslLanguageFeatures.size);
+    
+    for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
+        console.log(value);
+    }");
+            }
             CreateArray() => {
                 if let Resource::RandomArray(array) = created_resource {
                     let mut random_floats = String::new();
