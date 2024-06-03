@@ -103,11 +103,36 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
         },
-        SetComputePassPipeline(compute_pass, _) => {
-            resources.adapters[compute_pass.num_adapter].devices[compute_pass.num_device].command_encoders[compute_pass.num_encoder].compute_pass_encoders[compute_pass.num].pipeline_set = true;
+        SetComputePassPipeline(compute_pass, compute_pipeline) => {
+            resources.adapters[compute_pass.num_adapter].devices[compute_pass.num_device].command_encoders[compute_pass.num_encoder].compute_pass_encoders[compute_pass.num].pipeline = Some(compute_pipeline.clone());
         },
-        SetComputePassWorkgroups(_) => {
-
+        SetComputePassBindGroupTemplate(device, compute_pass_encoder, _) => {
+            let uniform_buffer = GPUBuffer::new(device, 0);
+            let storage_buffer = GPUBuffer::new(device, 1);
+            let bind_group_layout = GPUBindGroupLayout::new(device);
+            let bind_group = GPUBindGroup::new(device);
+            new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group_layout.clone(), bind_group.clone());
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .buffers.extend([uniform_buffer, storage_buffer]);
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .bind_group_layouts.extend([bind_group_layout]);
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .bind_groups.extend([bind_group]);
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .command_encoders[compute_pass_encoder.num_encoder]
+                     .compute_pass_encoders[compute_pass_encoder.num]
+                     .bindgroup_set = true;
+        }
+        SetComputePassWorkgroups(compute_pass_encoder) => {
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .command_encoders[compute_pass_encoder.num_encoder]
+                     .compute_pass_encoders[compute_pass_encoder.num]
+                     .dispatched = true;
         },
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
@@ -139,14 +164,22 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             for command_encoder in &device.command_encoders {
                 let mut all_passes_finished = true;
                 for compute_pass in &command_encoder.compute_pass_encoders {
-                    if !compute_pass.finished {
+                    // This restricts a compute pass encoder to be set up in the following order in the final javascript program for simplicity
+                    if let None = &compute_pass.pipeline {
                         for compute_pipeline in &device.compute_pipelines {
                             available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
                         }
-                        if compute_pass.pipeline_set {
-                            available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
+                    } else if !compute_pass.bindgroup_set {
+                        if let Some(compute_pipeline) = &compute_pass.pipeline {
+                            available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), compute_pass.clone(), compute_pipeline.clone())]);
                         }
-                        available_api_calls.extend([EndComputePass(compute_pass.clone())]);
+                    } else if !compute_pass.dispatched {
+                        available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
+                    } else if !compute_pass.finished {
+                        available_api_calls.extend([EndComputePass(compute_pass.clone())])
+                    }
+
+                    if !compute_pass.finished {
                         all_passes_finished = false;
                     }
                 }
@@ -191,9 +224,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             EndComputePass(_) => true,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
-            SetComputePassPipeline(_, _) => false,
-            SetComputePassWorkgroups(_) => false,
-            SubmitQueueRandom(_, _) => true
+            SetComputePassPipeline(_, _) => true,
+            SetComputePassBindGroupTemplate(_, _, _) => true,
+            SetComputePassWorkgroups(_) => true,
+            SubmitQueueRandom(_, _) => true,
         });
     }
 

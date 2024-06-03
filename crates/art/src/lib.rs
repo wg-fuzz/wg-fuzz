@@ -27,6 +27,7 @@ pub enum Resource {
     GPUCommandEncoder(GPUCommandEncoder),
     GPUCommandBuffer(GPUCommandBuffer),
     GPUComputePassEncoder(GPUComputePassEncoder),
+    BindGroupTemplate(GPUBuffer, GPUBuffer, GPUBindGroupLayout, GPUBindGroup),
     None
 }
 
@@ -128,10 +129,10 @@ pub struct GPUBuffer {
 }
 
 impl GPUBuffer {
-    pub fn new(device: &GPUDevice) -> GPUBuffer {
+    pub fn new(device: &GPUDevice, offset: usize) -> GPUBuffer {
         let num_adapter = device.num_adapter;
         let num_device = device.num;
-        let num = device.buffers.len();
+        let num = device.buffers.len() + offset;
         let name = format!("buffer{}{}{}", num_adapter, num_device, num);
 
         GPUBuffer {
@@ -454,7 +455,9 @@ impl GPUCommandEncoder {
 pub struct GPUComputePassEncoder {
     pub var_name: String,
 
-    pub pipeline_set: bool,
+    pub pipeline: Option<GPUComputePipeline>,
+    pub bindgroup_set: bool,
+    pub dispatched: bool,
     pub finished: bool,
 
     pub num_adapter: usize,
@@ -474,7 +477,9 @@ impl GPUComputePassEncoder {
         GPUComputePassEncoder {
             var_name: name,
 
-            pipeline_set: false,
+            pipeline: None,
+            bindgroup_set: false,
+            dispatched: false,
             finished: false,
 
             num_adapter,

@@ -54,6 +54,7 @@ pub enum APICall {
     CreateCommandEncoder(GPUDevice),
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
+    SetComputePassBindGroupTemplate(GPUDevice, GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassWorkgroups(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
     CreateCommandBuffer(GPUCommandEncoder),
@@ -214,6 +215,65 @@ impl APICall {
             },
             SetComputePassPipeline(encoder, compute_pipeline) => {
                 return format!("{}.setPipeline({});", encoder.var_name, compute_pipeline.var_name);
+            },
+            SetComputePassBindGroupTemplate(device, encoder, compute_pipeline) => {
+                if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group_layout, bind_group) = created_resource {
+                    return format!("\
+    const {} = {}.createBuffer({{
+        size: 1000,
+        usage: GPUBufferUsage.UNIFORM
+    }});
+
+    const {} = {}.createBuffer({{
+        size: 1000,
+        usage: GPUBufferUsage.STORAGE
+    }});
+
+    // const {} = {}.createBindGroupLayout({{
+    //     entries: [
+    //         {{
+    //             binding: 0,
+    //             visibility: GPUShaderStage.COMPUTE,
+    //             buffer: {{
+    //                 type: \"uniform\",
+    //             }},
+    //         }},
+    //         {{
+    //             binding: 1,
+    //             visibility: GPUShaderStage.COMPUTE,
+    //             buffer: {{
+    //                 type: \"storage\",
+    //             }}
+    //         }}
+    //     ],
+    // }});
+        
+    const {} = {}.createBindGroup({{
+        layout: {}.getBindGroupLayout(0),
+        entries: [
+            {{
+                binding: 0,
+                resource: {{
+                    buffer: {},
+                }},
+            }},
+            {{
+                binding: 1,
+                resource: {{
+                    buffer: {},
+                }},
+            }},
+        ],
+    }});
+    
+    {}.setBindGroup(0, {});", 
+                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
+                    bind_group_layout.var_name, device.var_name, bind_group.var_name, device.var_name,
+                    compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
+                    encoder.var_name, bind_group.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
+                }
             },
             SetComputePassWorkgroups(encoder) => {
                 return format!("{}.dispatchWorkgroups(100);", encoder.var_name);
