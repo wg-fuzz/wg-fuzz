@@ -134,6 +134,12 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             }
         },
         //AddUncapturedErrorListener(_) => {}
+        PushRandomErrorScope(device) => {
+            resources.adapters[device.num_adapter].devices[device.num].error_scope_active = true;
+        },
+        PopErrorScope(device) => {
+            resources.adapters[device.num_adapter].devices[device.num].error_scope_active = false;
+        }
     }
     new_resource
 }
@@ -149,6 +155,12 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         for device in &adapter.devices {
             available_api_calls.extend([CreateRandomBuffer(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
                         /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModule(device.clone()), CreateCommandEncoder(device.clone())]);
+                
+            if !device.error_scope_active {
+                available_api_calls.extend([PushRandomErrorScope(device.clone())])
+            } else {
+                available_api_calls.extend([PopErrorScope(device.clone())])
+            }
 
             for buffer in &device.buffers {
                 if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
@@ -235,7 +247,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
             SubmitQueueRandom(_, _) => true,
-            // AddUncapturedErrorListener(_) => false
+            // AddUncapturedErrorListener(_) => false,
+            PushRandomErrorScope(_) => false,
+            PopErrorScope(_) => true,
         });
     }
 

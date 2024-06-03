@@ -60,6 +60,8 @@ pub enum APICall {
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
     // AddUncapturedErrorListener(GPUDevice),
+    PushRandomErrorScope(GPUDevice),
+    PopErrorScope(GPUDevice),
 }
 
 impl APICall {
@@ -326,6 +328,24 @@ impl APICall {
             // AddUncapturedErrorListener(device) => {
             //     return format!("console.log(typeof {}.onuncapturederror);", device.var_name);
             // }
+            PushRandomErrorScope(device) => {
+                let mut rng = rand::thread_rng();
+                let i = rng.gen_range(0..3);
+                let random_error_type = match i {
+                    0 => "\"internal\"",
+                    1 => "\"out-of-memory\"",
+                    2 => "\"validation\"",
+                    _ => "\"internal\"",
+                };
+                return format!("{}.pushErrorScope({});", device.var_name, random_error_type);
+            },
+            PopErrorScope(device) => {
+                return format!("{}.popErrorScope().then((error) => {{
+        if (error) {{
+            console.error(`An error occurred: ${{error.message}}`);
+        }}
+    }});", device.var_name);
+            }
         }
     }
 }

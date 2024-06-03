@@ -92,6 +92,8 @@ pub struct GPUDevice {
     pub render_pipelines: Vec<GPURenderPipeline>,
     pub render_bundle_encoders: Vec<GPURenderBundleEncoder>,
     pub command_encoders: Vec<GPUCommandEncoder>,
+
+    pub error_scope_active: bool,
 }
 
 impl GPUDevice {
@@ -121,6 +123,8 @@ impl GPUDevice {
             render_pipelines: Vec::new(),
             render_bundle_encoders: Vec::new(),
             command_encoders: Vec::new(),
+
+            error_scope_active: false,
         }
     }
 }
