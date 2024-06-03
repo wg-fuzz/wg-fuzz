@@ -59,6 +59,7 @@ pub enum APICall {
     EndComputePass(GPUComputePassEncoder),
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
+    // AddUncapturedErrorListener(GPUDevice),
 }
 
 impl APICall {
@@ -321,7 +322,10 @@ impl APICall {
                 }
                 command_buffers_str.push_str("]");
                 return format!("{}.queue.submit({});", device.var_name, command_buffers_str);
-            }
+            },
+            // AddUncapturedErrorListener(device) => {
+            //     return format!("console.log(typeof {}.onuncapturederror);", device.var_name);
+            // }
         }
     }
 }

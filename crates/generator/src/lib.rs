@@ -132,7 +132,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             for command_encoder in command_encoders {
                 resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].submitted = true;
             }
-        }
+        },
+        //AddUncapturedErrorListener(_) => {}
     }
     new_resource
 }
@@ -140,16 +141,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
 
 fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
-    available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat(), /*CreateHTMLVideo()*/]);
+    available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat()]);
 
     for adapter in &resources.adapters {
         available_api_calls.extend([CreateDevice(adapter.clone()), PrintAdapterInfo(adapter.clone())]);
 
         for device in &adapter.devices {
             available_api_calls.extend([CreateRandomBuffer(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
-                        /*CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
-                        CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
-                        CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
+                        /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModule(device.clone()), CreateCommandEncoder(device.clone())]);
 
             for buffer in &device.buffers {
                 if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
@@ -236,6 +235,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
             SubmitQueueRandom(_, _) => true,
+            // AddUncapturedErrorListener(_) => false
         });
     }
 
