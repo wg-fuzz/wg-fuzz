@@ -10,6 +10,8 @@ use reconditioner::cli::Options;
 
 use APICall::*;
 
+use rand::prelude::*;
+
 #[derive(Debug, Clone)]
 pub struct Program {
     pub calls: Vec<(APICall, Resource)>
@@ -36,9 +38,11 @@ impl Program {
 
 #[derive(Debug, Clone)]
 pub enum APICall {
+    CreateArray(),
     CreateAdapter(),
     CreateDevice(GPUAdapter),
     // CreateBuffer(GPUDevice),
+    WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     // CreateTexture(GPUDevice),
     CreateShaderModule(GPUDevice),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
@@ -55,6 +59,21 @@ pub enum APICall {
 impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
         match self {
+            CreateArray() => {
+                if let Resource::RandomArray(array) = created_resource {
+                    let mut random_floats = String::new();
+                    let float_choices = ["-1.0", "-0.75", "-0.5", "-0.25", "0.0", "0.25", "0.5", "0.75", "1.0"];
+                    let mut rand = rand::thread_rng();
+                    for _ in 0..100 {
+                        let i = rand.gen_range(0..float_choices.len());
+                        random_floats.push_str(float_choices[i]);
+                        random_floats.push_str(", ");
+                    }
+                    return format!("const {} = new Float32Array([{}]);", array.var_name, random_floats);
+                } else {
+                    panic!("created_resource for CreateDevice() call is not a device!")
+                }
+            }
             CreateAdapter() => {
                 if let Resource::GPUAdapter(adapter) = created_resource {
                     return format!("const {} = await navigator.gpu.requestAdapter({{ label: \"{}\" }});", adapter.var_name, adapter.var_name);
@@ -71,14 +90,17 @@ impl APICall {
             },
             // CreateBuffer(device) => {
             //     if let Resource::GPUBuffer(buffer) = created_resource {
-            //         return format!("const {} = {}.createBuffer({{ size: 1000, usage: GPUBufferUsage.STORAGE }});", buffer.var_name, device.var_name);
+            //         return format!("const {} = {}.createBuffer({{ size: 400, usage: GPUBufferUsage.STORAGE }});", buffer.var_name, device.var_name);
             //     } else {
             //         panic!("created_resource for CreateBuffer() call is not a buffer!")
             //     }
             // },
+            WriteBuffer(device, buffer, array) => {
+                return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
+            },
             // CreateTexture(device) => {
             //     if let Resource::GPUTexture(texture) = created_resource {
-            //         return format!("const {} = {}.createTexture({{ size: [1000], usage: GPUTextureUsage.STORAGE_BINDING, format: \"r8unorm\" }});", texture.var_name, device.var_name);
+            //         return format!("const {} = {}.createTexture({{ size: [400], usage: GPUTextureUsage.STORAGE_BINDING, format: \"r8unorm\" }});", texture.var_name, device.var_name);
             //     } else {
             //         panic!("created_resource for CreateTexture() call is not a texture!")
             //     }
@@ -148,12 +170,12 @@ impl APICall {
                 if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group_layout, bind_group) = created_resource {
                     return format!("\
     const {} = {}.createBuffer({{
-        size: 1000,
+        size: 400,
         usage: GPUBufferUsage.UNIFORM
     }});
 
     const {} = {}.createBuffer({{
-        size: 1000,
+        size: 400,
         usage: GPUBufferUsage.STORAGE
     }});
 

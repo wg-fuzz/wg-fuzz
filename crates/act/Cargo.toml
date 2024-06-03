@@ -9,3 +9,4 @@ edition = "2021"
 art = { path = "../art" }
 wgsl_generator = { path = "../wgslsmith/wgsl_generator" }
 reconditioner = { path = "../wgslsmith/reconditioner" }
+rand = "0.8.5"

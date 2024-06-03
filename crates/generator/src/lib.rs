@@ -31,6 +31,10 @@ pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
 fn update_program_resources(resources: &mut ProgramResources, call: &APICall) -> Resource {
     let mut new_resource = Resource::None;
     match call {
+        CreateArray() => {
+            new_resource = Resource::RandomArray(RandomArray::new(&resources));
+            resources.random_arrays.push(RandomArray::new(&resources))
+        }
         CreateAdapter() => {
             new_resource = Resource::GPUAdapter(GPUAdapter::new(&resources));
             resources.adapters.push(GPUAdapter::new(&resources))
@@ -43,54 +47,21 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         //     new_resource = Resource::GPUBuffer(GPUBuffer::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device))
         // }
+        WriteBuffer(_, _, _) => {
+
+        }
         // CreateTexture(device) => {
         //     new_resource = Resource::GPUTexture(GPUTexture::new(device));
         //     resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device))
-        // }
-        // CreateExternalTexture(device, _) => {
-        //     new_resource = Resource::GPUExternalTexture(GPUExternalTexture::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].external_textures.push(GPUExternalTexture::new(device))
-        // }
-        // CreateHTMLVideo() => {
-        //     new_resource = Resource::HTMLVideo(HTMLVideo::new(&resources));
-        //     resources.html_videos.push(HTMLVideo::new(&resources))
-        // }
-        // CreateSampler(device) => {
-        //     new_resource = Resource::GPUSampler(GPUSampler::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
-        // }
-        // CreateQuerySet(device) => {
-        //     new_resource = Resource::GPUQuerySet(GPUQuerySet::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].query_sets.push(GPUQuerySet::new(device))
         // }
         CreateShaderModule(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
         }
-        // CreateBindGroup(device) => {
-        //     new_resource = Resource::GPUBindGroup(GPUBindGroup::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].bind_groups.push(GPUBindGroup::new(device))
-        // }
-        // CreateBindGroupLayout(device) => {
-        //     new_resource = Resource::GPUBindGroupLayout(GPUBindGroupLayout::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].bind_group_layouts.push(GPUBindGroupLayout::new(device))
-        // }
-        // CreatePipelineLayout(device) => {
-        //     new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
-        // }
         CreateComputePipeline(device, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
-        // CreateRenderPipeline(device, _) => {
-        //     new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
-        // }
-        // CreateRenderBundleEncoder(device) => {
-        //     new_resource = Resource::GPURenderBundleEncoder(GPURenderBundleEncoder::new(device));
-        //     resources.adapters[device.num_adapter].devices[device.num].render_bundle_encoders.push(GPURenderBundleEncoder::new(device))
-        // }
         CreateCommandEncoder(device) => {
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
             resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
@@ -149,7 +120,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
 
 fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
-    available_api_calls.extend([CreateAdapter(), /*CreateHTMLVideo()*/]);
+    available_api_calls.extend([CreateAdapter(), CreateArray(), /*CreateHTMLVideo()*/]);
 
     for adapter in &resources.adapters {
         available_api_calls.extend([CreateDevice(adapter.clone())]);
@@ -158,6 +129,12 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             available_api_calls.extend([/*CreateBuffer(device.clone()), CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
                         CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
+
+            for buffer in &device.buffers {
+                for array in &resources.random_arrays {
+                    available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                }
+            }
 
             let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
 
@@ -216,6 +193,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
     if terminate {
         available_api_calls.retain(|call| match call {
+            CreateArray() => false,
+            WriteBuffer(_, _, _) => false,
             CreateAdapter() => false,
             CreateDevice(_) => false,
             CreateCommandEncoder(_) => false,

@@ -28,20 +28,23 @@ pub enum Resource {
     GPUCommandBuffer(GPUCommandBuffer),
     GPUComputePassEncoder(GPUComputePassEncoder),
     BindGroupTemplate(GPUBuffer, GPUBuffer, GPUBindGroupLayout, GPUBindGroup),
+    RandomArray(RandomArray),
     None
 }
 
 #[derive(Debug, Clone)]
 pub struct ProgramResources {
     pub adapters: Vec<GPUAdapter>,
-    pub html_videos: Vec<HTMLVideo>
+    pub html_videos: Vec<HTMLVideo>,
+    pub random_arrays: Vec<RandomArray>
 }
 
 impl ProgramResources {
     pub fn new() -> ProgramResources {
         ProgramResources {
             adapters: Vec::new(),
-            html_videos: Vec::new()
+            html_videos: Vec::new(),
+            random_arrays: Vec::new()
         }
     }
 }
@@ -118,6 +121,24 @@ impl GPUDevice {
             render_pipelines: Vec::new(),
             render_bundle_encoders: Vec::new(),
             command_encoders: Vec::new(),
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct RandomArray {
+    pub num: usize,
+    pub var_name: String
+}
+
+impl RandomArray {
+    pub fn new(resources: &ProgramResources) -> RandomArray {
+        let num = resources.random_arrays.len();
+        let name = format!("array{}", num);
+
+        RandomArray {
+            num,
+            var_name: name
         }
     }
 }
