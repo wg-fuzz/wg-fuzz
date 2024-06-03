@@ -94,6 +94,8 @@ pub struct GPUDevice {
     pub command_encoders: Vec<GPUCommandEncoder>,
 
     pub error_scope_active: bool,
+
+    pub destroyed: bool,
 }
 
 impl GPUDevice {
@@ -125,6 +127,8 @@ impl GPUDevice {
             command_encoders: Vec::new(),
 
             error_scope_active: false,
+
+            destroyed: false,
         }
     }
 }

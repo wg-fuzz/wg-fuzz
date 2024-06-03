@@ -139,6 +139,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         },
         PopErrorScope(device) => {
             resources.adapters[device.num_adapter].devices[device.num].error_scope_active = false;
+        },
+        DestroyDevice(device) => {
+            resources.adapters[device.num_adapter].devices[device.num].destroyed = true;
         }
     }
     new_resource
@@ -153,74 +156,86 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         available_api_calls.extend([CreateDevice(adapter.clone()), PrintAdapterInfo(adapter.clone())]);
 
         for device in &adapter.devices {
-            available_api_calls.extend([CreateRandomBuffer(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
-                        /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModule(device.clone()), CreateCommandEncoder(device.clone())]);
-                
-            if !device.error_scope_active {
-                available_api_calls.extend([PushRandomErrorScope(device.clone())])
-            } else {
-                available_api_calls.extend([PopErrorScope(device.clone())])
-            }
-
-            for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
-                    for array in &resources.random_arrays {
-                        available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
-                    }
-                }
-            }
-
-            let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
-
-            for command_encoder in &device.command_encoders {
-                let mut all_passes_finished = true;
-                for compute_pass in &command_encoder.compute_pass_encoders {
-                    // This restricts a compute pass encoder to be set up in the following order in the final javascript program for simplicity
-                    if let None = &compute_pass.pipeline {
-                        for compute_pipeline in &device.compute_pipelines {
-                            available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
-                        }
-                    } else if !compute_pass.bindgroup_set {
-                        if let Some(compute_pipeline) = &compute_pass.pipeline {
-                            available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), compute_pass.clone(), compute_pipeline.clone())]);
-                        }
-                    } else if !compute_pass.dispatched {
-                        available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
-                    } else if !compute_pass.finished {
-                        available_api_calls.extend([EndComputePass(compute_pass.clone())])
-                    }
-
-                    if !compute_pass.finished {
-                        all_passes_finished = false;
-                    }
+            if !device.destroyed {
+                available_api_calls.extend([CreateRandomBuffer(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
+                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModule(device.clone()), CreateCommandEncoder(device.clone())]);
+                    
+                if !device.error_scope_active {
+                    available_api_calls.extend([PushRandomErrorScope(device.clone())])
+                } else {
+                    available_api_calls.extend([PopErrorScope(device.clone())])
                 }
 
-                if let None = command_encoder.command_buffer {
-                    if all_passes_finished {
-                        available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())]);
-                        if command_encoder.compute_pass_encoders.len() < 2 {
-                            available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                for buffer in &device.buffers {
+                    if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
+                        for array in &resources.random_arrays {
+                            available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
                         }
                     }
                 }
 
-                if let Some(_) = command_encoder.command_buffer {
-                    if command_encoder.submitted == false && rand::random() {
-                        queue_command_encoders.push(command_encoder.clone());
+                let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
+
+                let mut all_command_encoders_finished = true;
+
+                for command_encoder in &device.command_encoders {
+                    let mut all_passes_finished = true;
+                    for compute_pass in &command_encoder.compute_pass_encoders {
+                        // This restricts a compute pass encoder to be set up in the following order in the final javascript program for simplicity
+                        if let None = &compute_pass.pipeline {
+                            for compute_pipeline in &device.compute_pipelines {
+                                available_api_calls.extend([SetComputePassPipeline(compute_pass.clone(), compute_pipeline.clone())])
+                            }
+                        } else if !compute_pass.bindgroup_set {
+                            if let Some(compute_pipeline) = &compute_pass.pipeline {
+                                available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), compute_pass.clone(), compute_pipeline.clone())]);
+                            }
+                        } else if !compute_pass.dispatched {
+                            available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
+                        } else if !compute_pass.finished {
+                            available_api_calls.extend([EndComputePass(compute_pass.clone())])
+                        }
+
+                        if !compute_pass.finished {
+                            all_passes_finished = false;
+                        }
+                    }
+
+                    if let None = command_encoder.command_buffer {
+                        if all_passes_finished {
+                            available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())]);
+                            if command_encoder.compute_pass_encoders.len() < 2 {
+                                available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                            }
+                        }
+                    }
+
+                    if let Some(_) = command_encoder.command_buffer {
+                        if command_encoder.submitted == false && rand::random() {
+                            queue_command_encoders.push(command_encoder.clone());
+                        }
+                    }
+                    
+                    if !command_encoder.submitted {
+                        all_command_encoders_finished = false;
                     }
                 }
-            }
 
-            if queue_command_encoders.len() > 0 {
-                available_api_calls.extend([SubmitQueueRandom(device.clone(), queue_command_encoders)]);
-            }
+                if queue_command_encoders.len() > 0 {
+                    available_api_calls.extend([SubmitQueueRandom(device.clone(), queue_command_encoders)]);
+                }
 
-            // for html_video in &resources.html_videos {
-            //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
-            // }
+                // for html_video in &resources.html_videos {
+                //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
+                // }
 
-            for shader_module in &device.shader_modules {
-                available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone())/*, CreateRenderPipeline(device.clone(), shader_module.clone())*/])
+                for shader_module in &device.shader_modules {
+                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone())/*, CreateRenderPipeline(device.clone(), shader_module.clone())*/])
+                }
+
+                if !device.error_scope_active && all_command_encoders_finished {
+                    available_api_calls.extend([DestroyDevice(device.clone())]);
+                }
             }
         }
     }
@@ -250,6 +265,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             // AddUncapturedErrorListener(_) => false,
             PushRandomErrorScope(_) => false,
             PopErrorScope(_) => true,
+            DestroyDevice(_) => false
         });
     }
 

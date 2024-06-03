@@ -62,6 +62,7 @@ pub enum APICall {
     // AddUncapturedErrorListener(GPUDevice),
     PushRandomErrorScope(GPUDevice),
     PopErrorScope(GPUDevice),
+    DestroyDevice(GPUDevice),
 }
 
 impl APICall {
@@ -345,6 +346,9 @@ impl APICall {
             console.error(`An error occurred: ${{error.message}}`);
         }}
     }});", device.var_name);
+            },
+            DestroyDevice(device) => {
+                return format!("{}.destroy();", device.var_name);
             }
         }
     }
