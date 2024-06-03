@@ -46,6 +46,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUDevice(GPUDevice::new(adapter));
             resources.adapters[adapter.num].devices.push(GPUDevice::new(adapter))
         }
+        PrintDeviceInfo(_) => {}
         CreateRandomBuffer(device) => {
             let mut rng = rand::thread_rng();
             let i = rng.gen_range(0..10);
@@ -144,7 +145,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         available_api_calls.extend([CreateDevice(adapter.clone()), PrintAdapterInfo(adapter.clone())]);
 
         for device in &adapter.devices {
-            available_api_calls.extend([CreateRandomBuffer(device.clone()), /*CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
+            available_api_calls.extend([CreateRandomBuffer(device.clone()), PrintDeviceInfo(device.clone()), /*CreateTexture(device.clone()), CreateSampler(device.clone()), CreateQuerySet(device.clone()), */
                         CreateShaderModule(device.clone()), /*CreateBindGroup(device.clone()), CreateBindGroupLayout(device.clone()), CreatePipelineLayout(device.clone()), 
                         CreateRenderBundleEncoder(device.clone()),*/ CreateCommandEncoder(device.clone())]);
 
@@ -220,6 +221,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateAdapter() => false,
             PrintAdapterInfo(_) => false,
             CreateDevice(_) => false,
+            PrintDeviceInfo(_) => false,
             CreateRandomBuffer(_) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
