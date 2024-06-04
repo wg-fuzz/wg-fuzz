@@ -295,9 +295,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         }
         SetComputePassWorkgroupsIndirect(device, compute_pass_encoder) => {
             new_resource = Resource::GPUBuffer(GPUBuffer::new(device, String::from("GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT"), 0));
-            // resources.adapters[compute_pass_encoder.num_adapter]
-            //          .devices[compute_pass_encoder.num_device]
-            //          .buffers.push(GPUBuffer::new(device, String::from("GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT"), 0));
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .buffers.push(GPUBuffer::new(device, String::from("GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT"), 0));
             resources.adapters[compute_pass_encoder.num_adapter]
                      .devices[compute_pass_encoder.num_device]
                      .command_encoders[compute_pass_encoder.num_encoder]
