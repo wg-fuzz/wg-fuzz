@@ -71,6 +71,8 @@ pub enum APICall {
     CreateComputePipelineAsync(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
 
+    ClearBuffer(GPUCommandEncoder, GPUBuffer),
+
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassBindGroupTemplate(GPUDevice, GPUComputePassEncoder, GPUComputePipeline),
@@ -355,6 +357,9 @@ impl APICall {
                     panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
                 }
             },
+            ClearBuffer(command_encoder, buffer) => {
+                return format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name);
+            }
             CreateComputePass(encoder) => {
                 if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
                     return format!("const {} = {}.beginComputePass({{ label: \"{}\" }});", compute_pass_encoder.var_name, encoder.var_name, compute_pass_encoder.var_name);

@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..500 {
+    for _ in 1..100 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -75,6 +75,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             resources.adapters[buffer.num_adapter].devices[buffer.num_device].buffers[buffer.num].destroyed = true;
         }
         ReadMappedBuffer(_) => {}
+        ClearBuffer(_, _) => {}
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
             // let i = rng.gen_range(0..3);
@@ -437,6 +438,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                     
                     if !command_encoder.submitted {
                         all_command_encoders_finished = false;
+                        for buffer in &device.buffers {
+                            available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())])
+                        }
                     }
                 }
 
@@ -471,6 +475,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PrintBufferInfo(_) => false,
             DestroyBuffer(_) => false,
             ReadMappedBuffer(_) => false,
+            ClearBuffer(_, _) => false,
             CreateRandomTexture(_) => false,
             WriteTexture(_, _, _) => false,
             PrintTextureInfo(_) => false,
