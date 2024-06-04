@@ -81,7 +81,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             //         _ => "\"2d\"",
             //     });
 
-            let i = rng.gen_range(0..42);
+            // most of the time it's r32float by default '_' pattern
+            let i = rng.gen_range(0..200);
             let random_format = String::from(
                 match i {
                     0 => "\"r8unorm\"",
@@ -201,7 +202,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
                     92 => "\"astc-12x10-unorm-srgb\"",
                     93 => "\"astc-12x12-unorm\"",
                     94 => "\"astc-12x12-unorm-srgb\"",*/
-                    _ => "\"r8unorm\"",
+                    _ => "\"r32float\"",
                 });
             
             let i = rng.gen_range(0..5);
@@ -334,7 +335,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 // }
 
                 for texture in &device.textures {
-                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && !texture.format.contains("depth") && !texture.format.contains("stencil") {
+                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
                         for array in &resources.random_arrays {
                             available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
                         }
