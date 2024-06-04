@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..100 {
+    for _ in 1..500 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -74,6 +74,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         DestroyBuffer(buffer) => {
             resources.adapters[buffer.num_adapter].devices[buffer.num_device].buffers[buffer.num].destroyed = true;
         }
+        ReadMappedBuffer(_) => {}
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
             // let i = rng.gen_range(0..3);
@@ -353,6 +354,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                             available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
                         }
                     }
+                    if !buffer.destroyed && buffer.use_case.contains("GPUBufferUsage.MAP_READ") {
+                        available_api_calls.extend([ReadMappedBuffer(buffer.clone())])
+                    }
                     if !buffer.destroyed {
                         available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
                     }
@@ -455,6 +459,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             WriteBuffer(_, _, _) => false,
             PrintBufferInfo(_) => false,
             DestroyBuffer(_) => false,
+            ReadMappedBuffer(_) => false,
             CreateRandomTexture(_) => false,
             WriteTexture(_, _, _) => false,
             PrintTextureInfo(_) => false,

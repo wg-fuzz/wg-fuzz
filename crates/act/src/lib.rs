@@ -54,6 +54,7 @@ pub enum APICall {
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     PrintBufferInfo(GPUBuffer),
     DestroyBuffer(GPUBuffer),
+    ReadMappedBuffer(GPUBuffer),
 
     CreateRandomTexture(GPUDevice),
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
@@ -210,6 +211,22 @@ impl APICall {
             }
             DestroyBuffer(buffer) => {
                 return format!("{}.destroy()", buffer.var_name);
+            }
+            ReadMappedBuffer(buffer) => {
+                return format!("\
+    {{
+        await {}.mapAsync(
+            GPUMapMode.READ,
+            0,
+            400,
+        );
+        
+        const copyArrayBuffer = {}.getMappedRange(0, 400);
+        const data = copyArrayBuffer.slice(0);
+        {}.unmap();
+        console.log(new Float32Array(data));
+    }}
+    ", buffer.var_name, buffer.var_name, buffer.var_name);
             }
             CreateRandomTexture(device) => {
                 if let Resource::GPUTexture(texture) = created_resource {
