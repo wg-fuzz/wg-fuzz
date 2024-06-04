@@ -49,6 +49,7 @@ pub enum APICall {
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     CreateRandomTexture(GPUDevice),
+    WriteTexture(GPUDevice, GPUTexture, RandomArray),
     CreateShaderModule(GPUDevice),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
@@ -189,6 +190,10 @@ impl APICall {
                     panic!("created_resource for CreateTexture() call is not a texture!")
                 }
             },
+            WriteTexture(device, texture, array) => {
+                return format!("{}.queue.writeTexture({{ texture: {} }}, {}, {{ bytesPerRow: 40, rowsPerImage: 10 }}, {{ width: 10, height: 10 }});", 
+                    device.var_name, texture.var_name, array.var_name);
+            }
             CreateShaderModule(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {
                     let file_name = format!("out/{}.wgsl", shader_module.var_name);

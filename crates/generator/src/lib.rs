@@ -218,6 +218,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUTexture(GPUTexture::new(device, random_usage.clone(), random_format.clone()));
             resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device, random_usage, random_format))
         }
+        WriteTexture(_, _, _) => {}
         CreateShaderModule(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
@@ -310,10 +311,19 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                     available_api_calls.extend([PopErrorScope(device.clone())])
                 }
 
-                for buffer in &device.buffers {
-                    if buffer.use_case.contains("GPUBufferUsage::CopyDst") {
+                // Crashes
+                // for buffer in &device.buffers {
+                //     if buffer.use_case.contains("GPUBufferUsage.COPY_DST") {
+                //         for array in &resources.random_arrays {
+                //             available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                //         }
+                //     }
+                // }
+
+                for texture in &device.textures {
+                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && !texture.format.contains("depth") && !texture.format.contains("stencil") {
                         for array in &resources.random_arrays {
-                            available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                            available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
                         }
                     }
                 }
@@ -389,14 +399,15 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PrintWGSLLanguageFeatures() => false,
             PrintPreferredCanvasFormat() => false,
             CreateArray() => false,
-            WriteBuffer(_, _, _) => false,
             CreateAdapter() => false,
             PrintAdapterInfo(_) => false,
             CreateDevice(_) => false,
             PrintDeviceInfo(_) => false,
             WaitSubmittedWork(_) => false,
             CreateRandomBuffer(_) => false,
+            WriteBuffer(_, _, _) => false,
             CreateRandomTexture(_) => false,
+            WriteTexture(_, _, _) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
