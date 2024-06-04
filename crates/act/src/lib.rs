@@ -52,6 +52,7 @@ pub enum APICall {
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
     PrintTextureInfo(GPUTexture),
     CreateShaderModule(GPUDevice),
+    CreateTextureView(GPUTexture),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
     CreateComputePass(GPUCommandEncoder),
@@ -220,6 +221,13 @@ impl APICall {
 
         console.log(texture.usage);
     }}", texture.var_name);
+            }
+            CreateTextureView(texture) => {
+                if let Resource::GPUTextureView(texture_view) = created_resource {
+                    return format!("const {} = {}.createView();", texture_view.var_name, texture.var_name);
+                } else {
+                    panic!("created_resource for CreateTextureView() call is not a texture view!")
+                }
             }
             CreateShaderModule(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {

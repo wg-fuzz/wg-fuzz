@@ -177,6 +177,8 @@ impl GPUBuffer {
 
 #[derive(Debug, Clone)]
 pub struct GPUTexture {
+    pub num_adapter: usize,
+    pub num_device: usize,
     pub num: usize,
     pub var_name: String,
 
@@ -195,6 +197,8 @@ impl GPUTexture {
         let name = format!("texture{}{}{}", num_adapter, num_device, num);
 
         GPUTexture {
+            num_adapter,
+            num_device,
             num,
             var_name: name,
 
@@ -214,9 +218,9 @@ pub struct GPUTextureView {
 }
 
 impl GPUTextureView {
-    pub fn new(device: &GPUDevice, texture: &GPUTexture) -> GPUTextureView {
-        let num_adapter = device.num_adapter;
-        let num_device = device.num;
+    pub fn new(texture: &GPUTexture) -> GPUTextureView {
+        let num_adapter = texture.num_adapter;
+        let num_device = texture.num_device;
         let num_texture = texture.num;
         let num = texture.texture_views.len();
         let name = format!("texture_view{}{}{}{}", num_adapter, num_device, num_texture, num);
