@@ -186,7 +186,9 @@ pub struct GPUTexture {
     pub format: String,
     // pub dimension: String,
 
-    pub texture_views: Vec<GPUTextureView>
+    pub texture_views: Vec<GPUTextureView>,
+
+    pub destroyed: bool,
 }
 
 impl GPUTexture {
@@ -206,7 +208,9 @@ impl GPUTexture {
             format,
             // dimension,
 
-            texture_views: Vec::new()
+            texture_views: Vec::new(),
+
+            destroyed: false
         }
     }
 }

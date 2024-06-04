@@ -225,6 +225,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUTextureView(GPUTextureView::new(texture));
             resources.adapters[texture.num_adapter].devices[texture.num_device].textures[texture.num].texture_views.push(GPUTextureView::new(texture))
         }
+        DestroyTexture(texture) => {
+            resources.adapters[texture.num_adapter].devices[texture.num_device].textures[texture.num].destroyed = true;
+        }
         CreateShaderModule(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
@@ -340,12 +343,14 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 // }
 
                 for texture in &device.textures {
-                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
+                    if !texture.destroyed && texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
                         for array in &resources.random_arrays {
                             available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
                         }
                     }
-                    available_api_calls.extend([PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
+                    if !texture.destroyed {
+                        available_api_calls.extend([DestroyTexture(texture.clone()), PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
+                    }
                 }
 
                 let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
@@ -439,6 +444,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             WriteTexture(_, _, _) => false,
             PrintTextureInfo(_) => false,
             CreateTextureView(_) => false,
+            DestroyTexture(_) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
