@@ -271,6 +271,18 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
                      .dispatched = true;
         }
         InsertComputePassDebugMarker(_) => {}
+        PushComputePassDebugGroup(compute_pass_encoder) => {
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .command_encoders[compute_pass_encoder.num_encoder]
+                     .compute_pass_encoders[compute_pass_encoder.num].debug_group_active = true;
+        }
+        PopComputePassDebugGroup(compute_pass_encoder) => {
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .command_encoders[compute_pass_encoder.num_encoder]
+                     .compute_pass_encoders[compute_pass_encoder.num].debug_group_active = false;
+        }
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
@@ -353,7 +365,15 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                         if !compute_pass.finished {
                             all_passes_finished = false;
-                            available_api_calls.extend([InsertComputePassDebugMarker(compute_pass.clone())])
+                            available_api_calls.extend([InsertComputePassDebugMarker(compute_pass.clone())]);
+                            if !compute_pass.debug_group_active {
+                                available_api_calls.extend([PushComputePassDebugGroup(compute_pass.clone())]);
+                            }
+                        }
+
+                        if compute_pass.debug_group_active {
+                            all_passes_finished = false;
+                            available_api_calls.extend([PopComputePassDebugGroup(compute_pass.clone())])
                         }
                     }
 
@@ -419,6 +439,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
             InsertComputePassDebugMarker(_) => false,
+            PushComputePassDebugGroup(_) => false,
+            PopComputePassDebugGroup(_) => true,
             EndComputePass(_) => true,
             SubmitQueueRandom(_, _) => true,
             // AddUncapturedErrorListener(_) => false,

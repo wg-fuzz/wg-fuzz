@@ -505,6 +505,8 @@ pub struct GPUComputePassEncoder {
     pub num_device: usize,
     pub num_encoder: usize,
     pub num: usize,
+
+    pub debug_group_active: bool,
 }
 
 impl GPUComputePassEncoder {
@@ -527,6 +529,8 @@ impl GPUComputePassEncoder {
             num_device,
             num_encoder,
             num: num_pass,
+
+            debug_group_active: false,
         }
     }
 }
