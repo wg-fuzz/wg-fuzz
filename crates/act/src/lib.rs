@@ -57,6 +57,7 @@ pub enum APICall {
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassBindGroupTemplate(GPUDevice, GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassWorkgroups(GPUComputePassEncoder),
+    InsertComputePassDebugMarker(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
@@ -316,6 +317,9 @@ impl APICall {
             },
             SetComputePassWorkgroups(encoder) => {
                 return format!("{}.dispatchWorkgroups(100);", encoder.var_name);
+            }
+            InsertComputePassDebugMarker(encoder) => {
+                return format!("{}.insertDebugMarker(\"marker\")", encoder.var_name);
             }
             EndComputePass(compute_pass_encoder) => {
                 return format!("{}.end();", compute_pass_encoder.var_name);

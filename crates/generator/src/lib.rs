@@ -269,7 +269,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
                      .command_encoders[compute_pass_encoder.num_encoder]
                      .compute_pass_encoders[compute_pass_encoder.num]
                      .dispatched = true;
-        },
+        }
+        InsertComputePassDebugMarker(_) => {}
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
@@ -352,6 +353,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                         if !compute_pass.finished {
                             all_passes_finished = false;
+                            available_api_calls.extend([InsertComputePassDebugMarker(compute_pass.clone())])
                         }
                     }
 
@@ -411,12 +413,13 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
-            EndComputePass(_) => true,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
             SetComputePassPipeline(_, _) => true,
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
+            InsertComputePassDebugMarker(_) => false,
+            EndComputePass(_) => true,
             SubmitQueueRandom(_, _) => true,
             // AddUncapturedErrorListener(_) => false,
             PushRandomErrorScope(_) => false,
