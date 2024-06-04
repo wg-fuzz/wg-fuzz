@@ -72,14 +72,14 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         WriteBuffer(_, _, _) => {}
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
-            let i = rng.gen_range(0..3);
-            let random_dimension = String::from(
-                match i {
-                    0 => "\"1d\"",
-                    1 => "\"2d\"",
-                    2 => "\"3d\"",
-                    _ => "\"2d\"",
-                });
+            // let i = rng.gen_range(0..3);
+            // let random_dimension = String::from(
+            //     match i {
+            //         0 => "\"1d\"",
+            //         1 => "\"2d\"",
+            //         2 => "\"3d\"",
+            //         _ => "\"2d\"",
+            //     });
 
             let i = rng.gen_range(0..42);
             let random_format = String::from(
@@ -215,8 +215,8 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
                     _ => "GPUTextureUsage.COPY_SRC"
                 });
 
-            new_resource = Resource::GPUTexture(GPUTexture::new(device, random_usage.clone(), random_format.clone(), random_dimension.clone()));
-            resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device, random_usage, random_format, random_dimension))
+            new_resource = Resource::GPUTexture(GPUTexture::new(device, random_usage.clone(), random_format.clone()));
+            resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device, random_usage, random_format))
         }
         CreateShaderModule(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));

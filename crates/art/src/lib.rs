@@ -182,13 +182,13 @@ pub struct GPUTexture {
 
     pub usage: String,
     pub format: String,
-    pub dimension: String,
+    // pub dimension: String,
 
     pub texture_views: Vec<GPUTextureView>
 }
 
 impl GPUTexture {
-    pub fn new(device: &GPUDevice, usage: String, format: String, dimension: String) -> GPUTexture {
+    pub fn new(device: &GPUDevice, usage: String, format: String) -> GPUTexture {
         let num_adapter = device.num_adapter;
         let num_device = device.num;
         let num = device.textures.len();
@@ -200,7 +200,7 @@ impl GPUTexture {
 
             usage,
             format,
-            dimension,
+            // dimension,
 
             texture_views: Vec::new()
         }

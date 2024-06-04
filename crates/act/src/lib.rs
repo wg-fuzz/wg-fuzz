@@ -180,11 +180,11 @@ impl APICall {
             CreateRandomTexture(device) => {
                 if let Resource::GPUTexture(texture) = created_resource {
                     return format!("const {} = {}.createTexture({{
-        size: [400],
+        size: [10, 10],
         usage: {},
         format: {},
-        dimension: {}
-    }});", texture.var_name, device.var_name, texture.usage, texture.format, texture.dimension);
+        dimension: \"2d\"
+    }});", texture.var_name, device.var_name, texture.usage, texture.format);
                 } else {
                     panic!("created_resource for CreateTexture() call is not a texture!")
                 }
