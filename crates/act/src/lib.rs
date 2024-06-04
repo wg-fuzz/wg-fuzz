@@ -69,9 +69,12 @@ pub enum APICall {
 
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateComputePipelineAsync(GPUDevice, GPUShaderModule),
+    
     CreateCommandEncoder(GPUDevice),
-
     ClearBuffer(GPUCommandEncoder, GPUBuffer),
+    InsertCommandEncoderDebugMarker(GPUCommandEncoder),
+    PushCommandEncoderDebugGroup(GPUCommandEncoder),
+    PopCommandEncoderDebugGroup(GPUCommandEncoder),
 
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
@@ -359,6 +362,15 @@ impl APICall {
             },
             ClearBuffer(command_encoder, buffer) => {
                 return format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name);
+            }
+            InsertCommandEncoderDebugMarker(encoder) => {
+                return format!("{}.insertDebugMarker(\"mymarker\");", encoder.var_name);
+            }
+            PushCommandEncoderDebugGroup(encoder) => {
+                return format!("{}.pushDebugGroup(\"mygroupmarker\")", encoder.var_name);
+            }
+            PopCommandEncoderDebugGroup(encoder) => {
+                return format!("{}.popDebugGroup()", encoder.var_name);
             }
             CreateComputePass(encoder) => {
                 if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {

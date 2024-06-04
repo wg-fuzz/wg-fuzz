@@ -255,6 +255,13 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
             resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
         },
+        InsertCommandEncoderDebugMarker(_) => {}
+        PushCommandEncoderDebugGroup(command_encoder) => {
+            resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = true;
+        }
+        PopCommandEncoderDebugGroup(command_encoder) => {
+            resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = false;
+        }
         CreateCommandBuffer(encoder) => {
             new_resource = Resource::GPUCommandBuffer(GPUCommandBuffer::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].command_buffer = Some(GPUCommandBuffer::new(encoder));
@@ -387,7 +394,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                 let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
 
-                let mut all_command_encoders_finished = true;
+                let mut all_command_encoders_submitted = true;
 
                 for command_encoder in &device.command_encoders {
                     let mut all_passes_finished = true;
@@ -423,10 +430,23 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                     if let None = command_encoder.command_buffer {
                         if all_passes_finished {
-                            available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())]);
+                            if !command_encoder.debug_group_active {
+                                available_api_calls.extend([CreateCommandBuffer(command_encoder.clone())]);
+                            }
                             if command_encoder.compute_pass_encoders.len() < 2 {
                                 available_api_calls.extend([CreateComputePass(command_encoder.clone())])
                             }
+                        }
+                        for buffer in &device.buffers {
+                            if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
+                                available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())])
+                            }
+                        }
+                        available_api_calls.extend([InsertCommandEncoderDebugMarker(command_encoder.clone())]);
+                        if !command_encoder.debug_group_active {
+                            available_api_calls.extend([PushCommandEncoderDebugGroup(command_encoder.clone())])
+                        } else {
+                            available_api_calls.extend([PopCommandEncoderDebugGroup(command_encoder.clone())])
                         }
                     }
 
@@ -437,10 +457,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                     }
                     
                     if !command_encoder.submitted {
-                        all_command_encoders_finished = false;
-                        for buffer in &device.buffers {
-                            available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())])
-                        }
+                        all_command_encoders_submitted = false;
                     }
                 }
 
@@ -453,7 +470,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                                                 PrintShaderModuleInfo(shader_module.clone())])
                 }
 
-                if !device.error_scope_active && all_command_encoders_finished {
+                if !device.error_scope_active && all_command_encoders_submitted {
                     available_api_calls.extend([DestroyDevice(device.clone())]);
                 }
             }
@@ -483,6 +500,9 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             DestroyTexture(_) => false,
             CreateSampler(_) => false,
             CreateCommandEncoder(_) => false,
+            InsertCommandEncoderDebugMarker(_) => false,
+            PushCommandEncoderDebugGroup(_) => false,
+            PopCommandEncoderDebugGroup(_) => true,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
             PrintShaderModuleInfo(_) => false,
