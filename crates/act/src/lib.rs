@@ -48,6 +48,7 @@ pub enum APICall {
     WaitSubmittedWork(GPUDevice),
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
+    PrintBufferInfo(GPUBuffer),
     CreateRandomTexture(GPUDevice),
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
     PrintTextureInfo(GPUTexture),
@@ -187,6 +188,16 @@ impl APICall {
             WriteBuffer(device, buffer, array) => {
                 return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
             },
+            PrintBufferInfo(buffer) => {
+                return format!("\
+    {{
+        const buffer = {}
+        console.log(buffer.label);
+        console.log(buffer.mapState);
+        console.log(buffer.size);
+        console.log(buffer.usage);
+    }}", buffer.var_name);
+            }
             CreateRandomTexture(device) => {
                 if let Resource::GPUTexture(texture) = created_resource {
                     return format!("const {} = {}.createTexture({{
