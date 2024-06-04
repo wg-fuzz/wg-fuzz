@@ -241,6 +241,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
+        CreateComputePipelineAsync(device, _) => {
+            new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
+        }
         CreateCommandEncoder(device) => {
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
             resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
@@ -419,7 +423,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 }
 
                 for shader_module in &device.shader_modules {
-                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), PrintShaderModuleInfo(shader_module.clone())])
+                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateComputePipelineAsync(device.clone(), shader_module.clone()), 
+                                                PrintShaderModuleInfo(shader_module.clone())])
                 }
 
                 if !device.error_scope_active && all_command_encoders_finished {
@@ -453,6 +458,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PrintShaderModuleInfo(_) => false,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
+            CreateComputePipelineAsync(_, _) => false,
             SetComputePassPipeline(_, _) => true,
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,

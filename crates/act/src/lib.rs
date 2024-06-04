@@ -57,6 +57,7 @@ pub enum APICall {
     CreateShaderModule(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
+    CreateComputePipelineAsync(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
@@ -296,6 +297,13 @@ impl APICall {
                     return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
                 } else {
                     panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
+                }
+            },
+            CreateComputePipelineAsync(device, shader_module) => {
+                if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
+                    return format!("const {} = await {}.createComputePipelineAsync({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePipelineAsync() call is not a compute pipeline!")
                 }
             },
             CreateCommandEncoder(device) => {
