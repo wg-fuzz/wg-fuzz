@@ -41,26 +41,35 @@ pub enum APICall {
     PrintWGSLLanguageFeatures(),
     PrintPreferredCanvasFormat(),
     CreateArray(),
+
     CreateAdapter(),
     PrintAdapterInfo(GPUAdapter),
+
     CreateDevice(GPUAdapter),
     PrintDeviceInfo(GPUDevice),
+    DestroyDevice(GPUDevice),
     WaitSubmittedWork(GPUDevice),
+
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     PrintBufferInfo(GPUBuffer),
     DestroyBuffer(GPUBuffer),
+
     CreateRandomTexture(GPUDevice),
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
     PrintTextureInfo(GPUTexture),
     CreateTextureView(GPUTexture),
     DestroyTexture(GPUTexture),
+
     CreateSampler(GPUDevice),
+
     CreateShaderModule(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
+
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateComputePipelineAsync(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
+
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassBindGroupTemplate(GPUDevice, GPUComputePassEncoder, GPUComputePipeline),
@@ -69,12 +78,12 @@ pub enum APICall {
     PushComputePassDebugGroup(GPUComputePassEncoder),
     PopComputePassDebugGroup(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
+
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
-    // AddUncapturedErrorListener(GPUDevice),
     PushRandomErrorScope(GPUDevice),
     PopErrorScope(GPUDevice),
-    DestroyDevice(GPUDevice),
+    // AddUncapturedErrorListener(GPUDevice),
 }
 
 impl APICall {
