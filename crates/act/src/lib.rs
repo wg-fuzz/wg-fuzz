@@ -50,6 +50,7 @@ pub enum APICall {
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     CreateRandomTexture(GPUDevice),
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
+    PrintTextureInfo(GPUTexture),
     CreateShaderModule(GPUDevice),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
@@ -196,6 +197,29 @@ impl APICall {
             WriteTexture(device, texture, array) => {
                 return format!("{}.queue.writeTexture({{ texture: {} }}, {}, {{ bytesPerRow: 40, rowsPerImage: 10 }}, {{ width: 10, height: 10 }});", 
                     device.var_name, texture.var_name, array.var_name);
+            }
+            PrintTextureInfo(texture) => {
+                return format!("\
+    {{
+        const texture = {}
+        console.log(texture.depthOrArrayLayers);
+
+        console.log(texture.dimension);
+
+        console.log(texture.format);
+
+        console.log(texture.height);
+
+        console.log(texture.width);
+
+        console.log(texture.label);
+
+        console.log(texture.mipLevelCount);
+
+        console.log(texture.sampleCount);
+
+        console.log(texture.usage);
+    }}", texture.var_name);
             }
             CreateShaderModule(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {

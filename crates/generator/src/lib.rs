@@ -220,6 +220,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device, random_usage, random_format))
         }
         WriteTexture(_, _, _) => {}
+        PrintTextureInfo(_) => {}
         CreateShaderModule(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
@@ -340,6 +341,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                             available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
                         }
                     }
+                    available_api_calls.extend([PrintTextureInfo(texture.clone())])
                 }
 
                 let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
@@ -431,6 +433,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             WriteBuffer(_, _, _) => false,
             CreateRandomTexture(_) => false,
             WriteTexture(_, _, _) => false,
+            PrintTextureInfo(_) => false,
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
