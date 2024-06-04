@@ -53,6 +53,7 @@ pub enum APICall {
     PrintTextureInfo(GPUTexture),
     CreateTextureView(GPUTexture),
     DestroyTexture(GPUTexture),
+    CreateSampler(GPUDevice),
     CreateShaderModule(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
@@ -233,6 +234,13 @@ impl APICall {
             }
             DestroyTexture(texture) => {
                 return format!("{}.destroy();", texture.var_name);
+            }
+            CreateSampler(device) => {
+                if let Resource::GPUSampler(sampler) = created_resource {
+                    return format!("const {} = {}.createSampler();", sampler.var_name, device.var_name);
+                } else {
+                    panic!("created_resource for CreateSampler() call is not a sampler!")
+                }
             }
             CreateShaderModule(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {
