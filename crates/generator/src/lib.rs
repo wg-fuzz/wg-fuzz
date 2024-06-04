@@ -232,6 +232,7 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
         }
+        PrintShaderModuleInfo(_) => {}
         CreateComputePipeline(device, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
@@ -413,12 +414,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                     available_api_calls.extend([SubmitQueueRandom(device.clone(), queue_command_encoders)]);
                 }
 
-                // for html_video in &resources.html_videos {
-                //     available_api_calls.extend([CreateExternalTexture(device.clone(), html_video.clone())])
-                // }
-
                 for shader_module in &device.shader_modules {
-                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone())/*, CreateRenderPipeline(device.clone(), shader_module.clone())*/])
+                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), PrintShaderModuleInfo(shader_module.clone())])
                 }
 
                 if !device.error_scope_active && all_command_encoders_finished {
@@ -448,6 +445,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateCommandEncoder(_) => false,
             CreateComputePass(_) => false,
             CreateShaderModule(_) => false,
+            PrintShaderModuleInfo(_) => false,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
             SetComputePassPipeline(_, _) => true,

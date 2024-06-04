@@ -54,6 +54,7 @@ pub enum APICall {
     CreateTextureView(GPUTexture),
     DestroyTexture(GPUTexture),
     CreateShaderModule(GPUDevice),
+    PrintShaderModuleInfo(GPUShaderModule),
     CreateComputePipeline(GPUDevice, GPUShaderModule),
     CreateCommandEncoder(GPUDevice),
     CreateComputePass(GPUCommandEncoder),
@@ -270,6 +271,18 @@ impl APICall {
                     panic!("created_resource for CreateShaderModule() call is not a shader module!")
                 }
             },
+            PrintShaderModuleInfo(shader_module) => {
+                return format!("\
+    {{
+        const shaderInfo = await {}.getCompilationInfo();
+
+        for (const message in shaderInfo.messages) {{
+            console.log(message.lineNum);
+            console.log(message.message);
+            console.log(message.type);
+        }}
+    }}", shader_module.var_name);
+            }
             CreateComputePipeline(device, shader_module) => {
                 if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
                     return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
