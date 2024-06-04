@@ -71,6 +71,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         }
         WriteBuffer(_, _, _) => {}
         PrintBufferInfo(_) => {}
+        DestroyBuffer(buffer) => {
+            resources.adapters[buffer.num_adapter].devices[buffer.num_device].buffers[buffer.num].destroyed = true;
+        }
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
             // let i = rng.gen_range(0..3);
@@ -345,12 +348,14 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                 // Crashes
                 for buffer in &device.buffers {
-                    if buffer.use_case.contains("GPUBufferUsage.COPY_DST") {
+                    if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
                         for array in &resources.random_arrays {
                             available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
                         }
                     }
-                    available_api_calls.extend([PrintBufferInfo(buffer.clone())])
+                    if !buffer.destroyed {
+                        available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
+                    }
                 }
 
                 for texture in &device.textures {
@@ -449,6 +454,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateRandomBuffer(_) => false,
             WriteBuffer(_, _, _) => false,
             PrintBufferInfo(_) => false,
+            DestroyBuffer(_) => false,
             CreateRandomTexture(_) => false,
             WriteTexture(_, _, _) => false,
             PrintTextureInfo(_) => false,

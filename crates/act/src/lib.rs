@@ -49,6 +49,7 @@ pub enum APICall {
     CreateRandomBuffer(GPUDevice),
     WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     PrintBufferInfo(GPUBuffer),
+    DestroyBuffer(GPUBuffer),
     CreateRandomTexture(GPUDevice),
     WriteTexture(GPUDevice, GPUTexture, RandomArray),
     PrintTextureInfo(GPUTexture),
@@ -197,6 +198,9 @@ impl APICall {
         console.log(buffer.size);
         console.log(buffer.usage);
     }}", buffer.var_name);
+            }
+            DestroyBuffer(buffer) => {
+                return format!("{}.destroy()", buffer.var_name);
             }
             CreateRandomTexture(device) => {
                 if let Resource::GPUTexture(texture) = created_resource {
