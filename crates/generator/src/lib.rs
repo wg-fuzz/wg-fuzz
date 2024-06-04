@@ -293,6 +293,17 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
                      .compute_pass_encoders[compute_pass_encoder.num]
                      .dispatched = true;
         }
+        SetComputePassWorkgroupsIndirect(device, compute_pass_encoder) => {
+            new_resource = Resource::GPUBuffer(GPUBuffer::new(device, String::from("GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT"), 0));
+            // resources.adapters[compute_pass_encoder.num_adapter]
+            //          .devices[compute_pass_encoder.num_device]
+            //          .buffers.push(GPUBuffer::new(device, String::from("GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT"), 0));
+            resources.adapters[compute_pass_encoder.num_adapter]
+                     .devices[compute_pass_encoder.num_device]
+                     .command_encoders[compute_pass_encoder.num_encoder]
+                     .compute_pass_encoders[compute_pass_encoder.num]
+                     .dispatched = true;
+        }
         InsertComputePassDebugMarker(_) => {}
         PushComputePassDebugGroup(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter]
@@ -390,7 +401,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                                 available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), compute_pass.clone(), compute_pipeline.clone())]);
                             }
                         } else if !compute_pass.dispatched {
-                            available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone())])
+                            available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone()), SetComputePassWorkgroupsIndirect(device.clone(), compute_pass.clone())])
                         } else if !compute_pass.finished {
                             available_api_calls.extend([EndComputePass(compute_pass.clone())])
                         }
@@ -476,6 +487,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             SetComputePassPipeline(_, _) => true,
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
+            SetComputePassWorkgroupsIndirect(_, _) => true,
             InsertComputePassDebugMarker(_) => false,
             PushComputePassDebugGroup(_) => false,
             PopComputePassDebugGroup(_) => true,

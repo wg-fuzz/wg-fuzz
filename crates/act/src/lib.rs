@@ -75,6 +75,7 @@ pub enum APICall {
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassBindGroupTemplate(GPUDevice, GPUComputePassEncoder, GPUComputePipeline),
     SetComputePassWorkgroups(GPUComputePassEncoder),
+    SetComputePassWorkgroupsIndirect(GPUDevice, GPUComputePassEncoder),
     InsertComputePassDebugMarker(GPUComputePassEncoder),
     PushComputePassDebugGroup(GPUComputePassEncoder),
     PopComputePassDebugGroup(GPUComputePassEncoder),
@@ -425,6 +426,28 @@ impl APICall {
             },
             SetComputePassWorkgroups(encoder) => {
                 return format!("{}.dispatchWorkgroups(100);", encoder.var_name);
+            }
+            SetComputePassWorkgroupsIndirect(device, encoder) => {
+                if let Resource::GPUBuffer(buffer) = created_resource {
+                    let array_var = format!("uint32_{}{}{}{}", encoder.num_adapter, encoder.num_device, encoder.num_encoder, encoder.num);
+                    return format!("\
+    const {} = new Uint32Array(3);
+
+    {}[0] = 100;
+    {}[1] = 1;
+    {}[2] = 1;
+
+    const {} = {}.createBuffer({{
+        size: 12,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT,
+    }});
+    {}.queue.writeBuffer({}, 0, {}, 0, {}.length);
+
+    {}.dispatchWorkgroupsIndirect({}, 0);", 
+                    array_var, array_var, array_var, array_var, buffer.var_name, device.var_name, device.var_name, buffer.var_name, array_var, array_var, encoder.var_name, buffer.var_name);
+                } else {
+                    panic!("created_resource for SetComputePassWorkgroupsIndirect call is not a buffer!")
+                }
             }
             InsertComputePassDebugMarker(encoder) => {
                 return format!("{}.insertDebugMarker(\"marker\")", encoder.var_name);
