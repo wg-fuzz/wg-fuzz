@@ -4,6 +4,7 @@
 
 use std::{fs::{self, File}, process::{Command, Stdio}};
 use art::*;
+use art::enum_wrapper::Resource;
 
 use reconditioner::cli;
 use reconditioner::cli::Options;
