@@ -16,14 +16,8 @@ use compute_pipeline::*;
 mod render_pipeline;
 use render_pipeline::*;
 
-mod command_encoder;
-use command_encoder::*;
-
-mod compute_pass;
-use compute_pass::*;
-
-mod render_pass;
-use render_pass::*;
+mod encoders;
+use encoders::*;
 
 pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall) -> Resource {
     let new_resource;
