@@ -12,17 +12,16 @@ pub enum APICall {
     CreateDevice(GPUAdapter),
     PrintDeviceInfo(GPUDevice),
     DestroyDevice(GPUDevice),
-    WaitSubmittedWork(GPUDevice),
 
     CreateRandomBuffer(GPUDevice),
-    WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
     PrintBufferInfo(GPUBuffer),
-    DestroyBuffer(GPUBuffer),
     ReadMappedBuffer(GPUBuffer),
+    WriteBuffer(GPUDevice, GPUBuffer, RandomArray),
+    DestroyBuffer(GPUBuffer),
 
     CreateRandomTexture(GPUDevice),
-    WriteTexture(GPUDevice, GPUTexture, RandomArray),
     PrintTextureInfo(GPUTexture),
+    WriteTexture(GPUDevice, GPUTexture, RandomArray),
     CreateTextureView(GPUTexture),
     DestroyTexture(GPUTexture),
 
@@ -65,6 +64,8 @@ pub enum APICall {
 
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
+    WaitSubmittedWork(GPUDevice),
+    
     PushRandomErrorScope(GPUDevice),
     PopErrorScope(GPUDevice),
     // AddUncapturedErrorListener(GPUDevice),
