@@ -242,9 +242,9 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUSampler(GPUSampler::new(device));
             resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
         }
-        CreateShaderModule(device) => {
-            new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device))
+        CreateShaderModuleCompute(device) => {
+            new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device, String::from("compute")));
+            resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("compute")))
         }
         PrintShaderModuleInfo(_) => {}
         CreateComputePipeline(device, _) => {
@@ -362,7 +362,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         for device in &adapter.devices {
             if !device.destroyed {
                 available_api_calls.extend([CreateRandomBuffer(device.clone()), CreateRandomTexture(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
-                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModule(device.clone()), CreateCommandEncoder(device.clone()), CreateSampler(device.clone())]);
+                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateCommandEncoder(device.clone()), CreateSampler(device.clone())]);
                     
                 if !device.error_scope_active {
                     available_api_calls.extend([PushRandomErrorScope(device.clone())])
@@ -544,7 +544,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PushCommandEncoderDebugGroup(_) => false,
             PopCommandEncoderDebugGroup(_) => true,
             CreateComputePass(_) => false,
-            CreateShaderModule(_) => false,
+            CreateShaderModuleCompute(_) => false,
             PrintShaderModuleInfo(_) => false,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,

@@ -64,7 +64,7 @@ pub enum APICall {
 
     CreateSampler(GPUDevice),
 
-    CreateShaderModule(GPUDevice),
+    CreateShaderModuleCompute(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
 
     CreateComputePipeline(GPUDevice, GPUShaderModule),
@@ -294,7 +294,7 @@ impl APICall {
                     panic!("created_resource for CreateSampler() call is not a sampler!")
                 }
             }
-            CreateShaderModule(device) => {
+            CreateShaderModuleCompute(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {
                     let file_name = format!("out/{}.wgsl", shader_module.var_name);
 
