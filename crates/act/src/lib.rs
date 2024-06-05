@@ -68,8 +68,11 @@ pub enum APICall {
     CreateShaderModuleRender(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
 
-    CreateComputePipeline(GPUDevice, GPUShaderModule),
-    CreateComputePipelineAsync(GPUDevice, GPUShaderModule),
+    CreateComputeBindGroupLayout(GPUDevice),
+    CreateComputePipelineLayout(GPUDevice, GPUBindGroupLayout),
+
+    CreateComputePipeline(GPUDevice, GPUShaderModule, GPUPipelineLayout),
+    CreateComputePipelineAsync(GPUDevice, GPUShaderModule, GPUPipelineLayout),
 
     CreateRenderPipeline(GPUDevice, GPUShaderModule),
     CreateRenderPipelineAsync(GPUDevice, GPUShaderModule),
@@ -364,16 +367,53 @@ impl APICall {
         }}
     }}", shader_module.var_name);
             }
-            CreateComputePipeline(device, shader_module) => {
+            CreateComputeBindGroupLayout(device) => {
+                if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
+                    return format!("const {} = {}.createBindGroupLayout({{ 
+        entries: [
+            {{
+                binding: 0,
+                visibility: GPUShaderStage.COMPUTE,
+                buffer: {{
+                    type: \"uniform\",
+                }},
+            }},
+            {{
+                binding: 1,
+                visibility: GPUShaderStage.COMPUTE,
+                buffer: {{
+                    type: \"storage\",
+                }}
+            }}
+        ]
+    }});", 
+                        bind_group_layout.var_name, device.var_name);
+                } else {
+                    panic!("created_resource for CreateBindGroupLayout() call is not a bind group layout!")
+                }
+            }
+            CreateComputePipelineLayout(device, render_bind_group_layout) => {
+                if let Resource::GPUPipelineLayout(pipeline_layout) = created_resource {
+                    return format!("const {} = {}.createPipelineLayout({{ 
+        bindGroupLayouts: [{}]
+    }});", 
+                        pipeline_layout.var_name, device.var_name, render_bind_group_layout.var_name);
+                } else {
+                    panic!("created_resource for CreateComputePipelineLayout() call is not a pipeline layout!")
+                }
+            }
+            CreateComputePipeline(device, shader_module, pipeline_layout) => {
                 if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
-                    return format!("const {} = {}.createComputePipeline({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
+                    return format!("const {} = {}.createComputePipeline({{ layout: {}, compute: {{ module: {}, entryPoint: \"main\" }} }});", 
+                        compute_pipeline.var_name, device.var_name, pipeline_layout.var_name, shader_module.var_name);
                 } else {
                     panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
                 }
             },
-            CreateComputePipelineAsync(device, shader_module) => {
+            CreateComputePipelineAsync(device, shader_module, pipeline_layout) => {
                 if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
-                    return format!("const {} = await {}.createComputePipelineAsync({{ layout: \"auto\", compute: {{ module: {}, entryPoint: \"main\" }} }});", compute_pipeline.var_name, device.var_name, shader_module.var_name);
+                    return format!("const {} = await {}.createComputePipelineAsync({{ layout: {}, compute: {{ module: {}, entryPoint: \"main\" }} }});", 
+                        compute_pipeline.var_name, device.var_name, pipeline_layout.var_name, shader_module.var_name);
                 } else {
                     panic!("created_resource for CreateComputePipelineAsync() call is not a compute pipeline!")
                 }
@@ -556,7 +596,7 @@ impl APICall {
                 return format!("{}.setPipeline({});", encoder.var_name, compute_pipeline.var_name);
             },
             SetComputePassBindGroupTemplate(device, encoder, compute_pipeline) => {
-                if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group_layout, bind_group) = created_resource {
+                if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
                     return format!("\
     const {} = {}.createBuffer({{
         size: 400,
@@ -567,25 +607,6 @@ impl APICall {
         size: 400,
         usage: GPUBufferUsage.STORAGE
     }});
-
-    // const {} = {}.createBindGroupLayout({{
-    //     entries: [
-    //         {{
-    //             binding: 0,
-    //             visibility: GPUShaderStage.COMPUTE,
-    //             buffer: {{
-    //                 type: \"uniform\",
-    //             }},
-    //         }},
-    //         {{
-    //             binding: 1,
-    //             visibility: GPUShaderStage.COMPUTE,
-    //             buffer: {{
-    //                 type: \"storage\",
-    //             }}
-    //         }}
-    //     ],
-    // }});
         
     const {} = {}.createBindGroup({{
         layout: {}.getBindGroupLayout(0),
@@ -607,7 +628,7 @@ impl APICall {
     
     {}.setBindGroup(0, {});", 
                     uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                    bind_group_layout.var_name, device.var_name, bind_group.var_name, device.var_name,
+                    bind_group.var_name, device.var_name,
                     compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
                     encoder.var_name, bind_group.var_name);
                 } else {

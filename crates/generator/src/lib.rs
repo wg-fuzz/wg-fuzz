@@ -251,11 +251,19 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("render")))
         }
         PrintShaderModuleInfo(_) => {}
-        CreateComputePipeline(device, _) => {
+        CreateComputeBindGroupLayout(device) => {
+            new_resource = Resource::GPUBindGroupLayout(GPUBindGroupLayout::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].bind_group_layouts.push(GPUBindGroupLayout::new(device))
+        }
+        CreateComputePipelineLayout(device, _) => {
+            new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
+        }
+        CreateComputePipeline(device, _, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
-        CreateComputePipelineAsync(device, _) => {
+        CreateComputePipelineAsync(device, _, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
@@ -292,15 +300,15 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         SetComputePassBindGroupTemplate(device, compute_pass_encoder, _) => {
             let uniform_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.UNIFORM"), 0);
             let storage_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.STORAGE"), 1);
-            let bind_group_layout = GPUBindGroupLayout::new(device);
+            // let bind_group_layout = GPUBindGroupLayout::new(device);
             let bind_group = GPUBindGroup::new(device);
-            new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group_layout.clone(), bind_group.clone());
+            new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group.clone());
             resources.adapters[compute_pass_encoder.num_adapter]
                      .devices[compute_pass_encoder.num_device]
                      .buffers.extend([uniform_buffer, storage_buffer]);
-            resources.adapters[compute_pass_encoder.num_adapter]
-                     .devices[compute_pass_encoder.num_device]
-                     .bind_group_layouts.extend([bind_group_layout]);
+            // resources.adapters[compute_pass_encoder.num_adapter]
+            //          .devices[compute_pass_encoder.num_device]
+            //          .bind_group_layouts.extend([bind_group_layout]);
             resources.adapters[compute_pass_encoder.num_adapter]
                      .devices[compute_pass_encoder.num_device]
                      .bind_groups.extend([bind_group]);
@@ -375,12 +383,16 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             if !device.destroyed {
                 available_api_calls.extend([CreateRandomBuffer(device.clone()), CreateRandomTexture(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
                             /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateShaderModuleRender(device.clone()),
-                            CreateCommandEncoder(device.clone()), CreateSampler(device.clone())]);
+                            CreateCommandEncoder(device.clone()), CreateSampler(device.clone()), CreateComputeBindGroupLayout(device.clone())]);
                     
                 if !device.error_scope_active {
                     available_api_calls.extend([PushRandomErrorScope(device.clone())])
                 } else {
                     available_api_calls.extend([PopErrorScope(device.clone())])
+                }
+
+                for bind_group_layout in &device.bind_group_layouts {
+                    available_api_calls.extend([CreateComputePipelineLayout(device.clone(), bind_group_layout.clone())])
                 }
 
                 // Crashes
@@ -516,7 +528,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
 
                 for shader_module in &device.shader_modules {
                     if shader_module.compute_or_render.contains("compute") {
-                        available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateComputePipelineAsync(device.clone(), shader_module.clone())])
+                        for pipeline_layout in &device.pipeline_layouts {
+                            available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone(), pipeline_layout.clone()), 
+                                CreateComputePipelineAsync(device.clone(), shader_module.clone(), pipeline_layout.clone())])
+                        }
                     } else if shader_module.compute_or_render.contains("render") {
                         available_api_calls.extend([CreateRenderPipeline(device.clone(), shader_module.clone()), CreateRenderPipelineAsync(device.clone(), shader_module.clone())])
                     }
@@ -564,9 +579,11 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateShaderModuleCompute(_) => false,
             CreateShaderModuleRender(_) => false,
             PrintShaderModuleInfo(_) => false,
+            CreateComputeBindGroupLayout(_) => false,
+            CreateComputePipelineLayout(_, _) => false,
             CreateCommandBuffer(_) => true,
-            CreateComputePipeline(_, _) => false,
-            CreateComputePipelineAsync(_, _) => false,
+            CreateComputePipeline(_, _, _) => false,
+            CreateComputePipelineAsync(_, _, _) => false,
             CreateRenderPipeline(_, _) => false,
             CreateRenderPipelineAsync(_, _) => false,
             SetComputePassPipeline(_, _) => true,

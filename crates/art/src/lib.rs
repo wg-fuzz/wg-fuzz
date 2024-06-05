@@ -27,7 +27,7 @@ pub enum Resource {
     GPUCommandEncoder(GPUCommandEncoder),
     GPUCommandBuffer(GPUCommandBuffer),
     GPUComputePassEncoder(GPUComputePassEncoder),
-    BindGroupTemplate(GPUBuffer, GPUBuffer, GPUBindGroupLayout, GPUBindGroup),
+    BindGroupTemplate(GPUBuffer, GPUBuffer, GPUBindGroup),
     RandomArray(RandomArray),
     None
 }
