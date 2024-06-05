@@ -3,13 +3,7 @@ use crate::*;
 impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
         match self {
-            PrintWGSLLanguageFeatures() => {
-                return String::from("console.log(navigator.gpu.wgslLanguageFeatures.size);
-    
-    for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
-        console.log(value);
-    }");
-            }
+            PrintWGSLLanguageFeatures() => print_wgsl_language_features(),
             PrintPreferredCanvasFormat() => {
                 return String::from("console.log(navigator.gpu.getPreferredCanvasFormat());");
             }
