@@ -9,10 +9,12 @@ pub mod enum_wrapper;
 pub mod primitives;
 pub mod pipeline_setup;
 pub mod encoders;
+pub mod program_setup;
 
 pub use primitives::*;
 pub use pipeline_setup::*;
 pub use encoders::*;
+pub use program_setup::*;
 
 #[derive(Debug, Clone)]
 pub struct ProgramResources {
@@ -127,24 +129,6 @@ impl RandomArray {
         let name = format!("array{}", num);
 
         RandomArray {
-            num,
-            var_name: name
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct HTMLVideo {
-    pub num: usize,
-    pub var_name: String
-}
-
-impl HTMLVideo {
-    pub fn new(resources: &ProgramResources) -> HTMLVideo {
-        let num = resources.html_videos.len();
-        let name = format!("html_video{}", num);
-
-        HTMLVideo {
             num,
             var_name: name
         }
