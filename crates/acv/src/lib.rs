@@ -1,4 +1,4 @@
-// act = abstract call tree
+// acv = abstract call vector
 
 // for now just resource creation. use all fields eventually.
 

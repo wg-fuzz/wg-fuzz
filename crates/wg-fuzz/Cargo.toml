@@ -10,7 +10,7 @@ default-run = "wg-fuzz"
 wgsl_generator = { path = "../wgslsmith/wgsl_generator" }
 reconditioner = { path = "../wgslsmith/reconditioner" }
 art = { path = "../art" }
-act = { path = "../act" }
+acv = { path = "../acv" }
 generator = { path = "../generator" }
 rand = "0.8.5"
 strum = "0.26.2"
