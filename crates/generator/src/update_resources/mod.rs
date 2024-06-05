@@ -1,14 +1,8 @@
 use crate::*;
 use art::enum_wrapper::Resource;
 
-mod program;
-use program::*;
-
-mod adapter;
-use adapter::*;
-
-mod device;
-use device::*;
+mod program_setup;
+use program_setup::*;
 
 mod buffer;
 use buffer::*;
@@ -39,12 +33,6 @@ use compute_pass::*;
 
 mod render_pass;
 use render_pass::*;
-
-mod submit;
-use submit::*;
-
-mod error;
-use error::*;
 
 pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall) -> Resource {
     let new_resource;
