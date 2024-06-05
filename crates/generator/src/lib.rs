@@ -255,13 +255,17 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
+        CreateComputePipelineAsync(device, _) => {
+            new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
+        }
         CreateRenderPipeline(device, _) => {
             new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
         }
-        CreateComputePipelineAsync(device, _) => {
-            new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
-            resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
+        CreateRenderPipelineAsync(device, _) => {
+            new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
+            resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
         }
         CreateCommandEncoder(device) => {
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
@@ -514,7 +518,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                     if shader_module.compute_or_render.contains("compute") {
                         available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateComputePipelineAsync(device.clone(), shader_module.clone())])
                     } else if shader_module.compute_or_render.contains("render") {
-                        available_api_calls.extend([CreateRenderPipeline(device.clone(), shader_module.clone())])
+                        available_api_calls.extend([CreateRenderPipeline(device.clone(), shader_module.clone()), CreateRenderPipelineAsync(device.clone(), shader_module.clone())])
                     }
                     available_api_calls.extend([PrintShaderModuleInfo(shader_module.clone())])
                 }
@@ -564,6 +568,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             CreateComputePipeline(_, _) => false,
             CreateComputePipelineAsync(_, _) => false,
             CreateRenderPipeline(_, _) => false,
+            CreateRenderPipelineAsync(_, _) => false,
             SetComputePassPipeline(_, _) => true,
             SetComputePassBindGroupTemplate(_, _, _) => true,
             SetComputePassWorkgroups(_) => true,
