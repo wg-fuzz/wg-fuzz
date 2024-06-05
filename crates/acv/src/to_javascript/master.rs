@@ -4,9 +4,7 @@ impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
         match self {
             PrintWGSLLanguageFeatures() => print_wgsl_language_features(),
-            PrintPreferredCanvasFormat() => {
-                return String::from("console.log(navigator.gpu.getPreferredCanvasFormat());");
-            }
+            PrintPreferredCanvasFormat() => print_preferred_canvas_format(),
             CreateArray() => {
                 if let Resource::RandomArray(array) = created_resource {
                     let mut random_floats = String::new();
