@@ -10,6 +10,7 @@ pub mod pipeline_setup;
 pub mod encoders;
 pub mod program_setup;
 
+pub use enum_wrapper::*;
 pub use primitives::*;
 pub use pipeline_setup::*;
 pub use encoders::*;
