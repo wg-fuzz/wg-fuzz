@@ -9,3 +9,6 @@ pub use submit::*;
 
 mod error;
 pub use error::*;
+
+mod device;
+pub use device::*;

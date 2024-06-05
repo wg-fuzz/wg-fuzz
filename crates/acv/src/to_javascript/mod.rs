@@ -3,23 +3,11 @@ use crate::*;
 mod program_setup;
 use program_setup::*;
 
-mod device;
-use device::*;
-
-mod buffer;
-use buffer::*;
-
-mod texture;
-use texture::*;
-
-mod sampler;
-use sampler::*;
-
-mod shader_module;
-use shader_module::*;
+mod primitives;
+use primitives::*;
 
 mod pipeline_layout;
-use pipeline_layout::*;
+pub use pipeline_layout::*;
 
 mod compute_pipeline;
 use compute_pipeline::*;
