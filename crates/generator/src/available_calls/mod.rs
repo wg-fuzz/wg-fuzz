@@ -87,46 +87,6 @@ fn add_manipulate_command_encoders(available_api_calls: &mut Vec<APICall>, devic
     all_command_encoders_submitted
 }
 
-fn add_copy_buffer(available_api_calls: &mut Vec<APICall>, device: &GPUDevice, command_encoder: &GPUCommandEncoder) {
-    for buffer in &device.buffers {
-        if buffer.use_case.contains("GPUBufferUsage.COPY_SRC") && !buffer.destroyed {
-            for buffer_dst in &device.buffers {
-                if buffer_dst.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer_dst.destroyed {
-                    available_api_calls.extend([CopyBufferToBuffer(command_encoder.clone(), buffer.clone(), buffer_dst.clone())])
-                }
-            }
-
-            for texture in &device.textures {
-                if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\"") && !texture.destroyed {
-                    available_api_calls.extend([CopyBufferToTexture(command_encoder.clone(), buffer.clone(), texture.clone())])
-                }
-            }
-        }
-
-        if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
-            available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())]);
-        }
-    }
-}
-
-fn add_copy_texture(available_api_calls: &mut Vec<APICall>, device: &GPUDevice, command_encoder: &GPUCommandEncoder) {
-    for texture in &device.textures {
-        if texture.usage.contains("GPUTextureUsage.COPY_SRC") && texture.format.contains("\"r32float\"") && !texture.destroyed {
-            for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
-                    available_api_calls.extend([CopyTextureToBuffer(command_encoder.clone(), texture.clone(), buffer.clone())])
-                }
-            }
-
-            for texture_dst in &device.textures {
-                if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\"") && !texture.destroyed {
-                    available_api_calls.extend([CopyTextureToTexture(command_encoder.clone(), texture.clone(), texture_dst.clone())])
-                }
-            }
-        }
-    }
-}
-
 fn add_manipulate_current_compute_pass(available_api_calls: &mut Vec<APICall>, device: &GPUDevice, command_encoder: &GPUCommandEncoder, all_passes_finished: bool) -> bool {
     let mut all_passes_finished = all_passes_finished;
     for compute_pass in &command_encoder.compute_pass_encoders {
