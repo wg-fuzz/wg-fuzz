@@ -65,6 +65,7 @@ pub enum APICall {
     CreateSampler(GPUDevice),
 
     CreateShaderModuleCompute(GPUDevice),
+    CreateShaderModuleRender(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
 
     CreateComputePipeline(GPUDevice, GPUShaderModule),
@@ -331,6 +332,23 @@ impl APICall {
                     panic!("created_resource for CreateShaderModule() call is not a shader module!")
                 }
             },
+            CreateShaderModuleRender(device) => {
+                if let Resource::GPUShaderModule(shader_module) = created_resource {
+                    let var_name = &shader_module.var_name;
+                    return format!("\
+    var {}_code = \"\";
+    try {{
+        {}_code = await fs.readFile('crates/wg-fuzz/code_samples/render_shader.wgsl', 'utf8');
+    }} catch (err) {{
+        console.log(err);
+    }}
+    const {} = await {}.createShaderModule({{ code: {}_code }})", 
+                        var_name, var_name, var_name, device.var_name, var_name)
+
+                } else {
+                    panic!("created_resource for CreateShaderModule() call is not a shader module!")
+                }
+            }
             PrintShaderModuleInfo(shader_module) => {
                 return format!("\
     {{

@@ -246,6 +246,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device, String::from("compute")));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("compute")))
         }
+        CreateShaderModuleRender(device) => {
+            new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device, String::from("render")));
+            resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("render")))
+        }
         PrintShaderModuleInfo(_) => {}
         CreateComputePipeline(device, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
@@ -362,7 +366,8 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
         for device in &adapter.devices {
             if !device.destroyed {
                 available_api_calls.extend([CreateRandomBuffer(device.clone()), CreateRandomTexture(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
-                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateCommandEncoder(device.clone()), CreateSampler(device.clone())]);
+                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateShaderModuleRender(device.clone()),
+                            CreateCommandEncoder(device.clone()), CreateSampler(device.clone())]);
                     
                 if !device.error_scope_active {
                     available_api_calls.extend([PushRandomErrorScope(device.clone())])
@@ -502,8 +507,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                 }
 
                 for shader_module in &device.shader_modules {
-                    available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateComputePipelineAsync(device.clone(), shader_module.clone()), 
-                                                PrintShaderModuleInfo(shader_module.clone())])
+                    if shader_module.compute_or_render.contains("compute") {
+                        available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone()), CreateComputePipelineAsync(device.clone(), shader_module.clone())])
+                    }
+                    available_api_calls.extend([PrintShaderModuleInfo(shader_module.clone())])
                 }
 
                 if !device.error_scope_active && all_command_encoders_submitted {
@@ -545,6 +552,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PopCommandEncoderDebugGroup(_) => true,
             CreateComputePass(_) => false,
             CreateShaderModuleCompute(_) => false,
+            CreateShaderModuleRender(_) => false,
             PrintShaderModuleInfo(_) => false,
             CreateCommandBuffer(_) => true,
             CreateComputePipeline(_, _) => false,
