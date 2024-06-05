@@ -1,6 +1,8 @@
 use crate::*;
 mod kill_non_terminating;
 use kill_non_terminating::kill_non_terminating;
+mod add_primitives;
+use add_primitives::*;
 
 pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
@@ -45,36 +47,6 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
     }
 
     available_api_calls
-}
-
-fn add_manipulate_buffers(available_api_calls: &mut Vec<APICall>, resources: &ProgramResources, device: &GPUDevice) {
-    // Crashes
-    for buffer in &device.buffers {
-        if !buffer.destroyed {
-            if buffer.use_case.contains("GPUBufferUsage.COPY_DST") {
-                for array in &resources.random_arrays {
-                    available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
-                }
-            }
-            if buffer.use_case.contains("GPUBufferUsage.MAP_READ") {
-                available_api_calls.extend([ReadMappedBuffer(buffer.clone())])
-            }
-            available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
-        }
-    }
-}
-
-fn add_manipulate_textures(available_api_calls: &mut Vec<APICall>, resources: &ProgramResources, device: &GPUDevice) {
-    for texture in &device.textures {
-        if !texture.destroyed {
-            if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
-                for array in &resources.random_arrays {
-                    available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
-                }
-            }
-            available_api_calls.extend([DestroyTexture(texture.clone()), PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
-        }
-    }
 }
 
 fn add_create_pipelines(available_api_calls: &mut Vec<APICall>, device: &GPUDevice) {
