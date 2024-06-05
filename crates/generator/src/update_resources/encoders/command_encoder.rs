@@ -20,7 +20,7 @@ pub fn update_command_encoder(resources: &mut ProgramResources, call: &APICall) 
         PopCommandEncoderDebugGroup(command_encoder) => {
             resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = false;
         }
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

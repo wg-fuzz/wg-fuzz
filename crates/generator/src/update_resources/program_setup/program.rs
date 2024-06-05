@@ -10,7 +10,7 @@ pub fn update_program(resources: &mut ProgramResources, call: &APICall) -> Resou
             new_resource = Resource::RandomArray(RandomArray::new(&resources));
             resources.random_arrays.push(RandomArray::new(&resources))
         }
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

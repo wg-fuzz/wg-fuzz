@@ -13,7 +13,7 @@ pub fn update_shader_module(resources: &mut ProgramResources, call: &APICall) ->
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("render")))
         }
         PrintShaderModuleInfo(_) => {}
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

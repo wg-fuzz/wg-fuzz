@@ -31,7 +31,7 @@ pub fn update_buffer(resources: &mut ProgramResources, call: &APICall) -> Resour
         DestroyBuffer(buffer) => {
             resources.adapters[buffer.num_adapter].devices[buffer.num_device].buffers[buffer.num].destroyed = true;
         }
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

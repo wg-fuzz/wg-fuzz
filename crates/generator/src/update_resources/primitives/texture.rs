@@ -154,7 +154,7 @@ pub fn update_texture(resources: &mut ProgramResources, call: &APICall) -> Resou
         DestroyTexture(texture) => {
             resources.adapters[texture.num_adapter].devices[texture.num_device].textures[texture.num].destroyed = true;
         }
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

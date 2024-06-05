@@ -1,7 +1,7 @@
 use crate::*;
 
 pub fn update_pipeline_layout(resources: &mut ProgramResources, call: &APICall) -> Resource {
-    let mut new_resource = Resource::None;
+    let new_resource;
 
     match call {
         CreateComputeBindGroupLayout(device) => {
@@ -12,7 +12,7 @@ pub fn update_pipeline_layout(resources: &mut ProgramResources, call: &APICall) 
             new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
             resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
         }
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

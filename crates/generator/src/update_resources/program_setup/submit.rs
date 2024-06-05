@@ -14,7 +14,7 @@ pub fn update_submit(resources: &mut ProgramResources, call: &APICall) -> Resour
             }
         }
         WaitSubmittedWork(_) => {}
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }

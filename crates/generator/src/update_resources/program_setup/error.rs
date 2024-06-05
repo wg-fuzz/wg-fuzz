@@ -11,7 +11,7 @@ pub fn update_error(resources: &mut ProgramResources, call: &APICall) -> Resourc
             resources.adapters[device.num_adapter].devices[device.num].error_scope_active = false;
         }
         // AddUncapturedErrorListener(_) => {}
-        _ => {}
+        _ => { panic!("There is a bug in the update_resource match calls") }
     }
     new_resource
 }
