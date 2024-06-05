@@ -6,21 +6,26 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
     match call {
         PrintWGSLLanguageFeatures() => {},
         PrintPreferredCanvasFormat() => {},
-        PrintAdapterInfo(_) => {},
         CreateArray() => {
             new_resource = Resource::RandomArray(RandomArray::new(&resources));
             resources.random_arrays.push(RandomArray::new(&resources))
         }
+
         CreateAdapter() => {
             new_resource = Resource::GPUAdapter(GPUAdapter::new(&resources));
             resources.adapters.push(GPUAdapter::new(&resources))
         }
+        PrintAdapterInfo(_) => {},
+
         CreateDevice(adapter) => {
             new_resource = Resource::GPUDevice(GPUDevice::new(adapter));
             resources.adapters[adapter.num].devices.push(GPUDevice::new(adapter))
         }
         PrintDeviceInfo(_) => {}
-        WaitSubmittedWork(_) => {}
+        DestroyDevice(device) => {
+            resources.adapters[device.num_adapter].devices[device.num].destroyed = true;
+        }
+
         CreateRandomBuffer(device) => {
             let mut rng = rand::thread_rng();
             let i = rng.gen_range(0..10);
@@ -42,28 +47,16 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             new_resource = Resource::GPUBuffer(GPUBuffer::new(device, random_buffer_use_case.clone(), 0));
             resources.adapters[device.num_adapter].devices[device.num].buffers.push(GPUBuffer::new(device, random_buffer_use_case, 0))
         }
-        WriteBuffer(_, _, _) => {}
         PrintBufferInfo(_) => {}
+        ReadMappedBuffer(_) => {}
+        WriteBuffer(_, _, _) => {}
         DestroyBuffer(buffer) => {
             resources.adapters[buffer.num_adapter].devices[buffer.num_device].buffers[buffer.num].destroyed = true;
         }
-        ReadMappedBuffer(_) => {}
-        ClearBuffer(_, _) => {}
-        CopyBufferToBuffer(_, _, _) => {}
-        CopyBufferToTexture(_, _, _) => {}
-        CopyTextureToBuffer(_, _, _) => {}
-        CopyTextureToTexture(_, _, _) => {}
+
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
-            // let i = rng.gen_range(0..3);
-            // let random_dimension = String::from(
-            //     match i {
-            //         0 => "\"1d\"",
-            //         1 => "\"2d\"",
-            //         2 => "\"3d\"",
-            //         _ => "\"2d\"",
-            //     });
-
+            
             // most of the time it's r32float by default '_' pattern
             let i = rng.gen_range(0..200);
             let random_format = String::from(
@@ -202,8 +195,8 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             new_resource = Resource::GPUTexture(GPUTexture::new(device, random_usage.clone(), random_format.clone()));
             resources.adapters[device.num_adapter].devices[device.num].textures.push(GPUTexture::new(device, random_usage, random_format))
         }
-        WriteTexture(_, _, _) => {}
         PrintTextureInfo(_) => {}
+        WriteTexture(_, _, _) => {}
         CreateTextureView(texture) => {
             new_resource = Resource::GPUTextureView(GPUTextureView::new(texture));
             resources.adapters[texture.num_adapter].devices[texture.num_device].textures[texture.num].texture_views.push(GPUTextureView::new(texture))
@@ -211,10 +204,12 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
         DestroyTexture(texture) => {
             resources.adapters[texture.num_adapter].devices[texture.num_device].textures[texture.num].destroyed = true;
         }
+
         CreateSampler(device) => {
             new_resource = Resource::GPUSampler(GPUSampler::new(device));
             resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
         }
+
         CreateShaderModuleCompute(device) => {
             new_resource = Resource::GPUShaderModule(GPUShaderModule::new(device, String::from("compute")));
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("compute")))
@@ -224,6 +219,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             resources.adapters[device.num_adapter].devices[device.num].shader_modules.push(GPUShaderModule::new(device, String::from("render")))
         }
         PrintShaderModuleInfo(_) => {}
+
         CreateComputeBindGroupLayout(device) => {
             new_resource = Resource::GPUBindGroupLayout(GPUBindGroupLayout::new(device));
             resources.adapters[device.num_adapter].devices[device.num].bind_group_layouts.push(GPUBindGroupLayout::new(device))
@@ -232,6 +228,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             new_resource = Resource::GPUPipelineLayout(GPUPipelineLayout::new(device));
             resources.adapters[device.num_adapter].devices[device.num].pipeline_layouts.push(GPUPipelineLayout::new(device))
         }
+        
         CreateComputePipeline(device, _, _) => {
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
@@ -240,6 +237,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             new_resource = Resource::GPUComputePipeline(GPUComputePipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].compute_pipelines.push(GPUComputePipeline::new(device))
         }
+
         CreateRenderPipeline(device, _) => {
             new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
@@ -248,10 +246,16 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             new_resource = Resource::GPURenderPipeline(GPURenderPipeline::new(device));
             resources.adapters[device.num_adapter].devices[device.num].render_pipelines.push(GPURenderPipeline::new(device))
         }
+
         CreateCommandEncoder(device) => {
             new_resource = Resource::GPUCommandEncoder(GPUCommandEncoder::new(device));
             resources.adapters[device.num_adapter].devices[device.num].command_encoders.push(GPUCommandEncoder::new(device))
         },
+        ClearBuffer(_, _) => {}
+        CopyBufferToBuffer(_, _, _) => {}
+        CopyBufferToTexture(_, _, _) => {}
+        CopyTextureToBuffer(_, _, _) => {}
+        CopyTextureToTexture(_, _, _) => {}
         InsertCommandEncoderDebugMarker(_) => {}
         PushCommandEncoderDebugGroup(command_encoder) => {
             resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = true;
@@ -259,10 +263,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
         PopCommandEncoderDebugGroup(command_encoder) => {
             resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = false;
         }
-        CreateCommandBuffer(encoder) => {
-            new_resource = Resource::GPUCommandBuffer(GPUCommandBuffer::new(encoder));
-            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].command_buffer = Some(GPUCommandBuffer::new(encoder));
-        },
+
         CreateComputePass(encoder) => {
             new_resource = Resource::GPUComputePassEncoder(GPUComputePassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].compute_pass_encoders.push(GPUComputePassEncoder::new(encoder));
@@ -325,25 +326,30 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
+
         CreateRenderPass(encoder, _) => {
             new_resource = Resource::GPURenderPassEncoder(GPURenderPassEncoder::new(encoder));
             resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].render_pass_encoders.push(GPURenderPassEncoder::new(encoder));
         }
+
+        CreateCommandBuffer(encoder) => {
+            new_resource = Resource::GPUCommandBuffer(GPUCommandBuffer::new(encoder));
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].command_buffer = Some(GPUCommandBuffer::new(encoder));
+        },
         SubmitQueueRandom(_, command_encoders) => {
             for command_encoder in command_encoders {
                 resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].submitted = true;
             }
         },
-        //AddUncapturedErrorListener(_) => {}
+        WaitSubmittedWork(_) => {}
+
         PushRandomErrorScope(device) => {
             resources.adapters[device.num_adapter].devices[device.num].error_scope_active = true;
         },
         PopErrorScope(device) => {
             resources.adapters[device.num_adapter].devices[device.num].error_scope_active = false;
         },
-        DestroyDevice(device) => {
-            resources.adapters[device.num_adapter].devices[device.num].destroyed = true;
-        }
+        // AddUncapturedErrorListener(_) => {}
     }
     new_resource
 }
