@@ -8,7 +8,7 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             } else {
                 panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
             }
-        },
+        }
         ClearBuffer(command_encoder, buffer) => {
             return format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name);
         }

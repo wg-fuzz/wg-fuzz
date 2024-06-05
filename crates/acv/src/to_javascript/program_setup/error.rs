@@ -12,14 +12,14 @@ pub fn error_to_js(api_call: &APICall) -> String {
                 _ => "\"internal\"",
             };
             return format!("{}.pushErrorScope({});", device.var_name, random_error_type);
-        },
+        }
         PopErrorScope(device) => {
             return format!("{}.popErrorScope().then((error) => {{
     if (error) {{
         console.error(`An error occurred: ${{error.message}}`);
     }}
 }});", device.var_name);
-        },
+        }
         // AddUncapturedErrorListener(device) => {
         //     return format!("console.log(typeof {}.onuncapturederror);", device.var_name);
         // },

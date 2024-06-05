@@ -8,10 +8,10 @@ pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String 
 for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
     console.log(value);
 }");
-        },
+        }
         PrintPreferredCanvasFormat() => {
             return String::from("console.log(navigator.gpu.getPreferredCanvasFormat());");
-        },
+        }
         CreateArray() => {
             if let Resource::RandomArray(array) = created_resource {
                 let mut random_floats = String::new();
@@ -26,7 +26,7 @@ for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
             } else {
                 panic!("created_resource for CreateDevice() call is not a device!")
             }
-        },
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

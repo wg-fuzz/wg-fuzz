@@ -38,7 +38,7 @@ const {} = await {}.createShaderModule({{ code: {}_code }})",
             } else {
                 panic!("created_resource for CreateShaderModule() call is not a shader module!")
             }
-        },
+        }
         CreateShaderModuleRender(device) => {
             if let Resource::GPUShaderModule(shader_module) = created_resource {
                 let var_name = &shader_module.var_name;

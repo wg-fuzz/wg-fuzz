@@ -8,10 +8,10 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
             } else {
                 panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
             }
-        },
+        }
         SetComputePassPipeline(encoder, compute_pipeline) => {
             return format!("{}.setPipeline({});", encoder.var_name, compute_pipeline.var_name);
-        },
+        }
         SetComputePassBindGroupTemplate(device, encoder, compute_pipeline) => {
             if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
                 return format!("\
@@ -51,7 +51,7 @@ const {} = {}.createBindGroup({{
             } else {
                 panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
             }
-        },
+        }
         SetComputePassWorkgroups(encoder) => {
             return format!("{}.dispatchWorkgroups(100);", encoder.var_name);
         }
@@ -88,7 +88,7 @@ const {} = {}.createBuffer({{
         }
         EndComputePass(compute_pass_encoder) => {
             return format!("{}.end();", compute_pass_encoder.var_name);
-        },
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

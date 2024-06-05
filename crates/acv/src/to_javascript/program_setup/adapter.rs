@@ -19,7 +19,7 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
             } else {
                 panic!("created_resource for CreateAdapter() call is not an adapter!")
             }
-        },
+        }
         PrintAdapterInfo(adapter) => {
             return format!("console.log({}.features.size);
 
@@ -43,7 +43,7 @@ for (const [key, value] of Object.entries({}.limits)) {{
     console.log(adapterInfo.device);
     console.log(adapterInfo.description);
 }}", adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name);
-        },
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

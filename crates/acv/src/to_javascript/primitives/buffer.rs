@@ -11,7 +11,7 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
             } else {
                 panic!("created_resource for CreateBuffer() call is not a buffer!")
             }
-        },
+        }
         PrintBufferInfo(buffer) => {
             return format!("\
 {{

@@ -13,7 +13,7 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
             } else {
                 panic!("created_resource for CreateTexture() call is not a texture!")
             }
-        },
+        }
         PrintTextureInfo(texture) => {
             return format!("\
 {{

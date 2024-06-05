@@ -46,7 +46,7 @@ const {} = {}.createRenderPipeline({{
             } else {
                 panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
             }
-        },
+        }
         CreateRenderPipelineAsync(device, shader_module) => {
             if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
                 return format!("\
@@ -91,7 +91,7 @@ const {} = await {}.createRenderPipelineAsync({{
             } else {
                 panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
             }
-        },
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }
