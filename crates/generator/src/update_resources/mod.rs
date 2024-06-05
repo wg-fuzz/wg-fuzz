@@ -4,17 +4,8 @@ use art::enum_wrapper::Resource;
 mod program_setup;
 use program_setup::*;
 
-mod buffer;
-use buffer::*;
-
-mod texture;
-use texture::*;
-
-mod sampler;
-use sampler::*;
-
-mod shader_module;
-use shader_module::*;
+mod primitives;
+use primitives::*;
 
 mod pipeline_layout;
 use pipeline_layout::*;
