@@ -27,16 +27,7 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
 
                 add_manipulate_buffers(&mut available_api_calls, resources, device);
 
-                for texture in &device.textures {
-                    if !texture.destroyed && texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
-                        for array in &resources.random_arrays {
-                            available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
-                        }
-                    }
-                    if !texture.destroyed {
-                        available_api_calls.extend([DestroyTexture(texture.clone()), PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
-                    }
-                }
+                add_manipulate_textures(&mut available_api_calls, resources, device);
 
                 let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
 
@@ -189,6 +180,19 @@ fn add_manipulate_buffers(available_api_calls: &mut Vec<APICall>, resources: &Pr
                 available_api_calls.extend([ReadMappedBuffer(buffer.clone())])
             }
             available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
+        }
+    }
+}
+
+fn add_manipulate_textures(available_api_calls: &mut Vec<APICall>, resources: &ProgramResources, device: &GPUDevice) {
+    for texture in &device.textures {
+        if !texture.destroyed {
+            if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
+                for array in &resources.random_arrays {
+                    available_api_calls.extend([WriteTexture(device.clone(), texture.clone(), array.clone())])
+                }
+            }
+            available_api_calls.extend([DestroyTexture(texture.clone()), PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
         }
     }
 }
