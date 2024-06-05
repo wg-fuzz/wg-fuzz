@@ -1,4 +1,6 @@
 use crate::*;
+mod kill_non_terminating;
+use kill_non_terminating::kill_non_terminating;
 
 pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
@@ -181,61 +183,7 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
     }
 
     if terminate {
-        available_api_calls.retain(|call| match call {
-            PrintWGSLLanguageFeatures() => false,
-            PrintPreferredCanvasFormat() => false,
-            CreateArray() => false,
-            CreateAdapter() => false,
-            PrintAdapterInfo(_) => false,
-            CreateDevice(_) => false,
-            PrintDeviceInfo(_) => false,
-            WaitSubmittedWork(_) => false,
-            CreateRandomBuffer(_) => false,
-            WriteBuffer(_, _, _) => false,
-            PrintBufferInfo(_) => false,
-            DestroyBuffer(_) => false,
-            ReadMappedBuffer(_) => false,
-            ClearBuffer(_, _) => false,
-            CopyBufferToBuffer(_, _, _) => false,
-            CopyBufferToTexture(_, _, _) => false,
-            CopyTextureToBuffer(_, _, _) => false,
-            CopyTextureToTexture(_, _, _) => false,
-            CreateRandomTexture(_) => false,
-            WriteTexture(_, _, _) => false,
-            PrintTextureInfo(_) => false,
-            CreateTextureView(_) => false,
-            DestroyTexture(_) => false,
-            CreateSampler(_) => false,
-            CreateCommandEncoder(_) => false,
-            InsertCommandEncoderDebugMarker(_) => false,
-            PushCommandEncoderDebugGroup(_) => false,
-            PopCommandEncoderDebugGroup(_) => true,
-            CreateComputePass(_) => false,
-            CreateShaderModuleCompute(_) => false,
-            CreateShaderModuleRender(_) => false,
-            PrintShaderModuleInfo(_) => false,
-            CreateComputeBindGroupLayout(_) => false,
-            CreateComputePipelineLayout(_, _) => false,
-            CreateCommandBuffer(_) => true,
-            CreateComputePipeline(_, _, _) => false,
-            CreateComputePipelineAsync(_, _, _) => false,
-            CreateRenderPipeline(_, _) => false,
-            CreateRenderPipelineAsync(_, _) => false,
-            SetComputePassPipeline(_, _) => true,
-            SetComputePassBindGroupTemplate(_, _, _) => true,
-            SetComputePassWorkgroups(_) => true,
-            SetComputePassWorkgroupsIndirect(_, _) => true,
-            InsertComputePassDebugMarker(_) => false,
-            PushComputePassDebugGroup(_) => false,
-            PopComputePassDebugGroup(_) => true,
-            EndComputePass(_) => true,
-            CreateRenderPass(_, _) => false,
-            SubmitQueueRandom(_, _) => true,
-            // AddUncapturedErrorListener(_) => false,
-            PushRandomErrorScope(_) => false,
-            PopErrorScope(_) => true,
-            DestroyDevice(_) => false
-        });
+        kill_non_terminating(&mut available_api_calls)
     }
 
     available_api_calls
