@@ -9,14 +9,8 @@ use primitives::*;
 mod pipeline_setup;
 use pipeline_setup::*;
 
-mod command_encoder;
-use command_encoder::*;
-
-mod compute_pass;
-use compute_pass::*;
-
-mod render_pass;
-use render_pass::*;
+mod encoders;
+use encoders::*;
 
 impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
