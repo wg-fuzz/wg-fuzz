@@ -2,7 +2,6 @@
 
 // module: check available calls
 
-
 // RESTRICTION: in impls, never store parameter reference on struct. it is cloned in generator
 
 pub mod enum_wrapper;
