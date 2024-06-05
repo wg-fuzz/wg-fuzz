@@ -141,17 +141,7 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
                     available_api_calls.extend([SubmitQueueRandom(device.clone(), queue_command_encoders)]);
                 }
 
-                for shader_module in &device.shader_modules {
-                    if shader_module.compute_or_render.contains("compute") {
-                        for pipeline_layout in &device.pipeline_layouts {
-                            available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone(), pipeline_layout.clone()), 
-                                CreateComputePipelineAsync(device.clone(), shader_module.clone(), pipeline_layout.clone())])
-                        }
-                    } else if shader_module.compute_or_render.contains("render") {
-                        available_api_calls.extend([CreateRenderPipeline(device.clone(), shader_module.clone()), CreateRenderPipelineAsync(device.clone(), shader_module.clone())])
-                    }
-                    available_api_calls.extend([PrintShaderModuleInfo(shader_module.clone())])
-                }
+                add_create_pipeline(&mut available_api_calls, device);
 
                 if !device.error_scope_active && all_command_encoders_submitted {
                     available_api_calls.extend([DestroyDevice(device.clone())]);
@@ -194,5 +184,19 @@ fn add_manipulate_textures(available_api_calls: &mut Vec<APICall>, resources: &P
             }
             available_api_calls.extend([DestroyTexture(texture.clone()), PrintTextureInfo(texture.clone()), CreateTextureView(texture.clone())])
         }
+    }
+}
+
+fn add_create_pipeline(available_api_calls: &mut Vec<APICall>, device: &GPUDevice) {
+    for shader_module in &device.shader_modules {
+        if shader_module.compute_or_render.contains("compute") {
+            for pipeline_layout in &device.pipeline_layouts {
+                available_api_calls.extend([CreateComputePipeline(device.clone(), shader_module.clone(), pipeline_layout.clone()), 
+                    CreateComputePipelineAsync(device.clone(), shader_module.clone(), pipeline_layout.clone())])
+            }
+        } else if shader_module.compute_or_render.contains("render") {
+            available_api_calls.extend([CreateRenderPipeline(device.clone(), shader_module.clone()), CreateRenderPipelineAsync(device.clone(), shader_module.clone())])
+        }
+        available_api_calls.extend([PrintShaderModuleInfo(shader_module.clone())])
     }
 }
