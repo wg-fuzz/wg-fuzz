@@ -97,6 +97,8 @@ pub enum APICall {
     PopComputePassDebugGroup(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
 
+    CreateRenderPass(GPUCommandEncoder, GPUTextureView),
+
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),
     PushRandomErrorScope(GPUDevice),
@@ -672,6 +674,23 @@ impl APICall {
             EndComputePass(compute_pass_encoder) => {
                 return format!("{}.end();", compute_pass_encoder.var_name);
             },
+            CreateRenderPass(command_encoder, texture_view) => {
+                if let Resource::GPURenderPassEncoder(render_pass_encoder) = created_resource {
+                    return format!("const {} = {}.beginRenderPass({{
+    colorAttachments: [
+        {{
+            clearValue: [0.0, 0.5, 1.0, 1.0],
+            loadOp: \"clear\",
+            storeOp: \"store\",
+            view: {},
+        }},
+    ],
+    }});", 
+                        render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name);
+                } else {
+                    panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
+                }
+            }
             CreateCommandBuffer(encoder) => {
                 if let Resource::GPUCommandBuffer(command_buffer) = created_resource {
                     return format!("const {} = {}.finish();", command_buffer.var_name, encoder.var_name);

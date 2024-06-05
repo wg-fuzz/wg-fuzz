@@ -352,6 +352,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         },
+        CreateRenderPass(encoder, _) => {
+            new_resource = Resource::GPURenderPassEncoder(GPURenderPassEncoder::new(encoder));
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].render_pass_encoders.push(GPURenderPassEncoder::new(encoder));
+        }
         SubmitQueueRandom(_, command_encoders) => {
             for command_encoder in command_encoders {
                 resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].submitted = true;
@@ -464,6 +468,13 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                             }
                             if command_encoder.compute_pass_encoders.len() < 2 {
                                 available_api_calls.extend([CreateComputePass(command_encoder.clone())])
+                            }
+                            if command_encoder.render_pass_encoders.len() < 2 {
+                                for texture in &device.textures {
+                                    for view in &texture.texture_views {
+                                        available_api_calls.extend([CreateRenderPass(command_encoder.clone(), view.clone())])
+                                    }
+                                }
                             }
                         }
 
@@ -594,6 +605,7 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             PushComputePassDebugGroup(_) => false,
             PopComputePassDebugGroup(_) => true,
             EndComputePass(_) => true,
+            CreateRenderPass(_, _) => false,
             SubmitQueueRandom(_, _) => true,
             // AddUncapturedErrorListener(_) => false,
             PushRandomErrorScope(_) => false,
