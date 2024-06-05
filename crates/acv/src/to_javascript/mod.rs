@@ -1,10 +1,7 @@
 use crate::*;
 
-mod program;
-use program::*;
-
-mod adapter;
-use adapter::*;
+mod program_setup;
+use program_setup::*;
 
 mod device;
 use device::*;
@@ -38,12 +35,6 @@ use compute_pass::*;
 
 mod render_pass;
 use render_pass::*;
-
-mod submit;
-use submit::*;
-
-mod error;
-use error::*;
 
 impl APICall {
     pub fn to_javascript(&self, created_resource: &Resource) -> String {
