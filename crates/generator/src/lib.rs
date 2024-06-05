@@ -9,7 +9,7 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    for _ in 1..100 {
+    for _ in 1..300 {
         let mut available_api_calls = available_api_calls(resources, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
@@ -76,6 +76,10 @@ fn update_program_resources(resources: &mut ProgramResources, call: &APICall) ->
         }
         ReadMappedBuffer(_) => {}
         ClearBuffer(_, _) => {}
+        CopyBufferToBuffer(_, _, _) => {}
+        CopyBufferToTexture(_, _, _) => {}
+        CopyTextureToBuffer(_, _, _) => {}
+        CopyTextureToTexture(_, _, _) => {}
         CreateRandomTexture(device) => {
             let mut rng = rand::thread_rng();
             // let i = rng.gen_range(0..3);
@@ -437,11 +441,43 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
                                 available_api_calls.extend([CreateComputePass(command_encoder.clone())])
                             }
                         }
+
                         for buffer in &device.buffers {
+                            if buffer.use_case.contains("GPUBufferUsage.COPY_SRC") && !buffer.destroyed {
+                                for buffer_dst in &device.buffers {
+                                    if buffer_dst.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer_dst.destroyed {
+                                        available_api_calls.extend([CopyBufferToBuffer(command_encoder.clone(), buffer.clone(), buffer_dst.clone())])
+                                    }
+                                }
+
+                                for texture in &device.textures {
+                                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\"") && !texture.destroyed {
+                                        available_api_calls.extend([CopyBufferToTexture(command_encoder.clone(), buffer.clone(), texture.clone())])
+                                    }
+                                }
+                            }
+
                             if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
-                                available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())])
+                                available_api_calls.extend([ClearBuffer(command_encoder.clone(), buffer.clone())]);
                             }
                         }
+
+                        for texture in &device.textures {
+                            if texture.usage.contains("GPUTextureUsage.COPY_SRC") && texture.format.contains("\"r32float\"") && !texture.destroyed {
+                                for buffer in &device.buffers {
+                                    if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
+                                        available_api_calls.extend([CopyTextureToBuffer(command_encoder.clone(), texture.clone(), buffer.clone())])
+                                    }
+                                }
+
+                                for texture_dst in &device.textures {
+                                    if texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\"") && !texture.destroyed {
+                                        available_api_calls.extend([CopyTextureToTexture(command_encoder.clone(), texture.clone(), texture_dst.clone())])
+                                    }
+                                }
+                            }
+                        }
+
                         available_api_calls.extend([InsertCommandEncoderDebugMarker(command_encoder.clone())]);
                         if !command_encoder.debug_group_active {
                             available_api_calls.extend([PushCommandEncoderDebugGroup(command_encoder.clone())])
@@ -493,6 +529,10 @@ fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<API
             DestroyBuffer(_) => false,
             ReadMappedBuffer(_) => false,
             ClearBuffer(_, _) => false,
+            CopyBufferToBuffer(_, _, _) => false,
+            CopyBufferToTexture(_, _, _) => false,
+            CopyTextureToBuffer(_, _, _) => false,
+            CopyTextureToTexture(_, _, _) => false,
             CreateRandomTexture(_) => false,
             WriteTexture(_, _, _) => false,
             PrintTextureInfo(_) => false,
