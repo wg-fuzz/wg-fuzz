@@ -7,14 +7,8 @@ use program_setup::*;
 mod primitives;
 use primitives::*;
 
-mod pipeline_layout;
-use pipeline_layout::*;
-
-mod compute_pipeline;
-use compute_pipeline::*;
-
-mod render_pipeline;
-use render_pipeline::*;
+mod pipeline_setup;
+use pipeline_setup::*;
 
 mod encoders;
 use encoders::*;
