@@ -11,9 +11,16 @@ impl APICall {
             PrintAdapterInfo(adapter) => print_adapter_info(adapter),
             CreateDevice(adapter) => create_device(created_resource, adapter),
             PrintDeviceInfo(device) => print_device_info(device),
-            WaitSubmittedWork(device) => {
-                return format!("{}.queue.onSubmittedWorkDone();", device.var_name);
-            }
+            DestroyDevice(device) => destroy_device(device),
+            SubmitQueueRandom(device, command_encoders) => submit_queue_random(device, command_encoders),
+            // AddUncapturedErrorListener(device) => add_uncaptured_error_listener(device),
+            PushRandomErrorScope(device) => push_random_error_scope(device),
+            PopErrorScope(device) => pop_error_scope(device),
+            WaitSubmittedWork(device) => wait_submitted_work(device),
+
+
+
+
             CreateRandomBuffer(device) => {
                 if let Resource::GPUBuffer(buffer) = created_resource {
                     return format!("const {} = {}.createBuffer({{ 
@@ -506,39 +513,6 @@ impl APICall {
                 } else {
                     panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
                 }
-            },
-            SubmitQueueRandom(device, command_encoders) => {
-                let mut command_buffers_str = String::from("[");
-                for command_encoder in command_encoders {
-                    command_buffers_str.push_str(&command_encoder.command_buffer.as_ref().unwrap().var_name);
-                    command_buffers_str.push_str(", ");
-                }
-                command_buffers_str.push_str("]");
-                return format!("{}.queue.submit({});", device.var_name, command_buffers_str);
-            },
-            // AddUncapturedErrorListener(device) => {
-            //     return format!("console.log(typeof {}.onuncapturederror);", device.var_name);
-            // }
-            PushRandomErrorScope(device) => {
-                let mut rng = rand::thread_rng();
-                let i = rng.gen_range(0..3);
-                let random_error_type = match i {
-                    0 => "\"internal\"",
-                    1 => "\"out-of-memory\"",
-                    2 => "\"validation\"",
-                    _ => "\"internal\"",
-                };
-                return format!("{}.pushErrorScope({});", device.var_name, random_error_type);
-            },
-            PopErrorScope(device) => {
-                return format!("{}.popErrorScope().then((error) => {{
-        if (error) {{
-            console.error(`An error occurred: ${{error.message}}`);
-        }}
-    }});", device.var_name);
-            },
-            DestroyDevice(device) => {
-                return format!("{}.destroy();", device.var_name);
             }
         }
     }

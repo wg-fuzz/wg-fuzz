@@ -99,3 +99,45 @@ pub fn print_device_info(device: &GPUDevice) -> String {
         console.log(info.reason);
     }});", device.var_name, device.var_name, device.var_name, device.var_name, device.var_name);
 }
+
+pub fn destroy_device(device: &GPUDevice) -> String {
+    return format!("{}.destroy();", device.var_name);
+}
+
+pub fn submit_queue_random(device: &GPUDevice, command_encoders: &Vec<GPUCommandEncoder>) -> String {
+    let mut command_buffers_str = String::from("[");
+    for command_encoder in command_encoders {
+        command_buffers_str.push_str(&command_encoder.command_buffer.as_ref().unwrap().var_name);
+        command_buffers_str.push_str(", ");
+    }
+    command_buffers_str.push_str("]");
+    return format!("{}.queue.submit({});", device.var_name, command_buffers_str);
+}
+
+pub fn add_uncaptured_error_listener(device: &GPUDevice) -> String {
+    return format!("console.log(typeof {}.onuncapturederror);", device.var_name);
+}
+
+pub fn push_random_error_scope(device: &GPUDevice) -> String {
+    let mut rng = rand::thread_rng();
+    let i = rng.gen_range(0..3);
+    let random_error_type = match i {
+        0 => "\"internal\"",
+        1 => "\"out-of-memory\"",
+        2 => "\"validation\"",
+        _ => "\"internal\"",
+    };
+    return format!("{}.pushErrorScope({});", device.var_name, random_error_type);
+}
+
+pub fn pop_error_scope(device: &GPUDevice) -> String {
+    return format!("{}.popErrorScope().then((error) => {{
+        if (error) {{
+            console.error(`An error occurred: ${{error.message}}`);
+        }}
+    }});", device.var_name);
+}
+
+pub fn wait_submitted_work(device: &GPUDevice) -> String {
+    return format!("{}.queue.onSubmittedWorkDone();", device.var_name);
+}
