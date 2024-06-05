@@ -16,19 +16,13 @@ impl APICall {
             PrintWGSLLanguageFeatures() => print_wgsl_language_features(),
             PrintPreferredCanvasFormat() => print_preferred_canvas_format(),
             CreateArray() => create_array(created_resource),
+
             CreateAdapter() => create_adapter(created_resource),
             PrintAdapterInfo(adapter) => print_adapter_info(adapter),
+
             CreateDevice(adapter) => create_device(created_resource, adapter),
             PrintDeviceInfo(device) => print_device_info(device),
             DestroyDevice(device) => destroy_device(device),
-            SubmitQueueRandom(device, command_encoders) => submit_queue_random(device, command_encoders),
-            // AddUncapturedErrorListener(device) => add_uncaptured_error_listener(device),
-            PushRandomErrorScope(device) => push_random_error_scope(device),
-            PopErrorScope(device) => pop_error_scope(device),
-            WaitSubmittedWork(device) => wait_submitted_work(device),
-
-
-
 
             CreateRandomBuffer(device) => {
                 if let Resource::GPUBuffer(buffer) = created_resource {
@@ -40,9 +34,6 @@ impl APICall {
                     panic!("created_resource for CreateBuffer() call is not a buffer!")
                 }
             },
-            WriteBuffer(device, buffer, array) => {
-                return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
-            },
             PrintBufferInfo(buffer) => {
                 return format!("\
     {{
@@ -52,9 +43,6 @@ impl APICall {
         console.log(buffer.size);
         console.log(buffer.usage);
     }}", buffer.var_name);
-            }
-            DestroyBuffer(buffer) => {
-                return format!("{}.destroy()", buffer.var_name);
             }
             ReadMappedBuffer(buffer) => {
                 return format!("\
@@ -72,6 +60,13 @@ impl APICall {
     }}
     ", buffer.var_name, buffer.var_name, buffer.var_name);
             }
+            WriteBuffer(device, buffer, array) => {
+                return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
+            }
+            DestroyBuffer(buffer) => {
+                return format!("{}.destroy()", buffer.var_name);
+            }
+
             CreateRandomTexture(device) => {
                 if let Resource::GPUTexture(texture) = created_resource {
                     return format!("const {} = {}.createTexture({{
@@ -84,10 +79,6 @@ impl APICall {
                     panic!("created_resource for CreateTexture() call is not a texture!")
                 }
             },
-            WriteTexture(device, texture, array) => {
-                return format!("{}.queue.writeTexture({{ texture: {} }}, {}, {{ bytesPerRow: 40, rowsPerImage: 10 }}, {{ width: 10, height: 10 }});", 
-                    device.var_name, texture.var_name, array.var_name);
-            }
             PrintTextureInfo(texture) => {
                 return format!("\
     {{
@@ -111,6 +102,11 @@ impl APICall {
         console.log(texture.usage);
     }}", texture.var_name);
             }
+            WriteTexture(device, texture, array) => {
+                return format!("{}.queue.writeTexture({{ texture: {} }}, {}, {{ bytesPerRow: 40, rowsPerImage: 10 }}, {{ width: 10, height: 10 }});", 
+                    device.var_name, texture.var_name, array.var_name);
+            }
+            
             CreateTextureView(texture) => {
                 if let Resource::GPUTextureView(texture_view) = created_resource {
                     return format!("const {} = {}.createView();", texture_view.var_name, texture.var_name);
@@ -121,6 +117,7 @@ impl APICall {
             DestroyTexture(texture) => {
                 return format!("{}.destroy();", texture.var_name);
             }
+
             CreateSampler(device) => {
                 if let Resource::GPUSampler(sampler) = created_resource {
                     return format!("const {} = {}.createSampler();", sampler.var_name, device.var_name);
@@ -128,6 +125,7 @@ impl APICall {
                     panic!("created_resource for CreateSampler() call is not a sampler!")
                 }
             }
+
             CreateShaderModuleCompute(device) => {
                 if let Resource::GPUShaderModule(shader_module) = created_resource {
                     let file_name = format!("out/{}.wgsl", shader_module.var_name);
@@ -194,6 +192,7 @@ impl APICall {
         }}
     }}", shader_module.var_name);
             }
+
             CreateComputeBindGroupLayout(device) => {
                 if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
                     return format!("const {} = {}.createBindGroupLayout({{ 
@@ -229,6 +228,7 @@ impl APICall {
                     panic!("created_resource for CreateComputePipelineLayout() call is not a pipeline layout!")
                 }
             }
+
             CreateComputePipeline(device, shader_module, pipeline_layout) => {
                 if let Resource::GPUComputePipeline(compute_pipeline) = created_resource {
                     return format!("const {} = {}.createComputePipeline({{ layout: {}, compute: {{ module: {}, entryPoint: \"main\" }} }});", 
@@ -245,6 +245,7 @@ impl APICall {
                     panic!("created_resource for CreateComputePipelineAsync() call is not a compute pipeline!")
                 }
             },
+
             CreateRenderPipeline(device, shader_module) => {
                 if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
                     return format!("\
@@ -335,6 +336,7 @@ impl APICall {
                     panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
                 }
             },
+
             CreateCommandEncoder(device) => {
                 if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
                     return format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", command_encoder.var_name, device.var_name, command_encoder.var_name);
@@ -412,6 +414,7 @@ impl APICall {
             PopCommandEncoderDebugGroup(encoder) => {
                 return format!("{}.popDebugGroup()", encoder.var_name);
             }
+
             CreateComputePass(encoder) => {
                 if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
                     return format!("const {} = {}.beginComputePass({{ label: \"{}\" }});", compute_pass_encoder.var_name, encoder.var_name, compute_pass_encoder.var_name);
@@ -499,6 +502,7 @@ impl APICall {
             EndComputePass(compute_pass_encoder) => {
                 return format!("{}.end();", compute_pass_encoder.var_name);
             },
+
             CreateRenderPass(command_encoder, texture_view) => {
                 if let Resource::GPURenderPassEncoder(render_pass_encoder) = created_resource {
                     return format!("const {} = {}.beginRenderPass({{
@@ -516,6 +520,7 @@ impl APICall {
                     panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
                 }
             }
+
             CreateCommandBuffer(encoder) => {
                 if let Resource::GPUCommandBuffer(command_buffer) = created_resource {
                     return format!("const {} = {}.finish();", command_buffer.var_name, encoder.var_name);
@@ -523,6 +528,12 @@ impl APICall {
                     panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
                 }
             }
+            SubmitQueueRandom(device, command_encoders) => submit_queue_random(device, command_encoders),
+            WaitSubmittedWork(device) => wait_submitted_work(device),
+
+            PushRandomErrorScope(device) => push_random_error_scope(device),
+            PopErrorScope(device) => pop_error_scope(device),
+            // AddUncapturedErrorListener(device) => add_uncaptured_error_listener(device),
         }
     }
 }
