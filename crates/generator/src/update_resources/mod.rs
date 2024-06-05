@@ -1,15 +1,13 @@
 use crate::*;
 use art::enum_wrapper::Resource;
 
+mod program;
+use program::*;
+
 pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall) -> Resource {
     let mut new_resource = Resource::None;
     match call {
-        PrintWGSLLanguageFeatures() => {},
-        PrintPreferredCanvasFormat() => {},
-        CreateArray() => {
-            new_resource = Resource::RandomArray(RandomArray::new(&resources));
-            resources.random_arrays.push(RandomArray::new(&resources))
-        }
+        PrintWGSLLanguageFeatures() | PrintPreferredCanvasFormat() | CreateArray() => {new_resource = update_program(resources, call)},
 
         CreateAdapter() => {
             new_resource = Resource::GPUAdapter(GPUAdapter::new(&resources));
