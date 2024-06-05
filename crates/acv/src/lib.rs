@@ -6,7 +6,6 @@ mod api_calls;
 pub use api_calls::APICall::{self, *};
 
 pub mod to_javascript;
-pub use to_javascript::*;
 
 use std::{fs::{self, File}, process::{Command, Stdio}};
 use art::*;
