@@ -25,20 +25,7 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
                     available_api_calls.extend([CreateComputePipelineLayout(device.clone(), bind_group_layout.clone())])
                 }
 
-                // Crashes
-                for buffer in &device.buffers {
-                    if buffer.use_case.contains("GPUBufferUsage.COPY_DST") && !buffer.destroyed {
-                        for array in &resources.random_arrays {
-                            available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
-                        }
-                    }
-                    if !buffer.destroyed && buffer.use_case.contains("GPUBufferUsage.MAP_READ") {
-                        available_api_calls.extend([ReadMappedBuffer(buffer.clone())])
-                    }
-                    if !buffer.destroyed {
-                        available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
-                    }
-                }
+                add_manipulate_buffers(&mut available_api_calls, resources, device);
 
                 for texture in &device.textures {
                     if !texture.destroyed && texture.usage.contains("GPUTextureUsage.COPY_DST") && texture.format.contains("\"r32float\""){
@@ -187,4 +174,21 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
     }
 
     available_api_calls
+}
+
+fn add_manipulate_buffers(available_api_calls: &mut Vec<APICall>, resources: &ProgramResources, device: &GPUDevice) {
+    // Crashes
+    for buffer in &device.buffers {
+        if !buffer.destroyed {
+            if buffer.use_case.contains("GPUBufferUsage.COPY_DST") {
+                for array in &resources.random_arrays {
+                    available_api_calls.extend([WriteBuffer(device.clone(), buffer.clone(), array.clone())])
+                }
+            }
+            if buffer.use_case.contains("GPUBufferUsage.MAP_READ") {
+                available_api_calls.extend([ReadMappedBuffer(buffer.clone())])
+            }
+            available_api_calls.extend([PrintBufferInfo(buffer.clone()), DestroyBuffer(buffer.clone())])
+        }
+    }
 }
