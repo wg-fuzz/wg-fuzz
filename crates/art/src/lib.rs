@@ -7,8 +7,11 @@
 
 pub mod enum_wrapper;
 pub mod primitives;
+pub mod pipeline_setup;
 pub mod encoders;
+
 pub use primitives::*;
+pub use pipeline_setup::*;
 pub use encoders::*;
 
 #[derive(Debug, Clone)]
@@ -202,26 +205,6 @@ impl GPUPipelineLayout {
         let name = format!("pipeline_layout{}{}{}", num_adapter, num_device, num);
 
         GPUPipelineLayout {
-            num,
-            var_name: name
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct GPUComputePipeline {
-    pub num: usize,
-    pub var_name: String
-}
-
-impl GPUComputePipeline {
-    pub fn new(device: &GPUDevice) -> GPUComputePipeline {
-        let num_adapter = device.num_adapter;
-        let num_device = device.num;
-        let num = device.compute_pipelines.len();
-        let name = format!("compute_pipeline{}{}{}", num_adapter, num_device, num);
-
-        GPUComputePipeline {
             num,
             var_name: name
         }
