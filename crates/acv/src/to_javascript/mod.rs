@@ -45,7 +45,7 @@ impl APICall {
                 | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                     compute_pass_to_js(self, created_resource),
 
-            CreateRenderPass(_, _) => render_pass_to_js(self, created_resource),
+            CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) => render_pass_to_js(self, created_resource),
 
             CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => submit_to_js(self, created_resource),
             

@@ -61,6 +61,7 @@ pub enum APICall {
     EndComputePass(GPUComputePassEncoder),
 
     CreateRenderPass(GPUCommandEncoder, GPUTextureView),
+    SetRenderPassPipeline(GPURenderPassEncoder, GPURenderPipeline),
 
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),

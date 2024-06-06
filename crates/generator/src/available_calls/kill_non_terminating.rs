@@ -50,6 +50,7 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         PopComputePassDebugGroup(_) => true,
         EndComputePass(_) => true,
         CreateRenderPass(_, _) => false,
+        SetRenderPassPipeline(_, _) => false,
         SubmitQueueRandom(_, _) => true,
         // AddUncapturedErrorListener(_) => false,
         PushRandomErrorScope(_) => false,

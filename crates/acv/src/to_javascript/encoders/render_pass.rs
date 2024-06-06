@@ -19,6 +19,9 @@ colorAttachments: [
                 panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
             }
         }
+        SetRenderPassPipeline(render_pass, render_pipeline) => {
+            return format!("{}.setPipeline({});", render_pass.var_name, render_pipeline.var_name);
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

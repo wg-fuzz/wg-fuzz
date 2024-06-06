@@ -1,9 +1,11 @@
 pub mod states;
 pub mod compute_pass;
+pub mod render_pass;
 
 use crate::*;
 use states::*;
 use compute_pass::*;
+use render_pass::*;
 
 pub fn add_manipulate_command_encoders(available_api_calls: &mut Vec<APICall>, device: &GPUDevice) -> bool {
     let mut queue_command_encoders: Vec<GPUCommandEncoder> = Vec::new();
@@ -14,6 +16,8 @@ pub fn add_manipulate_command_encoders(available_api_calls: &mut Vec<APICall>, d
         let mut all_passes_finished = true;
 
         all_passes_finished = add_manipulate_current_compute_pass(available_api_calls, device, command_encoder, all_passes_finished);
+
+        all_passes_finished = add_manipulate_current_render_pass(available_api_calls, device, command_encoder, all_passes_finished);
 
         add_command_encoder_not_yet_buffer(available_api_calls, device, command_encoder, all_passes_finished);
 

@@ -46,7 +46,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                 { new_resource = update_compute_pass(resources, call) }
 
-        CreateRenderPass(_, _) => { new_resource = update_render_pass(resources, call) }
+        CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) => { new_resource = update_render_pass(resources, call) }
 
         CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => { new_resource = update_submit(resources, call) }
 
