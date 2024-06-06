@@ -46,7 +46,16 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                 { new_resource = update_compute_pass(resources, call) }
 
-        CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) => { new_resource = update_render_pass(resources, call) }
+        CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
+            | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
+            | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
+            | EndRenderPass(_) => 
+                { new_resource = update_render_pass(resources, call) }
+    
+        InsertRenderPassDebugMarker(_) | PushRenderPassDebugGroup(_) | PopRenderPassDebugGroup(_)
+            | SetBlendConstant(_) | SetScissorRect(_, _) | SetStencilReference(_)
+            | SetViewport(_, _) =>
+                { new_resource = update_optional_render_pass(resources, call) }
 
         CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => { new_resource = update_submit(resources, call) }
 

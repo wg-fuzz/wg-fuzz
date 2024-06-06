@@ -62,6 +62,22 @@ pub enum APICall {
 
     CreateRenderPass(GPUCommandEncoder, GPUTextureView),
     SetRenderPassPipeline(GPURenderPassEncoder, GPURenderPipeline),
+    SetVertexBuffer(GPURenderPassEncoder, GPUBuffer),
+    SetIndexBuffer(GPURenderPassEncoder, GPUBuffer),
+    // SetRenderPassBindGroup(GPURenderPassEncoder, GPUBindGroup),
+    Draw(GPURenderPassEncoder),
+    DrawIndexed(GPURenderPassEncoder),
+    DrawIndirect(GPURenderPassEncoder, GPUBuffer),
+    DrawIndexedIndirect(GPURenderPassEncoder, GPUBuffer),
+    EndRenderPass(GPURenderPassEncoder),
+
+    InsertRenderPassDebugMarker(GPURenderPassEncoder),
+    PushRenderPassDebugGroup(GPURenderPassEncoder),
+    PopRenderPassDebugGroup(GPURenderPassEncoder),
+    SetBlendConstant(GPURenderPassEncoder),
+    SetScissorRect(GPURenderPassEncoder, GPUTexture),
+    SetStencilReference(GPURenderPassEncoder),
+    SetViewport(GPURenderPassEncoder, GPUTexture),
 
     CreateCommandBuffer(GPUCommandEncoder),
     SubmitQueueRandom(GPUDevice, Vec<GPUCommandEncoder>),

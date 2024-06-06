@@ -6,3 +6,6 @@ pub use compute_pass::*;
 
 mod render_pass;
 pub use render_pass::*;
+
+mod optional_render_pass;
+pub use optional_render_pass::*;

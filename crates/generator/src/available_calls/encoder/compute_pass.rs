@@ -14,7 +14,7 @@ pub fn add_manipulate_current_compute_pass(available_api_calls: &mut Vec<APICall
             }
         } else if !compute_pass.dispatched {
             available_api_calls.extend([SetComputePassWorkgroups(compute_pass.clone()), SetComputePassWorkgroupsIndirect(device.clone(), compute_pass.clone())])
-        } else if !compute_pass.finished {
+        } else if !compute_pass.finished && !compute_pass.debug_group_active {
             available_api_calls.extend([EndComputePass(compute_pass.clone())])
         }
 
@@ -27,7 +27,6 @@ pub fn add_manipulate_current_compute_pass(available_api_calls: &mut Vec<APICall
         }
 
         if compute_pass.debug_group_active {
-            all_passes_finished = false;
             available_api_calls.extend([PopComputePassDebugGroup(compute_pass.clone())])
         }
     }

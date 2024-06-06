@@ -45,7 +45,16 @@ impl APICall {
                 | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                     compute_pass_to_js(self, created_resource),
 
-            CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) => render_pass_to_js(self, created_resource),
+            CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
+                | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
+                | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
+                | EndRenderPass(_) => 
+                    render_pass_to_js(self, created_resource),
+            
+            InsertRenderPassDebugMarker(_) | PushRenderPassDebugGroup(_) | PopRenderPassDebugGroup(_)
+                | SetBlendConstant(_) | SetScissorRect(_, _) | SetStencilReference(_)
+                | SetViewport(_, _) =>
+                    optional_render_pass_to_js(self),
 
             CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => submit_to_js(self, created_resource),
             

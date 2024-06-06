@@ -3,6 +3,7 @@ use crate::*;
 #[derive(Debug, Clone)]
 pub struct GPUTextureView {
     pub num: usize,
+    pub num_texture: usize,
     pub var_name: String
 }
 
@@ -16,6 +17,7 @@ impl GPUTextureView {
 
         GPUTextureView {
             num,
+            num_texture,
             var_name: name
         }
     }

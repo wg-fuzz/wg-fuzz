@@ -8,29 +8,43 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
             for render_pipeline in &device.render_pipelines {
                 available_api_calls.extend([SetRenderPassPipeline(render_pass.clone(), render_pipeline.clone())])
             }
+        } else if let None = &render_pass.vertex_buffer {
+            for buffer in &device.buffers {
+                available_api_calls.extend([SetVertexBuffer(render_pass.clone(), buffer.clone())])
+            }
+        } else if !render_pass.drew {
+            available_api_calls.extend([Draw(render_pass.clone())]);
+            if let Some(_) = &render_pass.index_buffer {
+                available_api_calls.extend([DrawIndexed(render_pass.clone())]);
+                for buffer in &device.buffers {
+                    available_api_calls.extend([DrawIndexedIndirect(render_pass.clone(), buffer.clone())])
+                }
+            }
+            for buffer in &device.buffers {
+                available_api_calls.extend([DrawIndirect(render_pass.clone(), buffer.clone()), SetIndexBuffer(render_pass.clone(), buffer.clone())])
+            }
+        } else if !render_pass.finished && !render_pass.debug_group_active {
+            available_api_calls.extend([EndRenderPass(render_pass.clone())])
         }
         // } else if !render_pass.bindgroup_set {
         //     if let Some(render_pipeline) = &render_pass.pipeline {
         //         available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), render_pass.clone(), render_pipeline.clone())]);
         //     }
-        // } else if !render_pass.dispatched {
-        //     available_api_calls.extend([SetComputePassWorkgroups(render_pass.clone()), SetComputePassWorkgroupsIndirect(device.clone(), render_pass.clone())])
-        // } else if !render_pass.finished {
-        //     available_api_calls.extend([EndComputePass(render_pass.clone())])
         // }
 
         if !render_pass.finished {
             all_passes_finished = false;
-            // available_api_calls.extend([InsertComputePassDebugMarker(render_pass.clone())]);
-            // if !render_pass.debug_group_active {
-            //     available_api_calls.extend([PushComputePassDebugGroup(render_pass.clone())]);
-            // }
+            available_api_calls.extend([InsertRenderPassDebugMarker(render_pass.clone()),
+                SetBlendConstant(render_pass.clone()), SetScissorRect(render_pass.clone(), render_pass.target_texture.clone()),
+                SetStencilReference(render_pass.clone()), SetViewport(render_pass.clone(), render_pass.target_texture.clone())]);
+            if !render_pass.debug_group_active {
+                available_api_calls.extend([PushRenderPassDebugGroup(render_pass.clone())]);
+            }
         }
 
-        // if render_pass.debug_group_active {
-        //     all_passes_finished = false;
-        //     available_api_calls.extend([PopComputePassDebugGroup(render_pass.clone())])
-        // }
+        if render_pass.debug_group_active {
+            available_api_calls.extend([PopRenderPassDebugGroup(render_pass.clone())])
+        }
     }
     all_passes_finished
 }
