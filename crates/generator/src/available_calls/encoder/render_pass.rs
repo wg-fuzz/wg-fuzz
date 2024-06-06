@@ -10,18 +10,27 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
             }
         } else if let None = &render_pass.vertex_buffer {
             for buffer in &device.buffers {
-                available_api_calls.extend([SetVertexBuffer(render_pass.clone(), buffer.clone())])
+                if buffer.use_case.contains("GPUBufferUsage.VERTEX") {
+                    available_api_calls.extend([SetVertexBuffer(render_pass.clone(), buffer.clone())])
+                }
             }
         } else if !render_pass.drew {
             available_api_calls.extend([Draw(render_pass.clone())]);
             if let Some(_) = &render_pass.index_buffer {
                 available_api_calls.extend([DrawIndexed(render_pass.clone())]);
                 for buffer in &device.buffers {
-                    available_api_calls.extend([DrawIndexedIndirect(render_pass.clone(), buffer.clone())])
+                    if buffer.use_case.contains("GPUBufferUsage.INDIRECT") {
+                        available_api_calls.extend([DrawIndexedIndirect(render_pass.clone(), buffer.clone())])
+                    }
                 }
             }
             for buffer in &device.buffers {
-                available_api_calls.extend([DrawIndirect(render_pass.clone(), buffer.clone()), SetIndexBuffer(render_pass.clone(), buffer.clone())])
+                if buffer.use_case.contains("GPUBufferUsage.INDIRECT") {
+                    available_api_calls.extend([DrawIndirect(render_pass.clone(), buffer.clone())])
+                }
+                if buffer.use_case.contains("GPUBufferUsage.INDEX") {
+                    available_api_calls.extend([SetIndexBuffer(render_pass.clone(), buffer.clone())])
+                }
             }
         } else if !render_pass.finished && !render_pass.debug_group_active {
             available_api_calls.extend([EndRenderPass(render_pass.clone())])
