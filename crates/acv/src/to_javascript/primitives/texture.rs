@@ -5,37 +5,38 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         CreateRandomTexture(device) => {
             if let Resource::GPUTexture(texture) = created_resource {
                 return format!("const {} = {}.createTexture({{
-    size: [10, 10],
-    usage: {},
-    format: {},
-    dimension: \"2d\"
-}});", texture.var_name, device.var_name, texture.usage, texture.format);
+        size: [10, 10],
+        usage: {},
+        format: {},
+        dimension: \"2d\"
+    }});", 
+                texture.var_name, device.var_name, texture.usage, texture.format);
             } else {
                 panic!("created_resource for CreateTexture() call is not a texture!")
             }
         }
         PrintTextureInfo(texture) => {
             return format!("\
-{{
-    const texture = {}
-    console.log(texture.depthOrArrayLayers);
+    {{
+        const texture = {}
+        console.log(texture.depthOrArrayLayers);
 
-    console.log(texture.dimension);
+        console.log(texture.dimension);
 
-    console.log(texture.format);
+        console.log(texture.format);
 
-    console.log(texture.height);
+        console.log(texture.height);
 
-    console.log(texture.width);
+        console.log(texture.width);
 
-    console.log(texture.label);
+        console.log(texture.label);
 
-    console.log(texture.mipLevelCount);
+        console.log(texture.mipLevelCount);
 
-    console.log(texture.sampleCount);
+        console.log(texture.sampleCount);
 
-    console.log(texture.usage);
-}}", texture.var_name);
+        console.log(texture.usage);
+    }}", texture.var_name);
         }
         WriteTexture(device, texture, array) => {
             return format!("{}.queue.writeTexture({{ texture: {} }}, {}, {{ bytesPerRow: 40, rowsPerImage: 10 }}, {{ width: 10, height: 10 }});", 

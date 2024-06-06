@@ -23,26 +23,26 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         PrintAdapterInfo(adapter) => {
             return format!("console.log({}.features.size);
 
-for (const value of {}.features.keys()) {{
-    console.log(value);
-}}
+    for (const value of {}.features.keys()) {{
+        console.log(value);
+    }}
 
-console.log({}.isFallbackAdapter);
+    console.log({}.isFallbackAdapter);
 
-console.log({}.limits.size);
+    console.log({}.limits.size);
 
-for (const [key, value] of Object.entries({}.limits)) {{
-    console.log(key);
-    console.log(value);
-}}
+    for (const [key, value] of Object.entries({}.limits)) {{
+        console.log(key);
+        console.log(value);
+    }}
 
-{{
-    const adapterInfo = await {}.requestAdapterInfo();
-    console.log(adapterInfo.vendor);
-    console.log(adapterInfo.architecture);
-    console.log(adapterInfo.device);
-    console.log(adapterInfo.description);
-}}", adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name);
+    {{
+        const adapterInfo = await {}.requestAdapterInfo();
+        console.log(adapterInfo.vendor);
+        console.log(adapterInfo.architecture);
+        console.log(adapterInfo.device);
+        console.log(adapterInfo.description);
+    }}", adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name);
         }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }

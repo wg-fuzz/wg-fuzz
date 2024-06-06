@@ -5,23 +5,23 @@ pub fn pipeline_layout_to_js(api_call: &APICall, created_resource: &Resource) ->
         CreateComputeBindGroupLayout(device) => {
             if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
                 return format!("const {} = {}.createBindGroupLayout({{ 
-    entries: [
-        {{
-            binding: 0,
-            visibility: GPUShaderStage.COMPUTE,
-            buffer: {{
-                type: \"uniform\",
+        entries: [
+            {{
+                binding: 0,
+                visibility: GPUShaderStage.COMPUTE,
+                buffer: {{
+                    type: \"uniform\",
+                }},
             }},
-        }},
-        {{
-            binding: 1,
-            visibility: GPUShaderStage.COMPUTE,
-            buffer: {{
-                type: \"storage\",
+            {{
+                binding: 1,
+                visibility: GPUShaderStage.COMPUTE,
+                buffer: {{
+                    type: \"storage\",
+                }}
             }}
-        }}
-    ]
-}});", 
+        ]
+    }});", 
                     bind_group_layout.var_name, device.var_name);
             } else {
                 panic!("created_resource for CreateBindGroupLayout() call is not a bind group layout!")
@@ -30,8 +30,8 @@ pub fn pipeline_layout_to_js(api_call: &APICall, created_resource: &Resource) ->
         CreateComputePipelineLayout(device, render_bind_group_layout) => {
             if let Resource::GPUPipelineLayout(pipeline_layout) = created_resource {
                 return format!("const {} = {}.createPipelineLayout({{ 
-    bindGroupLayouts: [{}]
-}});", 
+        bindGroupLayouts: [{}]
+    }});", 
                     pipeline_layout.var_name, device.var_name, render_bind_group_layout.var_name);
             } else {
                 panic!("created_resource for CreateComputePipelineLayout() call is not a pipeline layout!")

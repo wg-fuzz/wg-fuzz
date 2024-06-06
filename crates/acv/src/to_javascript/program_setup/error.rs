@@ -15,10 +15,10 @@ pub fn error_to_js(api_call: &APICall) -> String {
         }
         PopErrorScope(device) => {
             return format!("{}.popErrorScope().then((error) => {{
-    if (error) {{
-        console.error(`An error occurred: ${{error.message}}`);
-    }}
-}});", device.var_name);
+        if (error) {{
+            console.error(`An error occurred: ${{error.message}}`);
+        }}
+    }});", device.var_name);
         }
         // AddUncapturedErrorListener(device) => {
         //     return format!("console.log(typeof {}.onuncapturederror);", device.var_name);

@@ -5,9 +5,9 @@ pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         PrintWGSLLanguageFeatures() => {
             return String::from("console.log(navigator.gpu.wgslLanguageFeatures.size);
 
-for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
-    console.log(value);
-}");
+    for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
+        console.log(value);
+    }");
         }
         PrintPreferredCanvasFormat() => {
             return String::from("console.log(navigator.gpu.getPreferredCanvasFormat());");

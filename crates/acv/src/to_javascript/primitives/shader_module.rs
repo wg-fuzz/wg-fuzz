@@ -26,13 +26,13 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
 
                 let var_name = &shader_module.var_name;
                 return format!("\
-var {}_code = \"\";
-try {{
-    {}_code = await fs.readFile('out/{}.wgsl', 'utf8');
-}} catch (err) {{
-    console.log(err);
-}}
-const {} = await {}.createShaderModule({{ code: {}_code }})", 
+    var {}_code = \"\";
+    try {{
+        {}_code = await fs.readFile('out/{}.wgsl', 'utf8');
+    }} catch (err) {{
+        console.log(err);
+    }}
+    const {} = await {}.createShaderModule({{ code: {}_code }})", 
                     var_name, var_name, var_name, var_name, device.var_name, var_name)
 
             } else {
@@ -43,13 +43,13 @@ const {} = await {}.createShaderModule({{ code: {}_code }})",
             if let Resource::GPUShaderModule(shader_module) = created_resource {
                 let var_name = &shader_module.var_name;
                 return format!("\
-var {}_code = \"\";
-try {{
-    {}_code = await fs.readFile('crates/wg-fuzz/code_samples/render_shader.wgsl', 'utf8');
-}} catch (err) {{
-    console.log(err);
-}}
-const {} = await {}.createShaderModule({{ code: {}_code }})", 
+    var {}_code = \"\";
+    try {{
+        {}_code = await fs.readFile('crates/wg-fuzz/code_samples/render_shader.wgsl', 'utf8');
+    }} catch (err) {{
+        console.log(err);
+    }}
+    const {} = await {}.createShaderModule({{ code: {}_code }})", 
                     var_name, var_name, var_name, device.var_name, var_name)
 
             } else {
@@ -58,15 +58,16 @@ const {} = await {}.createShaderModule({{ code: {}_code }})",
         }
         PrintShaderModuleInfo(shader_module) => {
             return format!("\
-{{
-    const shaderInfo = await {}.getCompilationInfo();
+    {{
+        const shaderInfo = await {}.getCompilationInfo();
 
-    for (const message in shaderInfo.messages) {{
-        console.log(message.lineNum);
-        console.log(message.message);
-        console.log(message.type);
-    }}
-}}", shader_module.var_name);
+        for (const message in shaderInfo.messages) {{
+            console.log(message.lineNum);
+            console.log(message.message);
+            console.log(message.type);
+        }}
+    }}", 
+            shader_module.var_name);
         }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }

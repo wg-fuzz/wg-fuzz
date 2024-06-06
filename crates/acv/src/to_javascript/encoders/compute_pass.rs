@@ -15,35 +15,35 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
         SetComputePassBindGroupTemplate(device, encoder, compute_pipeline) => {
             if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
                 return format!("\
-const {} = {}.createBuffer({{
-    size: 400,
-    usage: GPUBufferUsage.UNIFORM
-}});
+    const {} = {}.createBuffer({{
+        size: 400,
+        usage: GPUBufferUsage.UNIFORM
+    }});
 
-const {} = {}.createBuffer({{
-    size: 400,
-    usage: GPUBufferUsage.STORAGE
-}});
-    
-const {} = {}.createBindGroup({{
-    layout: {}.getBindGroupLayout(0),
-    entries: [
-        {{
-            binding: 0,
-            resource: {{
-                buffer: {},
+    const {} = {}.createBuffer({{
+        size: 400,
+        usage: GPUBufferUsage.STORAGE
+    }});
+        
+    const {} = {}.createBindGroup({{
+        layout: {}.getBindGroupLayout(0),
+        entries: [
+            {{
+                binding: 0,
+                resource: {{
+                    buffer: {},
+                }},
             }},
-        }},
-        {{
-            binding: 1,
-            resource: {{
-                buffer: {},
+            {{
+                binding: 1,
+                resource: {{
+                    buffer: {},
+                }},
             }},
-        }},
-    ],
-}});
+        ],
+    }});
 
-{}.setBindGroup(0, {});", 
+    {}.setBindGroup(0, {});", 
                 uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
                 bind_group.var_name, device.var_name,
                 compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
@@ -59,19 +59,19 @@ const {} = {}.createBindGroup({{
             if let Resource::GPUBuffer(buffer) = created_resource {
                 let array_var = format!("uint32_{}{}{}{}", encoder.num_adapter, encoder.num_device, encoder.num_encoder, encoder.num);
                 return format!("\
-const {} = new Uint32Array(3);
+    const {} = new Uint32Array(3);
 
-{}[0] = 100;
-{}[1] = 1;
-{}[2] = 1;
+    {}[0] = 100;
+    {}[1] = 1;
+    {}[2] = 1;
 
-const {} = {}.createBuffer({{
-    size: 12,
-    usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT,
-}});
-{}.queue.writeBuffer({}, 0, {}, 0, {}.length);
+    const {} = {}.createBuffer({{
+        size: 12,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT,
+    }});
+    {}.queue.writeBuffer({}, 0, {}, 0, {}.length);
 
-{}.dispatchWorkgroupsIndirect({}, 0);", 
+    {}.dispatchWorkgroupsIndirect({}, 0);", 
                 array_var, array_var, array_var, array_var, buffer.var_name, device.var_name, device.var_name, buffer.var_name, array_var, array_var, encoder.var_name, buffer.var_name);
             } else {
                 panic!("created_resource for SetComputePassWorkgroupsIndirect call is not a buffer!")
