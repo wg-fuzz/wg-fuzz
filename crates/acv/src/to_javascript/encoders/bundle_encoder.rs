@@ -5,7 +5,7 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
         CreateRenderBundleEncoder(device) => {
             if let Resource::GPURenderBundleEncoder(bundle) = created_resource {
                 return format!("const {} = {}.createRenderBundleEncoder({{
-        colorFormats: []
+        colorFormats: [\"bgra8unorm\"]
     }});", 
                     bundle.var_name, device.var_name);
             } else {
@@ -42,7 +42,7 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
             return format!("{}.drawIndexedIndirect({}, 0);", bundle.var_name, buffer.var_name);
         }
         EndBundle(bundle) => {
-            return format!("{}.end();", bundle.var_name);
+            return format!("{}.finish();", bundle.var_name);
         }
         InsertDebugMarkerBundle(bundle) => {
             return format!("{}.insertDebugMarker(\"marker\");", bundle.var_name);
