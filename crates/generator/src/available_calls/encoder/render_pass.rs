@@ -1,6 +1,7 @@
 use crate::*;
+use available_calls::fuzzy;
 
-pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>, device: &GPUDevice, command_encoder: &GPUCommandEncoder, all_passes_finished: bool) -> bool {
+pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>, rng: &mut ThreadRng, device: &GPUDevice, command_encoder: &GPUCommandEncoder, all_passes_finished: bool) -> bool {
     let mut all_passes_finished = all_passes_finished;
     for render_pass in &command_encoder.render_pass_encoders {
         // This restricts a render pass encoder to be set up in the following order in the final javascript program for simplicity
@@ -9,38 +10,37 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
                 available_api_calls.extend([SetRenderPassPipeline(render_pass.clone(), render_pipeline.clone())])
             }
             let mut bundles = Vec::new();
-            let mut rng = rand::thread_rng();
             for bundle in &device.render_bundle_encoders {
-                if bundle.finished && rng.gen_bool(0.8) {
+                if bundle.finished && rng.gen_bool(0.8) || fuzzy(rng) {
                     bundles.extend([bundle.clone()])
                 }
             }
             available_api_calls.extend([ExecuteBundles(render_pass.clone(), bundles)])
         } else if let None = &render_pass.vertex_buffer {
             for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.VERTEX") {
+                if buffer.use_case.contains("GPUBufferUsage.VERTEX") || fuzzy(rng) {
                     available_api_calls.extend([SetVertexBuffer(render_pass.clone(), buffer.clone())])
                 }
             }
-        } else if !render_pass.drew {
+        } else if !render_pass.drew || fuzzy(rng) {
             available_api_calls.extend([Draw(render_pass.clone())]);
             if let Some(_) = &render_pass.index_buffer {
                 available_api_calls.extend([DrawIndexed(render_pass.clone())]);
                 for buffer in &device.buffers {
-                    if buffer.use_case.contains("GPUBufferUsage.INDIRECT") {
+                    if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng) {
                         available_api_calls.extend([DrawIndexedIndirect(render_pass.clone(), buffer.clone())])
                     }
                 }
             }
             for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.INDIRECT") {
+                if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng) {
                     available_api_calls.extend([DrawIndirect(render_pass.clone(), buffer.clone())])
                 }
-                if buffer.use_case.contains("GPUBufferUsage.INDEX") {
+                if buffer.use_case.contains("GPUBufferUsage.INDEX") || fuzzy(rng) {
                     available_api_calls.extend([SetIndexBuffer(render_pass.clone(), buffer.clone())])
                 }
             }
-        } else if !render_pass.finished && !render_pass.debug_group_active {
+        } else if !render_pass.finished && !render_pass.debug_group_active || fuzzy(rng) {
             available_api_calls.extend([EndRenderPass(render_pass.clone())])
         }
         // } else if !render_pass.bindgroup_set {
@@ -49,17 +49,17 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
         //     }
         // }
 
-        if !render_pass.finished {
+        if !render_pass.finished || fuzzy(rng) {
             all_passes_finished = false;
             available_api_calls.extend([InsertRenderPassDebugMarker(render_pass.clone()),
                 SetBlendConstant(render_pass.clone()), SetScissorRect(render_pass.clone(), render_pass.target_texture.clone()),
                 SetStencilReference(render_pass.clone()), SetViewport(render_pass.clone(), render_pass.target_texture.clone())]);
-            if !render_pass.debug_group_active {
+            if !render_pass.debug_group_active || fuzzy(rng) {
                 available_api_calls.extend([PushRenderPassDebugGroup(render_pass.clone())]);
             }
         }
 
-        if render_pass.debug_group_active {
+        if render_pass.debug_group_active || fuzzy(rng) {
             available_api_calls.extend([PopRenderPassDebugGroup(render_pass.clone())])
         }
     }
