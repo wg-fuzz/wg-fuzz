@@ -54,8 +54,14 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
     
         InsertRenderPassDebugMarker(_) | PushRenderPassDebugGroup(_) | PopRenderPassDebugGroup(_)
             | SetBlendConstant(_) | SetScissorRect(_, _) | SetStencilReference(_)
-            | SetViewport(_, _) =>
+            | SetViewport(_, _) | ExecuteBundles(_, _) =>
                 { new_resource = update_optional_render_pass(resources, call) }
+        
+        CreateRenderBundleEncoder(_) | SetPipelineBundle(_, _) | SetVertexBufferBundle(_, _)
+            | SetIndexBufferBundle(_, _) | DrawBundle(_) | DrawIndexedBundle(_)
+            | DrawIndirectBundle(_, _) | DrawIndexedIndirectBundle(_, _) | EndBundle(_)
+            | InsertDebugMarkerBundle(_) | PushDebugGroupBundle(_) | PopDebugGroupBundle(_) =>
+                { new_resource = update_bundle(resources, call) }
 
         CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => { new_resource = update_submit(resources, call) }
 

@@ -1,6 +1,7 @@
 pub mod states;
 pub mod compute_pass;
 pub mod render_pass;
+pub mod bundle;
 
 use crate::*;
 use states::*;

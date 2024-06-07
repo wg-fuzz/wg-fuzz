@@ -8,6 +8,14 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
             for render_pipeline in &device.render_pipelines {
                 available_api_calls.extend([SetRenderPassPipeline(render_pass.clone(), render_pipeline.clone())])
             }
+            let mut bundles = Vec::new();
+            let mut rng = rand::thread_rng();
+            for bundle in &device.render_bundle_encoders {
+                if bundle.finished && rng.gen_bool(0.8) {
+                    bundles.extend([bundle.clone()])
+                }
+            }
+            available_api_calls.extend([ExecuteBundles(render_pass.clone(), bundles)])
         } else if let None = &render_pass.vertex_buffer {
             for buffer in &device.buffers {
                 if buffer.use_case.contains("GPUBufferUsage.VERTEX") {

@@ -23,6 +23,15 @@ pub fn optional_render_pass_to_js(api_call: &APICall) -> String {
         SetViewport(render_pass, texture) => {
             return format!("{}.setViewport(0, 0, {}.width / 2, {}.height / 2, 0, 1);", render_pass.var_name, texture.var_name, texture.var_name);
         }
+        ExecuteBundles(render_pass, bundles) => {
+            let mut bundles_str = String::from("[");
+            for bundle in bundles {
+                bundles_str.push_str(&bundle.var_name);
+                bundles_str.push_str(", ");
+            }
+            bundles_str.push_str("]");
+            return format!("{}.executeBundles({})", render_pass.var_name, bundles_str);
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

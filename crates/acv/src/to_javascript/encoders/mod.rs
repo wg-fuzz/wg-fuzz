@@ -9,3 +9,6 @@ pub use render_pass::*;
 
 mod optional_render_pass;
 pub use optional_render_pass::*;
+
+mod bundle_encoder;
+pub use bundle_encoder::*;

@@ -2,14 +2,20 @@ use crate::*;
 
 #[derive(Debug, Clone)]
 pub struct GPURenderBundleEncoder {
+    pub num_adapter: usize,
+    pub num_device: usize,
     pub num: usize,
     pub var_name: String,
 
-    // vertex_buffer_set: bool,
-    // render_pipeline_set: bool,
-    // index_buffer_set: bool,
-    // bind_group_set: bool,
-    // finished: bool
+    pub pipeline: Option<GPURenderPipeline>,
+    pub bindgroup_set: bool,
+    pub finished: bool,
+
+    pub debug_group_active: bool,
+
+    pub vertex_buffer: Option<GPUBuffer>,
+    pub index_buffer: Option<GPUBuffer>,
+    pub drew: bool,
 }
 
 impl GPURenderBundleEncoder {
@@ -20,14 +26,20 @@ impl GPURenderBundleEncoder {
         let name = format!("render_bundle_encoder{}{}{}", num_adapter, num_device, num);
 
         GPURenderBundleEncoder {
+            num_adapter,
+            num_device,
             num,
             var_name: name,
 
-            // vertex_buffer_set: false,
-            // render_pipeline_set: false,
-            // index_buffer_set: false,
-            // bind_group_set: false,
-            // finished: false
+            pipeline: None,
+            bindgroup_set: false,
+            finished: false,
+
+            debug_group_active: false,
+
+            vertex_buffer: None,
+            index_buffer: None,
+            drew: false,
         }
     }
 }
