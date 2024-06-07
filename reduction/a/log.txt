@@ -1,0 +1,22 @@
+node:internal/modules/cjs/loader:1145
+  throw err;
+  ^
+
+Error: Cannot find module '../dawn.node'
+Require stack:
+- /home/leu/Documents/projects/fyp/wg-fuzz/reduction/a/test.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1142:15)
+    at Module._load (node:internal/modules/cjs/loader:983:27)
+    at Module.require (node:internal/modules/cjs/loader:1230:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (/home/leu/Documents/projects/fyp/wg-fuzz/reduction/a/test.js:1:29)
+    at Module._compile (node:internal/modules/cjs/loader:1368:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1426:10)
+    at Module.load (node:internal/modules/cjs/loader:1205:32)
+    at Module._load (node:internal/modules/cjs/loader:1021:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:142:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/home/leu/Documents/projects/fyp/wg-fuzz/reduction/a/test.js' ]
+}
+
+Node.js v21.7.3
