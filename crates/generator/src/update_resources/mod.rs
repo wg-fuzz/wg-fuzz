@@ -28,6 +28,8 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
 
         CreateSampler(_) => { new_resource = update_sampler(resources, call) }
 
+        CreateOcclusionQuerySet(_) | PrintQuerySet(_) | DestroyQuerySet(_) => { new_resource = update_query_set(resources, call) }
+
         CreateShaderModuleCompute(_) | CreateShaderModuleRender(_) | PrintShaderModuleInfo(_) => { new_resource = update_shader_module(resources, call) }
 
         CreateComputeBindGroupLayout(_) | CreateComputePipelineLayout(_, _) => { new_resource = update_pipeline_layout(resources, call) }
@@ -38,7 +40,8 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
 
         CreateCommandEncoder(_) | ClearBuffer(_, _) | CopyBufferToBuffer(_, _, _) | CopyBufferToTexture(_, _, _) 
             | CopyTextureToBuffer(_, _, _) | CopyTextureToTexture(_, _, _) 
-            | InsertCommandEncoderDebugMarker(_) | PushCommandEncoderDebugGroup(_) | PopCommandEncoderDebugGroup(_) =>
+            | InsertCommandEncoderDebugMarker(_) | PushCommandEncoderDebugGroup(_) | PopCommandEncoderDebugGroup(_)
+            | ResolveQuerySet(_, _, _) =>
                 { new_resource = update_command_encoder(resources, call) }
 
         CreateComputePass(_) | SetComputePassPipeline(_, _) | SetComputePassBindGroupTemplate(_, _, _)
@@ -46,10 +49,10 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
             | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                 { new_resource = update_compute_pass(resources, call) }
 
-        CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
+        CreateRenderPass(_, _, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
             | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
             | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
-            | EndRenderPass(_) => 
+            | EndRenderPass(_) | BeginOcclusionQuery(_, _) | EndOcclusionQuery(_) => 
                 { new_resource = update_render_pass(resources, call) }
     
         InsertRenderPassDebugMarker(_) | PushRenderPassDebugGroup(_) | PopRenderPassDebugGroup(_)

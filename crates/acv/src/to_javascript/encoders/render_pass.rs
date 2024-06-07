@@ -2,19 +2,24 @@ use crate::*;
 
 pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
-        CreateRenderPass(command_encoder, texture_view) => {
+        CreateRenderPass(command_encoder, texture_view, optional_query_set) => {
             if let Resource::GPURenderPassEncoder(render_pass_encoder) = created_resource {
+                let occlusion_query_set_str = match optional_query_set {
+                    Some(query_set) => String::from(&query_set.var_name),
+                    None => String::from("null"),
+                };
                 return format!("const {} = {}.beginRenderPass({{
-    colorAttachments: [
-        {{
-            clearValue: [0.0, 0.5, 1.0, 1.0],
-            loadOp: \"clear\",
-            storeOp: \"store\",
-            view: {},
-        }},
-    ],
+        colorAttachments: [
+            {{
+                clearValue: [0.0, 0.5, 1.0, 1.0],
+                loadOp: \"clear\",
+                storeOp: \"store\",
+                view: {},
+            }},
+        ],
+        occlusionQuerySet: {}
     }});", 
-                    render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name);
+                    render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name, occlusion_query_set_str);
             } else {
                 panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
             }

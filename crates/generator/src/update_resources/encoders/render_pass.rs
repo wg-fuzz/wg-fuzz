@@ -4,10 +4,14 @@ pub fn update_render_pass(resources: &mut ProgramResources, call: &APICall) -> R
     let mut new_resource = Resource::None;
 
     match call {
-        CreateRenderPass(encoder, texture_view) => {
+        CreateRenderPass(encoder, texture_view, optional_query_set) => {
             let device = &resources.adapters[encoder.num_adapter].devices[encoder.num_device].clone();
-            new_resource = Resource::GPURenderPassEncoder(GPURenderPassEncoder::new(device, encoder, texture_view));
-            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].render_pass_encoders.push(GPURenderPassEncoder::new(device, encoder, texture_view));
+            let query_set_num = match optional_query_set {
+                Some(query_set) => Some(query_set.num),
+                None => None
+            };
+            new_resource = Resource::GPURenderPassEncoder(GPURenderPassEncoder::new(device, encoder, texture_view, query_set_num));
+            resources.adapters[encoder.num_adapter].devices[encoder.num_device].command_encoders[encoder.num].render_pass_encoders.push(GPURenderPassEncoder::new(device, encoder, texture_view, query_set_num));
         }
         SetRenderPassPipeline(render_pass, render_pipeline) => {
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].pipeline = Some(render_pipeline.clone());
@@ -32,6 +36,15 @@ pub fn update_render_pass(resources: &mut ProgramResources, call: &APICall) -> R
         }
         EndRenderPass(render_pass) => {
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].finished = true;
+        }
+        BeginOcclusionQuery(render_pass, query_set) => {
+            resources.adapters[query_set.num_adapter].devices[query_set.num_device].query_sets[query_set.num].query_active = true;
+            resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].query_active = true;
+            resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].query_sets[render_pass.num].i += 1;
+        }
+        EndOcclusionQuery(render_pass) => {
+            resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].query_sets[render_pass.occlusion_query_set_num.unwrap()].query_active = false;
+            resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].query_active = false;
         }
         _ => { panic!("There is a bug in the update_resource match calls") }
     }

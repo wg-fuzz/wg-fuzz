@@ -79,6 +79,15 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
         PopCommandEncoderDebugGroup(encoder) => {
             return format!("{}.popDebugGroup()", encoder.var_name);
         }
+        ResolveQuerySet(command_encoder, query_set, buffer) => {
+            return format!("{}.resolveQuerySet(
+                {},
+                0,
+                32,
+                {},
+                0
+            )", command_encoder.var_name, query_set.var_name, buffer.var_name);
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }

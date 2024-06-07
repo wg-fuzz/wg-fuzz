@@ -27,6 +27,10 @@ pub enum APICall {
 
     CreateSampler(GPUDevice),
 
+    CreateOcclusionQuerySet(GPUDevice),
+    PrintQuerySet(GPUQuerySet),
+    DestroyQuerySet(GPUQuerySet),
+
     CreateShaderModuleCompute(GPUDevice),
     CreateShaderModuleRender(GPUDevice),
     PrintShaderModuleInfo(GPUShaderModule),
@@ -49,6 +53,7 @@ pub enum APICall {
     InsertCommandEncoderDebugMarker(GPUCommandEncoder),
     PushCommandEncoderDebugGroup(GPUCommandEncoder),
     PopCommandEncoderDebugGroup(GPUCommandEncoder),
+    ResolveQuerySet(GPUCommandEncoder, GPUQuerySet, GPUBuffer),
 
     CreateComputePass(GPUCommandEncoder),
     SetComputePassPipeline(GPUComputePassEncoder, GPUComputePipeline),
@@ -60,7 +65,7 @@ pub enum APICall {
     PopComputePassDebugGroup(GPUComputePassEncoder),
     EndComputePass(GPUComputePassEncoder),
 
-    CreateRenderPass(GPUCommandEncoder, GPUTextureView),
+    CreateRenderPass(GPUCommandEncoder, GPUTextureView, Option<GPUQuerySet>),
     SetRenderPassPipeline(GPURenderPassEncoder, GPURenderPipeline),
     SetVertexBuffer(GPURenderPassEncoder, GPUBuffer),
     SetIndexBuffer(GPURenderPassEncoder, GPUBuffer),
@@ -79,6 +84,8 @@ pub enum APICall {
     SetStencilReference(GPURenderPassEncoder),
     SetViewport(GPURenderPassEncoder, GPUTexture),
     ExecuteBundles(GPURenderPassEncoder, Vec<GPURenderBundleEncoder>),
+    BeginOcclusionQuery(GPURenderPassEncoder, GPUQuerySet),
+    EndOcclusionQuery(GPURenderPassEncoder),
 
     CreateRenderBundleEncoder(GPUDevice),
     SetPipelineBundle(GPURenderBundleEncoder, GPURenderPipeline),

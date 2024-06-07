@@ -57,6 +57,13 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
             if !render_pass.debug_group_active || fuzzy(rng) {
                 available_api_calls.extend([PushRenderPassDebugGroup(render_pass.clone())]);
             }
+            if let Some(query_set_num) = render_pass.occlusion_query_set_num {
+                if !render_pass.query_active && !device.query_sets[query_set_num].destroyed || fuzzy(rng) {
+                    available_api_calls.extend([BeginOcclusionQuery(render_pass.clone(), device.query_sets[query_set_num].clone())])
+                } else if render_pass.query_active || fuzzy(rng) {
+                    available_api_calls.extend([EndOcclusionQuery(render_pass.clone())])
+                }
+            }
         }
 
         if render_pass.debug_group_active || fuzzy(rng) {

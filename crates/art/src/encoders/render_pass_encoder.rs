@@ -20,10 +20,13 @@ pub struct GPURenderPassEncoder {
     pub drew: bool,
 
     pub target_texture: GPUTexture,
+
+    pub occlusion_query_set_num: Option<usize>,
+    pub query_active: bool,
 }
 
 impl GPURenderPassEncoder {
-    pub fn new(device: &GPUDevice, encoder: &GPUCommandEncoder, target_texture: &GPUTextureView) -> GPURenderPassEncoder {
+    pub fn new(device: &GPUDevice, encoder: &GPUCommandEncoder, target_texture: &GPUTextureView, occlusion_query_set_num: Option<usize>) -> GPURenderPassEncoder {
         let num_adapter = encoder.num_adapter;
         let num_device = encoder.num_device;
         let num_encoder = encoder.num;
@@ -51,6 +54,9 @@ impl GPURenderPassEncoder {
             drew: false,
 
             target_texture,
+
+            occlusion_query_set_num,
+            query_active: false,
         }
     }
 }

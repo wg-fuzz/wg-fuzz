@@ -27,6 +27,10 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
 
         CreateSampler(_) => false,
 
+        CreateOcclusionQuerySet(_) => false,
+        PrintQuerySet(_) => false,
+        DestroyQuerySet(_) => false,
+
         CreateShaderModuleCompute(_) => false,
         CreateShaderModuleRender(_) => false,
         PrintShaderModuleInfo(_) => false,
@@ -49,6 +53,7 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         InsertCommandEncoderDebugMarker(_) => false,
         PushCommandEncoderDebugGroup(_) => false,
         PopCommandEncoderDebugGroup(_) => true,
+        ResolveQuerySet(_, _, _) => false,
 
         CreateComputePass(_) => false,
         SetComputePassPipeline(_, _) => true,
@@ -60,7 +65,7 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         PopComputePassDebugGroup(_) => true,
         EndComputePass(_) => true,
 
-        CreateRenderPass(_, _) => false,
+        CreateRenderPass(_, _, _) => false,
         SetRenderPassPipeline(_, _) => true,
         SetVertexBuffer(_, _) => true,
         SetIndexBuffer(_, _) => true,
@@ -79,6 +84,8 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         SetStencilReference(_) => false,
         SetViewport(_, _) => false,
         ExecuteBundles(_, _) => false,
+        BeginOcclusionQuery(_, _) => false,
+        EndOcclusionQuery(_) => true,
 
         CreateRenderBundleEncoder(_) => false,
         SetPipelineBundle(_, _) => false,

@@ -23,7 +23,17 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
             if !device.destroyed || fuzzy(&mut rng) {
                 available_api_calls.extend([CreateRandomBuffer(device.clone()), CreateRandomTexture(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
                             /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateShaderModuleRender(device.clone()),
-                            CreateCommandEncoder(device.clone()), CreateSampler(device.clone()), CreateComputeBindGroupLayout(device.clone())]);
+                            CreateCommandEncoder(device.clone()), CreateSampler(device.clone()), CreateComputeBindGroupLayout(device.clone()), CreateOcclusionQuerySet(device.clone())]);
+
+                for query_set in &device.query_sets {
+                    if !query_set.destroyed || fuzzy(&mut rng) {
+                        available_api_calls.extend([PrintQuerySet(query_set.clone())]);
+                    }
+                    // approximation, query_active turns to false for any render pass finishing it
+                    if !query_set.query_active || fuzzy(&mut rng) {
+                        available_api_calls.extend([DestroyQuerySet(query_set.clone())]);
+                    }
+                }
 
                 // limit how many bundles each device can make so it doesnt get out of hand
                 if device.render_bundle_encoders.len() < 3 || fuzzy(&mut rng) {

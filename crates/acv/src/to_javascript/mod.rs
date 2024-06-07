@@ -27,6 +27,9 @@ impl APICall {
 
             CreateSampler(_) => sampler_to_js(self, created_resource),
 
+            CreateOcclusionQuerySet(_) | PrintQuerySet(_) | DestroyQuerySet(_) =>
+                query_set_to_js(self, created_resource),
+
             CreateShaderModuleCompute(_) | CreateShaderModuleRender(_) | PrintShaderModuleInfo(_) => shader_module_to_js(self, created_resource),
 
             CreateComputeBindGroupLayout(_) | CreateComputePipelineLayout(_, _) => pipeline_layout_to_js(self, created_resource),
@@ -37,7 +40,8 @@ impl APICall {
 
             CreateCommandEncoder(_) | ClearBuffer(_, _) | CopyBufferToBuffer(_, _, _)
                 | CopyBufferToTexture(_, _, _) | CopyTextureToBuffer(_, _, _) | CopyTextureToTexture(_, _, _)
-                | InsertCommandEncoderDebugMarker(_) | PushCommandEncoderDebugGroup(_) | PopCommandEncoderDebugGroup(_) =>
+                | InsertCommandEncoderDebugMarker(_) | PushCommandEncoderDebugGroup(_) | PopCommandEncoderDebugGroup(_) 
+                | ResolveQuerySet(_, _, _) =>
                     command_encoder_to_js(self, created_resource),
 
             CreateComputePass(_) | SetComputePassPipeline(_, _) | SetComputePassBindGroupTemplate(_, _, _)
@@ -45,7 +49,7 @@ impl APICall {
                 | PushComputePassDebugGroup(_) | PopComputePassDebugGroup(_) | EndComputePass(_) =>
                     compute_pass_to_js(self, created_resource),
 
-            CreateRenderPass(_, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
+            CreateRenderPass(_, _, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
                 | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
                 | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
                 | EndRenderPass(_) => 
@@ -53,7 +57,8 @@ impl APICall {
             
             InsertRenderPassDebugMarker(_) | PushRenderPassDebugGroup(_) | PopRenderPassDebugGroup(_)
                 | SetBlendConstant(_) | SetScissorRect(_, _) | SetStencilReference(_)
-                | SetViewport(_, _) | ExecuteBundles(_, _) =>
+                | SetViewport(_, _) | ExecuteBundles(_, _) 
+                | BeginOcclusionQuery(_, _) | EndOcclusionQuery(_) =>
                     optional_render_pass_to_js(self),
             
             CreateRenderBundleEncoder(_) | SetPipelineBundle(_, _) | SetVertexBufferBundle(_, _)

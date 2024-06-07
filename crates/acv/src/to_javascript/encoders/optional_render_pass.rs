@@ -32,6 +32,12 @@ pub fn optional_render_pass_to_js(api_call: &APICall) -> String {
             bundles_str.push_str("]");
             return format!("{}.executeBundles({})", render_pass.var_name, bundles_str);
         }
+        BeginOcclusionQuery(render_pass, query_set) => {
+            return format!("{}.beginOcclusionQuery({})", render_pass.var_name, query_set.i)
+        }
+        EndOcclusionQuery(render_pass) => {
+            return format!("{}.endOcclusionQuery()", render_pass.var_name)
+        }
         _ => { panic!("There is a bug in the to_javascript match calls") }
     }
 }
