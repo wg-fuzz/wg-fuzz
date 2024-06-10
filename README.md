@@ -24,3 +24,5 @@
 - Differential testing with other WebGPU implementations, e.g. wgpu?
 - Coverage
 - Make it a tool for fuzzing APIs in general? Make description language, think about languages to support. wg-fuzz -> api-fuzz
+
+Note instructions for using CReduce
