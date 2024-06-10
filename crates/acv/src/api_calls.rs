@@ -69,7 +69,7 @@ pub enum APICall {
     SetRenderPassPipeline(GPURenderPassEncoder, GPURenderPipeline),
     SetVertexBuffer(GPURenderPassEncoder, GPUBuffer),
     SetIndexBuffer(GPURenderPassEncoder, GPUBuffer),
-    // SetRenderPassBindGroup(GPURenderPassEncoder, GPUBindGroup),
+    SetRenderPassBindGroupTemplate(GPUDevice, GPURenderPassEncoder),
     Draw(GPURenderPassEncoder),
     DrawIndexed(GPURenderPassEncoder),
     DrawIndirect(GPURenderPassEncoder, GPUBuffer),

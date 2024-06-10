@@ -69,7 +69,7 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         SetRenderPassPipeline(_, _) => true,
         SetVertexBuffer(_, _) => true,
         SetIndexBuffer(_, _) => true,
-        // SetRenderPassBindGroup(GPURenderPassEncoder, GPUBindGroup),
+        SetRenderPassBindGroupTemplate(_, _) => true,
         Draw(_) => true,
         DrawIndexed(_) => true,
         DrawIndirect(_, _) => true,

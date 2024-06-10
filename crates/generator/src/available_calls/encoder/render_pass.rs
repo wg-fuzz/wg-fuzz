@@ -16,6 +16,8 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
                 }
             }
             available_api_calls.extend([ExecuteBundles(render_pass.clone(), bundles)])
+        } else if !render_pass.bindgroup_set {
+            available_api_calls.extend([SetRenderPassBindGroupTemplate(device.clone(), render_pass.clone())]);
         } else if let None = &render_pass.vertex_buffer {
             for buffer in &device.buffers {
                 if buffer.use_case.contains("GPUBufferUsage.VERTEX") || fuzzy(rng) {
@@ -43,11 +45,6 @@ pub fn add_manipulate_current_render_pass(available_api_calls: &mut Vec<APICall>
         } else if !render_pass.finished && !render_pass.debug_group_active || fuzzy(rng) {
             available_api_calls.extend([EndRenderPass(render_pass.clone())])
         }
-        // } else if !render_pass.bindgroup_set {
-        //     if let Some(render_pipeline) = &render_pass.pipeline {
-        //         available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), render_pass.clone(), render_pipeline.clone())]);
-        //     }
-        // }
 
         if !render_pass.finished || fuzzy(rng) {
             all_passes_finished = false;

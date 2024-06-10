@@ -22,6 +22,23 @@ pub fn update_render_pass(resources: &mut ProgramResources, call: &APICall) -> R
         SetIndexBuffer(render_pass, buffer) => {
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].index_buffer = Some(buffer.clone());
         }
+        SetRenderPassBindGroupTemplate(device, render_pass) => {
+            let uniform_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.UNIFORM"), 0);
+            let storage_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.STORAGE"), 1);
+            let bind_group = GPUBindGroup::new(device);
+            new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group.clone());
+            resources.adapters[render_pass.num_adapter]
+                     .devices[render_pass.num_device]
+                     .buffers.extend([uniform_buffer, storage_buffer]);
+            resources.adapters[render_pass.num_adapter]
+                     .devices[render_pass.num_device]
+                     .bind_groups.extend([bind_group]);
+            resources.adapters[render_pass.num_adapter]
+                     .devices[render_pass.num_device]
+                     .command_encoders[render_pass.num_encoder]
+                     .render_pass_encoders[render_pass.num]
+                     .bindgroup_set = true;
+        }
         Draw(render_pass) => {
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].drew = true;
         }

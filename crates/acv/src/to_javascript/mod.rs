@@ -50,7 +50,7 @@ impl APICall {
                     compute_pass_to_js(self, created_resource),
 
             CreateRenderPass(_, _, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
-                | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
+                | SetIndexBuffer(_, _) | SetRenderPassBindGroupTemplate(_, _) | Draw(_)
                 | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
                 | EndRenderPass(_) => 
                     render_pass_to_js(self, created_resource),

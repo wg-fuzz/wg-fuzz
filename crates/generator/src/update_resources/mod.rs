@@ -50,7 +50,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
                 { new_resource = update_compute_pass(resources, call) }
 
         CreateRenderPass(_, _, _) | SetRenderPassPipeline(_, _) | SetVertexBuffer(_, _)
-            | SetIndexBuffer(_, _) /*| SetRenderPassBindGroup(_, _)*/ | Draw(_)
+            | SetIndexBuffer(_, _) | SetRenderPassBindGroupTemplate(_, _) | Draw(_)
             | DrawIndexed(_) | DrawIndirect(_, _) | DrawIndexedIndirect(_, _)
             | EndRenderPass(_) | BeginOcclusionQuery(_, _) | EndOcclusionQuery(_) => 
                 { new_resource = update_render_pass(resources, call) }

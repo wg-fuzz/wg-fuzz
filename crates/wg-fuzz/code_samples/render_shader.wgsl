@@ -1,3 +1,25 @@
+struct UniformBuffer {
+    a: u32,
+    b: i32,
+    c: vec2<i32>,
+    d: vec3<i32>,
+}
+
+struct StorageBuffer {
+    a: i32,
+    b: vec3<i32>,
+    c: u32,
+    d: i32,
+}
+
+@group(0)
+@binding(0)
+var<uniform> u_input: UniformBuffer;
+
+@group(0)
+@binding(1)
+var<storage, read_write> s_output: StorageBuffer;
+
 struct VertexOut {
   @builtin(position) position : vec4f,
   @location(0) color : vec4f
