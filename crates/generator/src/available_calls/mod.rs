@@ -10,8 +10,10 @@ use add_pipelines::*;
 use encoder::bundle::*;
 mod fuzzy_condition;
 pub use fuzzy_condition::*;
+mod swarm_testing;
+use swarm_testing::*;
 
-pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec<APICall> {
+pub fn available_api_calls(resources: &ProgramResources, swarm: [bool; 89], terminate: bool) -> Vec<APICall> {
     let mut available_api_calls: Vec<APICall> = Vec::new();
     let mut rng = rand::thread_rng();
     available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat()]);
@@ -66,6 +68,8 @@ pub fn available_api_calls(resources: &ProgramResources, terminate: bool) -> Vec
             }
         }
     }
+
+    filter_swarm(&mut available_api_calls, swarm);
 
     if terminate {
         kill_non_terminating(&mut available_api_calls)
