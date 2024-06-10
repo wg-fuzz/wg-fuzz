@@ -3,7 +3,8 @@ use crate::*;
 pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         PrintWGSLLanguageFeatures() => {
-            String::from("console.log(navigator.gpu.wgslLanguageFeatures.size);
+            String::from("\
+    console.log(navigator.gpu.wgslLanguageFeatures.size);
 
     for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
         console.log(value);

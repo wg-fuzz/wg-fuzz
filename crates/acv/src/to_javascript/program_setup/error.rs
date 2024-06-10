@@ -14,7 +14,8 @@ pub fn error_to_js(api_call: &APICall) -> String {
             format!("{}.pushErrorScope({});", device.var_name, random_error_type)
         }
         PopErrorScope(device) => {
-            format!("{}.popErrorScope().then((error) => {{
+            format!("\
+    {}.popErrorScope().then((error) => {{
         if (error) {{
             console.error(`An error occurred: ${{error.message}}`);
         }}

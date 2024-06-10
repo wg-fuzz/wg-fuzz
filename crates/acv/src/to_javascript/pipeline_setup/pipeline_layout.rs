@@ -4,7 +4,8 @@ pub fn pipeline_layout_to_js(api_call: &APICall, created_resource: &Resource) ->
     match api_call {
         CreateComputeBindGroupLayout(device) => {
             if let Resource::GPUBindGroupLayout(bind_group_layout) = created_resource {
-                format!("const {} = {}.createBindGroupLayout({{ 
+                format!("\
+    const {} = {}.createBindGroupLayout({{ 
         entries: [
             {{
                 binding: 0,
@@ -29,7 +30,8 @@ pub fn pipeline_layout_to_js(api_call: &APICall, created_resource: &Resource) ->
         }
         CreateComputePipelineLayout(device, render_bind_group_layout) => {
             if let Resource::GPUPipelineLayout(pipeline_layout) = created_resource {
-                format!("const {} = {}.createPipelineLayout({{ 
+                format!("\
+    const {} = {}.createPipelineLayout({{ 
         bindGroupLayouts: [{}]
     }});", 
                     pipeline_layout.var_name, device.var_name, render_bind_group_layout.var_name)

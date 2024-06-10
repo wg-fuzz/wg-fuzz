@@ -8,7 +8,8 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
                     Some(query_set) => String::from(&query_set.var_name),
                     None => String::from("null"),
                 };
-                format!("const {} = {}.beginRenderPass({{
+                format!("\
+    const {} = {}.beginRenderPass({{
         colorAttachments: [
             {{
                 clearValue: [0.0, 0.5, 1.0, 1.0],

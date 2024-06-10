@@ -4,7 +4,8 @@ pub fn query_set_to_js(api_call: &APICall, created_resource: &Resource) -> Strin
     match api_call {
         CreateOcclusionQuerySet(device) => {
             if let Resource::GPUQuerySet(query_set) = created_resource {
-                format!("const {} = {}.createQuerySet({{
+                format!("\
+    const {} = {}.createQuerySet({{
         type: \"occlusion\",
         count: 32,
     }});", 

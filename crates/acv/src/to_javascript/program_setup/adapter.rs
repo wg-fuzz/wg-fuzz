@@ -12,7 +12,8 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
                     2 => "\"high-performance\"",
                     _ => "undefined",
                 };
-                format!("const {} = await navigator.gpu.requestAdapter({{
+                format!("\
+    const {} = await navigator.gpu.requestAdapter({{
         powerPreference: {},
         label: \"{}\"
     }});", 
@@ -22,7 +23,8 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
             }
         }
         PrintAdapterInfo(adapter) => {
-            format!("console.log({}.features.size);
+            format!("\
+    console.log({}.features.size);
 
     for (const value of {}.features.keys()) {{
         console.log(value);

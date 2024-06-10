@@ -4,7 +4,8 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     match api_call {
         CreateComputePass(encoder) => {
             if let Resource::GPUComputePassEncoder(compute_pass_encoder) = created_resource {
-                format!("const {} = {}.beginComputePass({{ label: \"{}\" }});", compute_pass_encoder.var_name, encoder.var_name, compute_pass_encoder.var_name)
+                format!("const {} = {}.beginComputePass({{ label: \"{}\" }});", 
+                    compute_pass_encoder.var_name, encoder.var_name, compute_pass_encoder.var_name)
             } else {
                 panic!("created_resource for CreateComputePass() call is not a command pass encoder!")
             }

@@ -4,7 +4,8 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         CreateRenderBundleEncoder(device) => {
             if let Resource::GPURenderBundleEncoder(bundle) = created_resource {
-                format!("const {} = {}.createRenderBundleEncoder({{
+                format!("\
+    const {} = {}.createRenderBundleEncoder({{
         colorFormats: [\"bgra8unorm\"]
     }});", 
                     bundle.var_name, device.var_name)
@@ -53,10 +54,10 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     }});
 
     {}.setBindGroup(0, {});", 
-                uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                bind_group.var_name, device.var_name, bundle.pipeline.as_ref().unwrap().var_name,
-                uniform_buffer.var_name, storage_buffer.var_name,
-                bundle.var_name, bind_group.var_name)
+                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
+                    bind_group.var_name, device.var_name, bundle.pipeline.as_ref().unwrap().var_name,
+                    uniform_buffer.var_name, storage_buffer.var_name,
+                    bundle.var_name, bind_group.var_name)
             } else {
                 panic!("created_resource for CreateBundleBindGroupTemplate() call is not a valid template!")
             }

@@ -4,7 +4,8 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
     match api_call {
         CreateRandomTexture(device) => {
             if let Resource::GPUTexture(texture) = created_resource {
-                format!("const {} = {}.createTexture({{
+                format!("\
+    const {} = {}.createTexture({{
         size: [10, 10],
         usage: {},
         format: {},

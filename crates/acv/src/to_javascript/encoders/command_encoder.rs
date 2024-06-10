@@ -4,7 +4,8 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
     match api_call {
         CreateCommandEncoder(device) => {
             if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
-                format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", command_encoder.var_name, device.var_name, command_encoder.var_name)
+                format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", 
+                    command_encoder.var_name, device.var_name, command_encoder.var_name)
             } else {
                 panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
             }
@@ -13,7 +14,8 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name)
         }
         CopyBufferToBuffer(command_encoder, src_buffer, dst_buffer) => {
-            format!("{}.copyBufferToBuffer(
+            format!("\
+    {}.copyBufferToBuffer(
         {},
         0,
         {},
@@ -23,7 +25,8 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
                 command_encoder.var_name, src_buffer.var_name, dst_buffer.var_name)
         }
         CopyBufferToTexture(command_encoder, src_buffer, dst_texture) => {
-            format!("{}.copyBufferToTexture(
+            format!("\
+    {}.copyBufferToTexture(
         {{
             buffer: {}
         }},
@@ -39,7 +42,8 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
                 command_encoder.var_name, src_buffer.var_name, dst_texture.var_name)
         }
         CopyTextureToBuffer(command_encoder, texture, buffer) => {
-            format!("{}.copyTextureToBuffer(
+            format!("\
+    {}.copyTextureToBuffer(
         {{
             texture: {}
         }},
@@ -55,7 +59,8 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
                 command_encoder.var_name, texture.var_name, buffer.var_name)
         }
         CopyTextureToTexture(command_encoder, texture_src, texture_dst) => {
-            format!("{}.copyTextureToBuffer(
+            format!("\
+    {}.copyTextureToBuffer(
         {{
             texture: {}
         }},
@@ -80,13 +85,15 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             format!("{}.popDebugGroup()", encoder.var_name)
         }
         ResolveQuerySet(command_encoder, query_set, buffer) => {
-            format!("{}.resolveQuerySet(
-                {},
-                0,
-                32,
-                {},
-                0
-            )", command_encoder.var_name, query_set.var_name, buffer.var_name)
+            format!("\
+    {}.resolveQuerySet(
+        {},
+        0,
+        32,
+        {},
+        0
+    )", 
+                command_encoder.var_name, query_set.var_name, buffer.var_name)
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }

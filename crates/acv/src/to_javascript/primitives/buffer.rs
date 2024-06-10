@@ -4,7 +4,8 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         CreateRandomBuffer(device) => {
             if let Resource::GPUBuffer(buffer) = created_resource {
-                format!("const {} = {}.createBuffer({{ 
+                format!("\
+    const {} = {}.createBuffer({{ 
         size: 400,
         usage: {}
     }});", 
