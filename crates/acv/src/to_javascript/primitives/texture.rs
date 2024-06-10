@@ -6,12 +6,13 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
             if let Resource::GPUTexture(texture) = created_resource {
                 format!("\
     const {} = {}.createTexture({{
+        label: \"{}\",
         size: [10, 10],
         usage: {},
         format: {},
         dimension: \"2d\"
     }});", 
-                    texture.var_name, device.var_name, texture.usage, texture.format)
+                    texture.var_name, device.var_name, texture.var_name, texture.usage, texture.format)
             } else {
                 panic!("created_resource for CreateRandomTexture() call is not a texture!")
             }
@@ -46,7 +47,7 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         }
         CreateTextureView(texture) => {
             if let Resource::GPUTextureView(texture_view) = created_resource {
-                format!("const {} = {}.createView();", texture_view.var_name, texture.var_name)
+                format!("const {} = {}.createView({{ label: \"{}\" }});", texture_view.var_name, texture.var_name, texture_view.var_name)
             } else {
                 panic!("created_resource for CreateTextureView() call is not a texture view!")
             }

@@ -17,16 +17,19 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
             if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
                 format!("\
     const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: GPUBufferUsage.UNIFORM
     }});
 
     const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: GPUBufferUsage.STORAGE
     }});
         
     const {} = {}.createBindGroup({{
+        label: \"{}\",
         layout: {}.getBindGroupLayout(0),
         entries: [
             {{
@@ -45,8 +48,9 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     }});
 
     {}.setBindGroup(0, {});", 
-                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                    bind_group.var_name, device.var_name,
+                    uniform_buffer.var_name, device.var_name, uniform_buffer.var_name,
+                    storage_buffer.var_name, device.var_name, storage_buffer.var_name,
+                    bind_group.var_name, device.var_name, bind_group.var_name,
                     compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
                     encoder.var_name, bind_group.var_name)
             } else {
@@ -67,6 +71,7 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     {}[2] = 1;
 
     const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT,
     }});
@@ -75,7 +80,7 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     {}.dispatchWorkgroupsIndirect({}, 0);", 
                     array_var, 
                     array_var, array_var, array_var, 
-                    buffer.var_name, device.var_name, 
+                    buffer.var_name, device.var_name, buffer.var_name,
                     device.var_name, buffer.var_name, array_var, array_var, 
                     encoder.var_name, buffer.var_name)
             } else {

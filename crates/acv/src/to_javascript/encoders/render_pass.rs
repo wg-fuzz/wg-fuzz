@@ -10,6 +10,7 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
                 };
                 format!("\
     const {} = {}.beginRenderPass({{
+        label: \"{}\",
         colorAttachments: [
             {{
                 clearValue: [0.0, 0.5, 1.0, 1.0],
@@ -20,7 +21,8 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
         ],
         occlusionQuerySet: {}
     }});", 
-                    render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name, occlusion_query_set_str)
+                    render_pass_encoder.var_name, command_encoder.var_name, render_pass_encoder.var_name,
+                    texture_view.var_name, occlusion_query_set_str)
             } else {
                 panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
             }
@@ -38,16 +40,19 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
             if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
                 format!("\
     const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: GPUBufferUsage.UNIFORM
     }});
 
     const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: GPUBufferUsage.STORAGE
     }});
     
     const {} = {}.createBindGroup({{
+        label: \"{}\",
         layout: {}.getBindGroupLayout(0),
         entries: [
             {{
@@ -66,8 +71,10 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
     }});
 
     {}.setBindGroup(0, {});", 
-                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                    bind_group.var_name, device.var_name, render_pass.pipeline.as_ref().unwrap().var_name,
+                    uniform_buffer.var_name, device.var_name, uniform_buffer.var_name,
+                    storage_buffer.var_name, device.var_name, storage_buffer.var_name,
+                    bind_group.var_name, device.var_name, bind_group.var_name,
+                    render_pass.pipeline.as_ref().unwrap().var_name,
                     uniform_buffer.var_name, storage_buffer.var_name,
                     render_pass.var_name, bind_group.var_name)
             } else {

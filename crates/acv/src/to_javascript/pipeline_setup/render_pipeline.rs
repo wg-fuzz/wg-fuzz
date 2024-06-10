@@ -6,6 +6,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
             if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
                 format!("\
     const {} = {}.createRenderPipeline({{
+        label: \"{}\",
         vertex: {{
             module: {},
             entryPoint: \"vertex_main\",
@@ -42,7 +43,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
         }},
         layout: \"auto\"
     }});", 
-                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name)
+                    render_pipeline.var_name, device.var_name, render_pipeline.var_name, shader_module.var_name, shader_module.var_name)
             } else {
                 panic!("created_resource for CreateRenderPipeline() call is not a render pipeline!")
             }
@@ -51,6 +52,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
             if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
                 format!("\
     const {} = await {}.createRenderPipelineAsync({{
+        label: \"{}\",
         vertex: {{
             module: {},
             entryPoint: \"vertex_main\",
@@ -87,7 +89,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
         }},
         layout: \"auto\",
     }});", 
-                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name)
+                    render_pipeline.var_name, device.var_name, render_pipeline.var_name, shader_module.var_name, shader_module.var_name)
             } else {
                 panic!("created_resource for CreateRenderPipelineASync() call is not a render pipeline!")
             }

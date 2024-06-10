@@ -5,11 +5,12 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
         CreateRandomBuffer(device) => {
             if let Resource::GPUBuffer(buffer) = created_resource {
                 format!("\
-    const {} = {}.createBuffer({{ 
+    const {} = {}.createBuffer({{
+        label: \"{}\",
         size: 400,
         usage: {}
     }});", 
-                    buffer.var_name, device.var_name, buffer.use_case)
+                    buffer.var_name, device.var_name, buffer.var_name, buffer.use_case)
             } else {
                 panic!("created_resource for CreateRandomBuffer() call is not a buffer!")
             }

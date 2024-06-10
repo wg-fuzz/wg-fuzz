@@ -32,8 +32,8 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
     }} catch (err) {{
         console.log(err);
     }}
-    const {} = await {}.createShaderModule({{ code: {}_code }})", 
-                    var_name, var_name, var_name, var_name, device.var_name, var_name)
+    const {} = await {}.createShaderModule({{ label: \"{}\", code: {}_code }})", 
+                    var_name, var_name, var_name, var_name, device.var_name, var_name, var_name)
 
             } else {
                 panic!("created_resource for CreateShaderModuleCompute() call is not a shader module!")
@@ -49,8 +49,8 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
     }} catch (err) {{
         console.log(err);
     }}
-    const {} = await {}.createShaderModule({{ code: {}_code }})", 
-                    var_name, var_name, var_name, device.var_name, var_name)
+    const {} = await {}.createShaderModule({{ label: \"{}\", code: {}_code }})", 
+                    var_name, var_name, var_name, device.var_name, var_name, var_name)
 
             } else {
                 panic!("created_resource for CreateShaderModuleRender() call is not a shader module!")
