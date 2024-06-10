@@ -39,13 +39,13 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         console.log(value);
     }}
 
-    // {{
-    //     const adapterInfo = await {}.requestAdapterInfo();
-    //     console.log(adapterInfo.vendor);
-    //     console.log(adapterInfo.architecture);
-    //     console.log(adapterInfo.device);
-    //     console.log(adapterInfo.description);
-    // }}", 
+    {{
+        const adapter = {};
+        console.log(adapter.info.vendor);
+        console.log(adapter.info.architecture);
+        console.log(adapter.info.device);
+        console.log(adapter.info.description);
+    }}", 
                 adapter.var_name, adapter.var_name, adapter.var_name, 
                 adapter.var_name, adapter.var_name, adapter.var_name)
         }
