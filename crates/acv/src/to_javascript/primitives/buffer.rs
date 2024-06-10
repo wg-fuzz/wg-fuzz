@@ -4,27 +4,27 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         CreateRandomBuffer(device) => {
             if let Resource::GPUBuffer(buffer) = created_resource {
-                return format!("const {} = {}.createBuffer({{ 
+                format!("const {} = {}.createBuffer({{ 
         size: 400,
         usage: {}
     }});", 
-                buffer.var_name, device.var_name, buffer.use_case);
+                buffer.var_name, device.var_name, buffer.use_case)
             } else {
                 panic!("created_resource for CreateBuffer() call is not a buffer!")
             }
         }
         PrintBufferInfo(buffer) => {
-            return format!("\
+            format!("\
     {{
         const buffer = {}
         console.log(buffer.label);
         console.log(buffer.mapState);
         console.log(buffer.size);
         console.log(buffer.usage);
-    }}", buffer.var_name);
+    }}", buffer.var_name)
         }
         ReadMappedBuffer(buffer) => {
-            return format!("\
+            format!("\
     {{
         await {}.mapAsync(
             GPUMapMode.READ,
@@ -37,14 +37,14 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
         {}.unmap();
         console.log(new Float32Array(data));
     }}", 
-            buffer.var_name, buffer.var_name, buffer.var_name);
+            buffer.var_name, buffer.var_name, buffer.var_name)
         }
         WriteBuffer(device, buffer, array) => {
-            return format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name);
+            format!("{}.queue.writeBuffer({}, 0, {}, 0, {}.length);", device.var_name, buffer.var_name, array.var_name, array.var_name)
         }
         DestroyBuffer(buffer) => {
-            return format!("{}.destroy()", buffer.var_name);
+            format!("{}.destroy()", buffer.var_name)
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }

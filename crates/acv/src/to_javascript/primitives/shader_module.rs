@@ -25,7 +25,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 });
 
                 let var_name = &shader_module.var_name;
-                return format!("\
+                format!("\
     var {}_code = \"\";
     try {{
         {}_code = await fs.readFile('out/{}.wgsl', 'utf8');
@@ -42,7 +42,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
         CreateShaderModuleRender(device) => {
             if let Resource::GPUShaderModule(shader_module) = created_resource {
                 let var_name = &shader_module.var_name;
-                return format!("\
+                format!("\
     var {}_code = \"\";
     try {{
         {}_code = await fs.readFile('crates/wg-fuzz/code_samples/render_shader.wgsl', 'utf8');
@@ -57,7 +57,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
             }
         }
         PrintShaderModuleInfo(shader_module) => {
-            return format!("\
+            format!("\
     {{
         const shaderInfo = await {}.getCompilationInfo();
 
@@ -67,8 +67,8 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
             console.log(message.type);
         }}
     }}", 
-            shader_module.var_name);
+            shader_module.var_name)
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }

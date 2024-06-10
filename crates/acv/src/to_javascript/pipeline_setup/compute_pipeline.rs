@@ -18,6 +18,6 @@ pub fn compute_pipeline_to_js(api_call: &APICall, created_resource: &Resource) -
                 panic!("created_resource for CreateComputePipelineAsync() call is not a compute pipeline!")
             }
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }
