@@ -4,7 +4,7 @@ pub fn submit_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         CreateCommandBuffer(encoder) => {
             if let Resource::GPUCommandBuffer(command_buffer) = created_resource {
-                return format!("const {} = {}.finish();", command_buffer.var_name, encoder.var_name);
+                format!("const {} = {}.finish();", command_buffer.var_name, encoder.var_name)
             } else {
                 panic!("created_resource for CreateCommandBuffer() call is not a command buffer!")
             }
@@ -16,12 +16,12 @@ pub fn submit_to_js(api_call: &APICall, created_resource: &Resource) -> String {
                 command_buffers_str.push_str(", ");
             }
             command_buffers_str.push_str("]");
-            return format!("{}.queue.submit({});", device.var_name, command_buffers_str);
+            format!("{}.queue.submit({});", device.var_name, command_buffers_str)
         }
         WaitSubmittedWork(device) => {
-            return format!("{}.queue.onSubmittedWorkDone();", device.var_name);
+            format!("{}.queue.onSubmittedWorkDone();", device.var_name)
         }
 
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }

@@ -4,13 +4,13 @@ pub fn device_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         CreateDevice(adapter) => {
             if let Resource::GPUDevice(device) = created_resource {
-                return format!("const {} = await {}.requestDevice({{ label: \"{}\" }});", device.var_name, adapter.var_name, device.var_name);
+                format!("const {} = await {}.requestDevice({{ label: \"{}\" }});", device.var_name, adapter.var_name, device.var_name)
             } else {
                 panic!("created_resource for CreateDevice() call is not a device!")
             }
         }
         PrintDeviceInfo(device) => {
-            return format!("console.log({}.features.size);
+            format!("console.log({}.features.size);
 
     for (const value of {}.features.keys()) {{
         console.log(value);
@@ -26,11 +26,11 @@ pub fn device_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     {}.lost.then((info) => {{
         console.error(`WebGPU device was lost: ${{info.message}}`);
         console.log(info.reason);
-    }});", device.var_name, device.var_name, device.var_name, device.var_name, device.var_name);
+    }});", device.var_name, device.var_name, device.var_name, device.var_name, device.var_name)
         }
         DestroyDevice(device) => {
-            return format!("{}.destroy();", device.var_name);
+            format!("{}.destroy();", device.var_name)
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }
