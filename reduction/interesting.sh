@@ -2,6 +2,4 @@
 
 node test.js &> log.txt
 
-grep -q "Cannot find" log.txt
-
-
+grep -q "Command cannot" log.txt

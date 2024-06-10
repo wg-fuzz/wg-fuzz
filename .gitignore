@@ -22,3 +22,6 @@ target/
 
 # Output files
 out/
+
+# Reduction files
+**/*.orig

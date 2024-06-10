@@ -1,4 +1,4 @@
-const { create, globals } = require('../dawn.node');
+const { create, globals } = require('./dawn.node');
 Object.assign(globalThis, globals); // Provides constants like GPUBufferUsage.MAP_READ
 let navigator = { gpu: create(['enable-dawn-features=allow_unsafe_apis,disable_symbol_renaming']), };
 const fs = require('node:fs/promises');
