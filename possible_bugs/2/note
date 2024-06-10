@@ -1,1 +1,3 @@
 Should this be allowed? Check spec
+
+More await API call / destroy() race conditions
