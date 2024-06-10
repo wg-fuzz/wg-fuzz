@@ -29,12 +29,12 @@ impl Program {
 
     pub fn to_javascript(&self) -> String {
         let mut js = String::new();
-        js.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/prelude.txt").unwrap());
+        js.push_str(&fs::read_to_string("crates/acv/src/code_samples/prelude.txt").unwrap());
         for (call, created_resource) in &self.calls {
             js.push_str("\n\n    ");
             js.push_str(&call.to_javascript(created_resource));
         }
-        js.push_str(&fs::read_to_string("crates/wg-fuzz/code_samples/postlude.txt").unwrap());
+        js.push_str(&fs::read_to_string("crates/acv/src/code_samples/postlude.txt").unwrap());
         js
     }
 }
