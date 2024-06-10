@@ -24,7 +24,7 @@ pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String 
                 }
                 format!("const {} = new Float32Array([{}]);", array.var_name, random_floats)
             } else {
-                panic!("created_resource for CreateDevice() call is not a device!")
+                panic!("created_resource for CreateArray() call is not an array!")
             }
         }
         _ => panic!("There is a bug in the to_javascript match calls")

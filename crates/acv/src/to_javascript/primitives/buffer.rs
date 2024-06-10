@@ -10,7 +10,7 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     }});", 
                 buffer.var_name, device.var_name, buffer.use_case)
             } else {
-                panic!("created_resource for CreateBuffer() call is not a buffer!")
+                panic!("created_resource for CreateRandomBuffer() call is not a buffer!")
             }
         }
         PrintBufferInfo(buffer) => {

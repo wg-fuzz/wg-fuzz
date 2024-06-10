@@ -58,7 +58,7 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
                 uniform_buffer.var_name, storage_buffer.var_name,
                 bundle.var_name, bind_group.var_name)
             } else {
-                panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
+                panic!("created_resource for CreateBundleBindGroupTemplate() call is not a valid template!")
             }
         }
         DrawBundle(bundle) => {

@@ -70,7 +70,7 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
                 uniform_buffer.var_name, storage_buffer.var_name,
                 render_pass.var_name, bind_group.var_name)
             } else {
-                panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
+                panic!("created_resource for CreateRenderPassBindGroupTemplate() call is not a valid template!")
             }
         }
         Draw(render_pass) => {

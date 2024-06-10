@@ -12,7 +12,7 @@ pub fn texture_to_js(api_call: &APICall, created_resource: &Resource) -> String 
     }});", 
                 texture.var_name, device.var_name, texture.usage, texture.format)
             } else {
-                panic!("created_resource for CreateTexture() call is not a texture!")
+                panic!("created_resource for CreateRandomTexture() call is not a texture!")
             }
         }
         PrintTextureInfo(texture) => {

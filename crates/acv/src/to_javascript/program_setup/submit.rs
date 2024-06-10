@@ -21,7 +21,6 @@ pub fn submit_to_js(api_call: &APICall, created_resource: &Resource) -> String {
         WaitSubmittedWork(device) => {
             format!("{}.queue.onSubmittedWorkDone();", device.var_name)
         }
-
         _ => panic!("There is a bug in the to_javascript match calls")
     }
 }

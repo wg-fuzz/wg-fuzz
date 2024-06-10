@@ -66,7 +66,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
                     render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name,
                     device.var_name, device.var_name)
             } else {
-                panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
+                panic!("created_resource for CreateRenderPipeline() call is not a render pipeline!")
             }
         }
         CreateRenderPipelineAsync(device, shader_module) => {
@@ -111,7 +111,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
     }});", 
                     render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name)
             } else {
-                panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
+                panic!("created_resource for CreateRenderPipelineASync() call is not a render pipeline!")
             }
         }
         _ => panic!("There is a bug in the to_javascript match calls")

@@ -36,7 +36,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                     var_name, var_name, var_name, var_name, device.var_name, var_name)
 
             } else {
-                panic!("created_resource for CreateShaderModule() call is not a shader module!")
+                panic!("created_resource for CreateShaderModuleCompute() call is not a shader module!")
             }
         }
         CreateShaderModuleRender(device) => {
@@ -53,7 +53,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                     var_name, var_name, var_name, device.var_name, var_name)
 
             } else {
-                panic!("created_resource for CreateShaderModule() call is not a shader module!")
+                panic!("created_resource for CreateShaderModuleRender() call is not a shader module!")
             }
         }
         PrintShaderModuleInfo(shader_module) => {

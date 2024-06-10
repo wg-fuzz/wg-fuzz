@@ -24,7 +24,7 @@ pub fn pipeline_layout_to_js(api_call: &APICall, created_resource: &Resource) ->
     }});", 
                     bind_group_layout.var_name, device.var_name)
             } else {
-                panic!("created_resource for CreateBindGroupLayout() call is not a bind group layout!")
+                panic!("created_resource for CreateComputeBindGroupLayout() call is not a bind group layout!")
             }
         }
         CreateComputePipelineLayout(device, render_bind_group_layout) => {
