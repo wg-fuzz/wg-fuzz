@@ -8,7 +8,7 @@ pub fn update_sampler(resources: &mut ProgramResources, call: &APICall) -> Resou
             new_resource = Resource::GPUSampler(GPUSampler::new(device));
             resources.adapters[device.num_adapter].devices[device.num].samplers.push(GPUSampler::new(device))
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

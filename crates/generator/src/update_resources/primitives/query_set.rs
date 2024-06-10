@@ -12,7 +12,7 @@ pub fn update_query_set(resources: &mut ProgramResources, call: &APICall) -> Res
         DestroyQuerySet(query_set) => {
             resources.adapters[query_set.num_adapter].devices[query_set.num_device].query_sets[query_set.num].destroyed = true;
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

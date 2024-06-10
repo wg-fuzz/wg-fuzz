@@ -66,7 +66,7 @@ pub fn update_compute_pass(resources: &mut ProgramResources, call: &APICall) -> 
         EndComputePass(compute_pass_encoder) => {
             resources.adapters[compute_pass_encoder.num_adapter].devices[compute_pass_encoder.num_device].command_encoders[compute_pass_encoder.num_encoder].compute_pass_encoders[compute_pass_encoder.num].finished = true;
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

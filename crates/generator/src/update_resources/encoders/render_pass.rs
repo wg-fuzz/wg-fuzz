@@ -63,7 +63,7 @@ pub fn update_render_pass(resources: &mut ProgramResources, call: &APICall) -> R
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].query_sets[render_pass.occlusion_query_set_num.unwrap()].query_active = false;
             resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].query_active = false;
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

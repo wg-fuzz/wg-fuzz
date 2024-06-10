@@ -24,7 +24,7 @@ pub fn update_optional_render_pass(resources: &mut ProgramResources, call: &APIC
                 resources.adapters[render_pass.num_adapter].devices[render_pass.num_device].command_encoders[render_pass.num_encoder].render_pass_encoders[render_pass.num].finished = true;
             }
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

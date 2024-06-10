@@ -55,7 +55,7 @@ pub fn update_bundle(resources: &mut ProgramResources, call: &APICall) -> Resour
         PopDebugGroupBundle(bundle) => {
             resources.adapters[bundle.num_adapter].devices[bundle.num_device].render_bundle_encoders[bundle.num].debug_group_active = false;
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

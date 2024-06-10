@@ -21,7 +21,7 @@ pub fn update_command_encoder(resources: &mut ProgramResources, call: &APICall) 
             resources.adapters[command_encoder.num_adapter].devices[command_encoder.num_device].command_encoders[command_encoder.num].debug_group_active = false;
         }
         ResolveQuerySet(_, _, _) => {}
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

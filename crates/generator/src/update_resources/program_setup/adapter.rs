@@ -9,7 +9,7 @@ pub fn update_adapter(resources: &mut ProgramResources, call: &APICall) -> Resou
             resources.adapters.push(GPUAdapter::new(&resources))
         }
         PrintAdapterInfo(_) => {}
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }

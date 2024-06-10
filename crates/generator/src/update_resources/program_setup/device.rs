@@ -12,7 +12,7 @@ pub fn update_device(resources: &mut ProgramResources, call: &APICall) -> Resour
         DestroyDevice(device) => {
             resources.adapters[device.num_adapter].devices[device.num].destroyed = true;
         }
-        _ => { panic!("There is a bug in the update_resource match calls") }
+        _ => panic!("There is a bug in the update_resource match calls")
     }
     new_resource
 }
