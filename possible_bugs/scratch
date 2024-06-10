@@ -1,7 +1,0 @@
-1.
-
-/home/leu/Documents/projects/fyp/dawn/src/dawn/node/binding/GPUDevice.cpp:188: UNREACHABLE: operator()() WGPUDeviceLostReason_InstanceDropped
-
-Amber commit e570e1c works perfectly (apart from minor bugs which I can fix)
-
-commit 592282b onwards I get an error for a simple webgpu program
