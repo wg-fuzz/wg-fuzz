@@ -1,6 +1,7 @@
-use std::fs::File;
+use std::fs::{self, File};
 use std::io::prelude::*;
 use std::process::Command;
+use std::env;
 
 use art::*;
 use acv::*;
@@ -31,16 +32,21 @@ pub fn fuzz_once() -> std::io::Result<()> {
     
     file.write_all(program.to_javascript().as_bytes())?;
 
+    fs::copy("dawn.node", "out/dawn.node").expect("Could not copy dawn.node to out/dawn.node");
+
+    fs::copy("crates/acv/src/code_samples/render_shader.wgsl", "out/render_shader.wgsl").expect("Could not copy render_shader.wgsl to out/render_shader.wgsl");
+
     run_test();
 
     Ok(())
 }
 
 fn run_test() {
+    assert!(env::set_current_dir("out").is_ok());
     let output = Command::new("node")
         // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         // .env("ASAN_OPTIONS", "halt_on_error=0")
-        .arg("out/test.js")
+        .arg("test.js")
         .output()
         .expect("Failed to run test.js");
 

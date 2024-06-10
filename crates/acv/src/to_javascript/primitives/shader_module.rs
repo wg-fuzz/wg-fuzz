@@ -28,7 +28,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 format!("\
     var {}_code = \"\";
     try {{
-        {}_code = await fs.readFile('out/{}.wgsl', 'utf8');
+        {}_code = await fs.readFile('{}.wgsl', 'utf8');
     }} catch (err) {{
         console.log(err);
     }}
@@ -45,7 +45,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 format!("\
     var {}_code = \"\";
     try {{
-        {}_code = await fs.readFile('crates/acv/src/code_samples/render_shader.wgsl', 'utf8');
+        {}_code = await fs.readFile('render_shader.wgsl', 'utf8');
     }} catch (err) {{
         console.log(err);
     }}
