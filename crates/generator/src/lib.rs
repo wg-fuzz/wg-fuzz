@@ -12,10 +12,10 @@ use rand::prelude::*;
 pub fn generate(program: &mut Program, resources: &mut ProgramResources) -> () {
     let mut rng = rand::thread_rng();
 
-    let mut swarm = [false; 89];
-    for i in 0..swarm.len() {
-        swarm[i] = rng.gen_bool(0.5);
-    }
+    let swarm = [true; 89];
+    // for i in 0..swarm.len() {
+    //     swarm[i] = rng.gen_bool(0.5);
+    // }
 
     for _ in 1..300 {
         let mut available_api_calls = available_api_calls(resources, swarm, false);
