@@ -4,7 +4,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
     match api_call {
         CreateRenderPipeline(device, shader_module) => {
             if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
-                return format!("\
+                format!("\
     const {} = {}.createRenderPipeline({{
         vertex: {{
             module: {},
@@ -64,14 +64,14 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
         }}),
     }});", 
                     render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name,
-                    device.var_name, device.var_name);
+                    device.var_name, device.var_name)
             } else {
                 panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
             }
         }
         CreateRenderPipelineAsync(device, shader_module) => {
             if let Resource::GPURenderPipeline(render_pipeline) = created_resource {
-                return format!("\
+                format!("\
     const {} = await {}.createRenderPipelineAsync({{
         vertex: {{
             module: {},
@@ -109,7 +109,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
         }},
         layout: \"auto\",
     }});", 
-                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name);
+                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name)
             } else {
                 panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
             }
