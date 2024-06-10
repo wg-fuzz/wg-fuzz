@@ -91,7 +91,7 @@ pub enum APICall {
     SetPipelineBundle(GPURenderBundleEncoder, GPURenderPipeline),
     SetVertexBufferBundle(GPURenderBundleEncoder, GPUBuffer),
     SetIndexBufferBundle(GPURenderBundleEncoder, GPUBuffer),
-    // SetBundleBindGroup(GPURenderBundleEncoder, GPUBindGroup),
+    SetBundleBindGroupTemplate(GPUDevice, GPURenderBundleEncoder),
     DrawBundle(GPURenderBundleEncoder),
     DrawIndexedBundle(GPURenderBundleEncoder),
     DrawIndirectBundle(GPURenderBundleEncoder, GPUBuffer),

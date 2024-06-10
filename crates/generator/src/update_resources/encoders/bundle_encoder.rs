@@ -17,6 +17,22 @@ pub fn update_bundle(resources: &mut ProgramResources, call: &APICall) -> Resour
         SetIndexBufferBundle(bundle, buffer) => {
             resources.adapters[bundle.num_adapter].devices[bundle.num_device].render_bundle_encoders[bundle.num].index_buffer = Some(buffer.clone());
         }
+        SetBundleBindGroupTemplate(device, bundle) => {
+            let uniform_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.UNIFORM"), 0);
+            let storage_buffer = GPUBuffer::new(device, String::from("GPUBufferUsage.STORAGE"), 1);
+            let bind_group = GPUBindGroup::new(device);
+            new_resource = Resource::BindGroupTemplate(uniform_buffer.clone(), storage_buffer.clone(), bind_group.clone());
+            resources.adapters[bundle.num_adapter]
+                     .devices[bundle.num_device]
+                     .buffers.extend([uniform_buffer, storage_buffer]);
+            resources.adapters[bundle.num_adapter]
+                     .devices[bundle.num_device]
+                     .bind_groups.extend([bind_group]);
+            resources.adapters[bundle.num_adapter]
+                     .devices[bundle.num_device]
+                     .render_bundle_encoders[bundle.num]
+                     .bindgroup_set = true;
+        }
         DrawBundle(bundle) => {
             resources.adapters[bundle.num_adapter].devices[bundle.num_device].render_bundle_encoders[bundle.num].drew = true;
         }

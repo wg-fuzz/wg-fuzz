@@ -40,9 +40,31 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
         primitive: {{
             topology: \"triangle-list\",
         }},
-        layout: \"auto\",
+        layout: {}.createPipelineLayout({{
+            bindGroupLayouts: [
+                {}.createBindGroupLayout({{
+                    entries: [
+                        {{
+                            binding: 0,
+                            visibility: GPUShaderStage.FRAGMENT,
+                            buffer: {{
+                                type: \"uniform\"
+                            }}
+                        }},
+                        {{
+                            binding: 1,
+                            visibility: GPUShaderStage.FRAGMENT,
+                            buffer: {{
+                                type: \"storage\"
+                            }}
+                        }}
+                    ]
+                }})
+            ]
+        }}),
     }});", 
-                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name);
+                    render_pipeline.var_name, device.var_name, shader_module.var_name, shader_module.var_name,
+                    device.var_name, device.var_name);
             } else {
                 panic!("created_resource for CreateComputePipeline() call is not a compute pipeline!")
             }

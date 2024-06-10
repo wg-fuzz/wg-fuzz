@@ -8,6 +8,8 @@ pub fn add_manipulate_bundles(available_api_calls: &mut Vec<APICall>, rng: &mut 
             for render_pipeline in &device.render_pipelines {
                 available_api_calls.extend([SetPipelineBundle(bundle.clone(), render_pipeline.clone())])
             }
+        } else if !bundle.bindgroup_set {
+            available_api_calls.extend([SetBundleBindGroupTemplate(device.clone(), bundle.clone())]);
         } else if let None = &bundle.vertex_buffer {
             for buffer in &device.buffers {
                 if buffer.use_case.contains("GPUBufferUsage.VERTEX") || fuzzy(rng) {
@@ -35,11 +37,6 @@ pub fn add_manipulate_bundles(available_api_calls: &mut Vec<APICall>, rng: &mut 
         } else if !bundle.finished && !bundle.debug_group_active || fuzzy(rng) {
             available_api_calls.extend([EndBundle(bundle.clone())])
         }
-        // } else if !bundle.bindgroup_set {
-        //     if let Some(render_pipeline) = &bundle.pipeline {
-        //         available_api_calls.extend([SetComputePassBindGroupTemplate(device.clone(), bundle.clone(), render_pipeline.clone())]);
-        //     }
-        // }
 
         if !bundle.finished || fuzzy(rng) {
             available_api_calls.extend([InsertDebugMarkerBundle(bundle.clone())]);

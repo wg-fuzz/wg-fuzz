@@ -91,7 +91,7 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
         SetPipelineBundle(_, _) => false,
         SetVertexBufferBundle(_, _) => false,
         SetIndexBufferBundle(_, _) => false,
-        // SetBundleBindGroup(_, _) => false,
+        SetBundleBindGroupTemplate(_, _) => false,
         DrawBundle(_) => false,
         DrawIndexedBundle(_) => false,
         DrawIndirectBundle(_, _) => false,

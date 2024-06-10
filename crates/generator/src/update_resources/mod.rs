@@ -63,7 +63,8 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
         CreateRenderBundleEncoder(_) | SetPipelineBundle(_, _) | SetVertexBufferBundle(_, _)
             | SetIndexBufferBundle(_, _) | DrawBundle(_) | DrawIndexedBundle(_)
             | DrawIndirectBundle(_, _) | DrawIndexedIndirectBundle(_, _) | EndBundle(_)
-            | InsertDebugMarkerBundle(_) | PushDebugGroupBundle(_) | PopDebugGroupBundle(_) =>
+            | InsertDebugMarkerBundle(_) | PushDebugGroupBundle(_) | PopDebugGroupBundle(_) 
+            | SetBundleBindGroupTemplate(_, _) =>
                 { new_resource = update_bundle(resources, call) }
 
         CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => { new_resource = update_submit(resources, call) }

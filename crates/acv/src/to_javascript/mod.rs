@@ -64,7 +64,8 @@ impl APICall {
             CreateRenderBundleEncoder(_) | SetPipelineBundle(_, _) | SetVertexBufferBundle(_, _)
                 | SetIndexBufferBundle(_, _) | DrawBundle(_) | DrawIndexedBundle(_)
                 | DrawIndirectBundle(_, _) | DrawIndexedIndirectBundle(_, _) | EndBundle(_)
-                | InsertDebugMarkerBundle(_) | PushDebugGroupBundle(_) | PopDebugGroupBundle(_) =>
+                | InsertDebugMarkerBundle(_) | PushDebugGroupBundle(_) | PopDebugGroupBundle(_)
+                | SetBundleBindGroupTemplate(_, _) =>
                     bundle_to_js(self, created_resource),
 
             CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => submit_to_js(self, created_resource),

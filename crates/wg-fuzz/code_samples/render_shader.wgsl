@@ -38,5 +38,6 @@ fn vertex_main(@location(0) position: vec4f,
 @fragment
 fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
 {
+  s_output.c = u_input.a;
   return fragData.color;
 }

@@ -21,14 +21,46 @@ pub fn bundle_to_js(api_call: &APICall, created_resource: &Resource) -> String {
         SetIndexBufferBundle(bundle, buffer) => {
             return format!("{}.setIndexBuffer({}, \"uint16\");", bundle.var_name, buffer.var_name);
         }
-    //     SetRenderPassBindGroup(bundle, bind_group) => {
-    //         return format!("\
-    // const {} = {}.createBindGroup({{
-    //     layout: {}.getBindGroupLayout(0)
-    // }})
+        SetBundleBindGroupTemplate(device, bundle) => {
+            if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
+                return format!("\
+    const {} = {}.createBuffer({{
+        size: 400,
+        usage: GPUBufferUsage.UNIFORM
+    }});
+
+    const {} = {}.createBuffer({{
+        size: 400,
+        usage: GPUBufferUsage.STORAGE
+    }});
     
-    // {}.setBindGroup(0, {});", bundle.var_name, render_pipeline.var_name);
-        // }
+    const {} = {}.createBindGroup({{
+        layout: {}.getBindGroupLayout(0),
+        entries: [
+            {{
+                binding: 0,
+                resource: {{
+                    buffer: {},
+                }},
+            }},
+            {{
+                binding: 1,
+                resource: {{
+                    buffer: {},
+                }},
+            }},
+        ],
+    }});
+
+    {}.setBindGroup(0, {});", 
+                uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
+                bind_group.var_name, device.var_name, bundle.pipeline.as_ref().unwrap().var_name,
+                uniform_buffer.var_name, storage_buffer.var_name,
+                bundle.var_name, bind_group.var_name);
+            } else {
+                panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
+            }
+        }
         DrawBundle(bundle) => {
             return format!("{}.draw(3);", bundle.var_name);
         }
