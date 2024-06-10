@@ -36,7 +36,7 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, src_buffer.var_name, dst_texture.var_name)
+                command_encoder.var_name, src_buffer.var_name, dst_texture.var_name)
         }
         CopyTextureToBuffer(command_encoder, texture, buffer) => {
             format!("{}.copyTextureToBuffer(
@@ -52,7 +52,7 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, texture.var_name, buffer.var_name)
+                command_encoder.var_name, texture.var_name, buffer.var_name)
         }
         CopyTextureToTexture(command_encoder, texture_src, texture_dst) => {
             format!("{}.copyTextureToBuffer(
@@ -68,7 +68,7 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, texture_src.var_name, texture_dst.var_name)
+                command_encoder.var_name, texture_src.var_name, texture_dst.var_name)
         }
         InsertCommandEncoderDebugMarker(encoder) => {
             format!("{}.insertDebugMarker(\"mymarker\");", encoder.var_name)

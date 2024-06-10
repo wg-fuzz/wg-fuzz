@@ -67,7 +67,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
             console.log(message.type);
         }}
     }}", 
-            shader_module.var_name)
+                shader_module.var_name)
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }

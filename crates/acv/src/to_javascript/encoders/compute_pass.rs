@@ -44,10 +44,10 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     }});
 
     {}.setBindGroup(0, {});", 
-                uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                bind_group.var_name, device.var_name,
-                compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
-                encoder.var_name, bind_group.var_name)
+                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
+                    bind_group.var_name, device.var_name,
+                    compute_pipeline.var_name, uniform_buffer.var_name, storage_buffer.var_name,
+                    encoder.var_name, bind_group.var_name)
             } else {
                 panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
             }
@@ -72,7 +72,11 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     {}.queue.writeBuffer({}, 0, {}, 0, {}.length);
 
     {}.dispatchWorkgroupsIndirect({}, 0);", 
-                array_var, array_var, array_var, array_var, buffer.var_name, device.var_name, device.var_name, buffer.var_name, array_var, array_var, encoder.var_name, buffer.var_name)
+                    array_var, 
+                    array_var, array_var, array_var, 
+                    buffer.var_name, device.var_name, 
+                    device.var_name, buffer.var_name, array_var, array_var, 
+                    encoder.var_name, buffer.var_name)
             } else {
                 panic!("created_resource for SetComputePassWorkgroupsIndirect call is not a buffer!")
             }

@@ -65,10 +65,10 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
     }});
 
     {}.setBindGroup(0, {});", 
-                uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
-                bind_group.var_name, device.var_name, render_pass.pipeline.as_ref().unwrap().var_name,
-                uniform_buffer.var_name, storage_buffer.var_name,
-                render_pass.var_name, bind_group.var_name)
+                    uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
+                    bind_group.var_name, device.var_name, render_pass.pipeline.as_ref().unwrap().var_name,
+                    uniform_buffer.var_name, storage_buffer.var_name,
+                    render_pass.var_name, bind_group.var_name)
             } else {
                 panic!("created_resource for CreateRenderPassBindGroupTemplate() call is not a valid template!")
             }

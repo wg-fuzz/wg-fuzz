@@ -13,9 +13,10 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
                     _ => "undefined",
                 };
                 format!("const {} = await navigator.gpu.requestAdapter({{
-                powerPreference: {},
-                label: \"{}\"
-            }});", adapter.var_name, random_power_preference, adapter.var_name)
+        powerPreference: {},
+        label: \"{}\"
+    }});", 
+                    adapter.var_name, random_power_preference, adapter.var_name)
             } else {
                 panic!("created_resource for CreateAdapter() call is not an adapter!")
             }
@@ -42,7 +43,9 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
         console.log(adapterInfo.architecture);
         console.log(adapterInfo.device);
         console.log(adapterInfo.description);
-    }}", adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name, adapter.var_name)
+    }}", 
+                adapter.var_name, adapter.var_name, adapter.var_name, 
+                adapter.var_name, adapter.var_name, adapter.var_name)
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }
