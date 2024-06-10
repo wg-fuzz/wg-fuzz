@@ -4,26 +4,26 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
     match api_call {
         CreateCommandEncoder(device) => {
             if let Resource::GPUCommandEncoder(command_encoder) = created_resource {
-                return format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", command_encoder.var_name, device.var_name, command_encoder.var_name);
+                format!("const {} = {}.createCommandEncoder({{ label: \"{}\" }});", command_encoder.var_name, device.var_name, command_encoder.var_name)
             } else {
                 panic!("created_resource for CreateCommandEncoder() call is not a command encoder!")
             }
         }
         ClearBuffer(command_encoder, buffer) => {
-            return format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name);
+            format!("{}.clearBuffer({});", command_encoder.var_name, buffer.var_name)
         }
         CopyBufferToBuffer(command_encoder, src_buffer, dst_buffer) => {
-            return format!("{}.copyBufferToBuffer(
+            format!("{}.copyBufferToBuffer(
         {},
         0,
         {},
         0,
         400
     );", 
-                command_encoder.var_name, src_buffer.var_name, dst_buffer.var_name);
+                command_encoder.var_name, src_buffer.var_name, dst_buffer.var_name)
         }
         CopyBufferToTexture(command_encoder, src_buffer, dst_texture) => {
-            return format!("{}.copyBufferToTexture(
+            format!("{}.copyBufferToTexture(
         {{
             buffer: {}
         }},
@@ -36,10 +36,10 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, src_buffer.var_name, dst_texture.var_name);
+                            command_encoder.var_name, src_buffer.var_name, dst_texture.var_name)
         }
         CopyTextureToBuffer(command_encoder, texture, buffer) => {
-            return format!("{}.copyTextureToBuffer(
+            format!("{}.copyTextureToBuffer(
         {{
             texture: {}
         }},
@@ -52,10 +52,10 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, texture.var_name, buffer.var_name);
+                            command_encoder.var_name, texture.var_name, buffer.var_name)
         }
         CopyTextureToTexture(command_encoder, texture_src, texture_dst) => {
-            return format!("{}.copyTextureToBuffer(
+            format!("{}.copyTextureToBuffer(
         {{
             texture: {}
         }},
@@ -68,26 +68,26 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
             depthOrArrayLayers: 1
         }}
     );", 
-                            command_encoder.var_name, texture_src.var_name, texture_dst.var_name);
+                            command_encoder.var_name, texture_src.var_name, texture_dst.var_name)
         }
         InsertCommandEncoderDebugMarker(encoder) => {
-            return format!("{}.insertDebugMarker(\"mymarker\");", encoder.var_name);
+            format!("{}.insertDebugMarker(\"mymarker\");", encoder.var_name)
         }
         PushCommandEncoderDebugGroup(encoder) => {
-            return format!("{}.pushDebugGroup(\"mygroupmarker\")", encoder.var_name);
+            format!("{}.pushDebugGroup(\"mygroupmarker\")", encoder.var_name)
         }
         PopCommandEncoderDebugGroup(encoder) => {
-            return format!("{}.popDebugGroup()", encoder.var_name);
+            format!("{}.popDebugGroup()", encoder.var_name)
         }
         ResolveQuerySet(command_encoder, query_set, buffer) => {
-            return format!("{}.resolveQuerySet(
+            format!("{}.resolveQuerySet(
                 {},
                 0,
                 32,
                 {},
                 0
-            )", command_encoder.var_name, query_set.var_name, buffer.var_name);
+            )", command_encoder.var_name, query_set.var_name, buffer.var_name)
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }

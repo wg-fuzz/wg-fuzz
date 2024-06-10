@@ -8,7 +8,7 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
                     Some(query_set) => String::from(&query_set.var_name),
                     None => String::from("null"),
                 };
-                return format!("const {} = {}.beginRenderPass({{
+                format!("const {} = {}.beginRenderPass({{
         colorAttachments: [
             {{
                 clearValue: [0.0, 0.5, 1.0, 1.0],
@@ -19,23 +19,23 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
         ],
         occlusionQuerySet: {}
     }});", 
-                    render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name, occlusion_query_set_str);
+                    render_pass_encoder.var_name, command_encoder.var_name, texture_view.var_name, occlusion_query_set_str)
             } else {
                 panic!("created_resource for CreateRenderPass() call is not a render pass encoder!")
             }
         }
         SetRenderPassPipeline(render_pass, render_pipeline) => {
-            return format!("{}.setPipeline({});", render_pass.var_name, render_pipeline.var_name);
+            format!("{}.setPipeline({});", render_pass.var_name, render_pipeline.var_name)
         }
         SetVertexBuffer(render_pass, buffer) => {
-            return format!("{}.setVertexBuffer(0, {});", render_pass.var_name, buffer.var_name);
+            format!("{}.setVertexBuffer(0, {});", render_pass.var_name, buffer.var_name)
         }
         SetIndexBuffer(render_pass, buffer) => {
-            return format!("{}.setIndexBuffer({}, \"uint16\");", render_pass.var_name, buffer.var_name);
+            format!("{}.setIndexBuffer({}, \"uint16\");", render_pass.var_name, buffer.var_name)
         }
         SetRenderPassBindGroupTemplate(device, render_pass) => {
             if let Resource::BindGroupTemplate(uniform_buffer, storage_buffer, bind_group) = created_resource {
-                return format!("\
+                format!("\
     const {} = {}.createBuffer({{
         size: 400,
         usage: GPUBufferUsage.UNIFORM
@@ -68,26 +68,26 @@ pub fn render_pass_to_js(api_call: &APICall, created_resource: &Resource) -> Str
                 uniform_buffer.var_name, device.var_name, storage_buffer.var_name, device.var_name,
                 bind_group.var_name, device.var_name, render_pass.pipeline.as_ref().unwrap().var_name,
                 uniform_buffer.var_name, storage_buffer.var_name,
-                render_pass.var_name, bind_group.var_name);
+                render_pass.var_name, bind_group.var_name)
             } else {
                 panic!("created_resource for CreateComputePassBindGroupTemplate() call is not a valid template!")
             }
         }
         Draw(render_pass) => {
-            return format!("{}.draw(3);", render_pass.var_name);
+            format!("{}.draw(3);", render_pass.var_name)
         }
         DrawIndexed(render_pass) => {
-            return format!("{}.drawIndexed(3);", render_pass.var_name);
+            format!("{}.drawIndexed(3);", render_pass.var_name)
         }
         DrawIndirect(render_pass, buffer) => {
-            return format!("{}.drawIndirect({}, 0);", render_pass.var_name, buffer.var_name);
+            format!("{}.drawIndirect({}, 0);", render_pass.var_name, buffer.var_name)
         }
         DrawIndexedIndirect(render_pass, buffer) => {
-            return format!("{}.drawIndexedIndirect({}, 0);", render_pass.var_name, buffer.var_name);
+            format!("{}.drawIndexedIndirect({}, 0);", render_pass.var_name, buffer.var_name)
         }
         EndRenderPass(render_pass) => {
-            return format!("{}.end();", render_pass.var_name);
+            format!("{}.end();", render_pass.var_name)
         }
-        _ => { panic!("There is a bug in the to_javascript match calls") }
+        _ => panic!("There is a bug in the to_javascript match calls")
     }
 }
