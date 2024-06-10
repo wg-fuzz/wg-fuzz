@@ -21,25 +21,25 @@ pub fn add_command_encoder_not_yet_buffer(available_api_calls: &mut Vec<APICall>
                     }
                 }
             }
-        }
 
-        add_copy_buffer(available_api_calls, rng, device, command_encoder);
+            add_copy_buffer(available_api_calls, rng, device, command_encoder);
 
-        add_copy_texture(available_api_calls, rng, device, command_encoder);
-
-        for query_set in &device.query_sets {
-            for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.QUERY_RESOLVE") || fuzzy(rng) {
-                    available_api_calls.extend([ResolveQuerySet(command_encoder.clone(), query_set.clone(), buffer.clone())])
+            add_copy_texture(available_api_calls, rng, device, command_encoder);
+    
+            for query_set in &device.query_sets {
+                for buffer in &device.buffers {
+                    if buffer.use_case.contains("GPUBufferUsage.QUERY_RESOLVE") || fuzzy(rng) {
+                        available_api_calls.extend([ResolveQuerySet(command_encoder.clone(), query_set.clone(), buffer.clone())])
+                    }
                 }
             }
-        }
-
-        available_api_calls.extend([InsertCommandEncoderDebugMarker(command_encoder.clone())]);
-        if !command_encoder.debug_group_active || fuzzy(rng) {
-            available_api_calls.extend([PushCommandEncoderDebugGroup(command_encoder.clone())])
-        } else if command_encoder.debug_group_active || fuzzy(rng) {
-            available_api_calls.extend([PopCommandEncoderDebugGroup(command_encoder.clone())])
+    
+            available_api_calls.extend([InsertCommandEncoderDebugMarker(command_encoder.clone())]);
+            if !command_encoder.debug_group_active || fuzzy(rng) {
+                available_api_calls.extend([PushCommandEncoderDebugGroup(command_encoder.clone())])
+            } else if command_encoder.debug_group_active || fuzzy(rng) {
+                available_api_calls.extend([PopCommandEncoderDebugGroup(command_encoder.clone())])
+            }
         }
     }
 }
