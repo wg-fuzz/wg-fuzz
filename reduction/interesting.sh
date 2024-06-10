@@ -2,4 +2,4 @@
 
 node test.js &> log.txt
 
-grep -q "Command cannot" log.txt
+grep -q "Command c" log.txt

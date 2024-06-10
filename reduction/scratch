@@ -1,2 +1,2 @@
-creduce --not-c ./interesting.sh test.js
+creduce --not-c interesting.sh ../out/*
 echo $?
