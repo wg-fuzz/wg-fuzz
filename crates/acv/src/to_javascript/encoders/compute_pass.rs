@@ -67,7 +67,7 @@ pub fn compute_pass_to_js(api_call: &APICall, created_resource: &Resource) -> St
     {}[2] = 1;
 
     const {} = {}.createBuffer({{
-        size: 12,
+        size: 400,
         usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDIRECT,
     }});
     {}.queue.writeBuffer({}, 0, {}, 0, {}.length);
