@@ -19,7 +19,7 @@ pub fn submit_to_js(api_call: &APICall, created_resource: &Resource) -> String {
             format!("{}.queue.submit({});", device.var_name, command_buffers_str)
         }
         WaitSubmittedWork(device) => {
-            format!("await {}.queue.onSubmittedWorkDone();", device.var_name)
+            format!("// await {}.queue.onSubmittedWorkDone();", device.var_name)
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }

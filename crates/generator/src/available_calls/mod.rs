@@ -19,7 +19,10 @@ pub fn available_api_calls(resources: &ProgramResources, swarm: [bool; 89], term
     available_api_calls.extend([CreateAdapter(), CreateArray(), PrintWGSLLanguageFeatures(), PrintPreferredCanvasFormat()]);
 
     for adapter in &resources.adapters {
-        available_api_calls.extend([CreateDevice(adapter.clone()), PrintAdapterInfo(adapter.clone())]);
+        if adapter.devices.len() < 1 {
+            available_api_calls.extend([CreateDevice(adapter.clone())])
+        }
+        available_api_calls.extend([PrintAdapterInfo(adapter.clone())]);
 
         for device in &adapter.devices {
             if !device.destroyed || fuzzy(&mut rng) {
