@@ -18,6 +18,7 @@ target/
 /target
 
 # Dawn builds
+dawns/
 *.node
 
 # Output files
@@ -25,3 +26,4 @@ out/
 
 # Reduction files
 **/*.orig
+reduced/

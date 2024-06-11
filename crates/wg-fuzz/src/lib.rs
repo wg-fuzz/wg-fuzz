@@ -14,6 +14,7 @@ pub fn fuzz() {
 }
 
 pub fn fuzz_once() -> std::io::Result<()> {
+    assert!(env::set_current_dir("/home/leu/Documents/projects/fyp/wg-fuzz").is_ok());
     match std::fs::remove_dir_all("out/") {
       Ok(_) => {},
       Err(_) => {}
@@ -28,7 +29,7 @@ pub fn fuzz_once() -> std::io::Result<()> {
 
     generate(&mut program, &mut program_resources);
 
-    println!("{:#?}", &program);
+    // println!("{:#?}", &program);
     
     file.write_all(program.to_javascript().as_bytes())?;
 
