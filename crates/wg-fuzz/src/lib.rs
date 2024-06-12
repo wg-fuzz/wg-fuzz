@@ -1,6 +1,6 @@
 use std::fs::{self, File};
 use std::io::prelude::*;
-use std::process::Command;
+use std::process::{Command, Output};
 use std::env;
 use chrono;
 
@@ -28,7 +28,7 @@ pub fn fuzz() {
 
     let start_time = chrono::offset::Local::now();
     let mut current_time = chrono::offset::Local::now();
-    while current_time < start_time.checked_add_signed(chrono::TimeDelta::seconds(20)).unwrap() {
+    while current_time < start_time.checked_add_signed(chrono::TimeDelta::seconds(20000)).unwrap() {
         fuzz_once().unwrap();
         current_time = chrono::offset::Local::now();
     }
@@ -88,21 +88,21 @@ fn run_test(condor_identifier: i32) {
     // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
     // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
-    let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
-    let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
+    let lowercase_stdout = String::from_utf8(output.stdout.clone()).unwrap().to_lowercase();
+    let lowercase_stderr = String::from_utf8(output.stderr.clone()).unwrap().to_lowercase();
 
     if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
-        log_run_as_bug(condor_identifier);
+        log_run_as_bug(condor_identifier, output.clone());
     } else {
         for phrase in ["core dumped", "sanitizer"] {
             if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onimmediate()") {
-                log_run_as_bug(condor_identifier);
+                log_run_as_bug(condor_identifier, output.clone());
             }
         }
     }
 }
 
-fn log_run_as_bug(condor_identifier: i32) {
+fn log_run_as_bug(condor_identifier: i32, output: Output) {
     println!("Possible bug found!");
     let timestamp = chrono::offset::Local::now().format(&format!("{condor_identifier}_%Y-%m-%d_%H:%M:%S")).to_string();
 
@@ -113,6 +113,12 @@ fn log_run_as_bug(condor_identifier: i32) {
         .output()
         .unwrap();
 
-    fs_extra::copy_items(&["out/"], new_folder, &dir::CopyOptions::new()).unwrap();
+    fs_extra::copy_items(&["out/"], new_folder.clone(), &dir::CopyOptions::new()).unwrap();
 
+    let mut stdout_file = File::create(format!("{}/stdout.txt", new_folder.clone())).unwrap();
+    stdout_file.write_all(&output.stdout).unwrap();
+    let mut stderr_file = File::create(format!("{}/stderr.txt", new_folder.clone())).unwrap();
+    stderr_file.write_all(&output.stderr).unwrap();
+    let mut exitcode_file = File::create(format!("{}/exitcode.txt", new_folder.clone())).unwrap();
+    exitcode_file.write_all(output.status.code().unwrap().to_string().as_bytes()).unwrap();
 }
