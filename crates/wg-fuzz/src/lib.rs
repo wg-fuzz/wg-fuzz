@@ -16,8 +16,6 @@ pub fn fuzz() {
 }
 
 pub fn fuzz_once() -> std::io::Result<()> {
-    assert!(env::set_current_dir("/home/leu/Documents/projects/fyp/wg-fuzz").is_ok());
-
     match std::fs::remove_dir_all("out/") {
       Ok(_) => {},
       Err(_) => {}
@@ -66,7 +64,7 @@ fn run_test() {
     if !output.status.success() {
         log_run_as_bug();
     } else {
-        for phrase in ["undefinedbehaviorsanitizer", "error", "core dumped", "sanitizer"] {
+        for phrase in ["undefinedbehaviorsanitizer", "core dumped", "sanitizer"] {
             if lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase) {
                 log_run_as_bug();
             }
