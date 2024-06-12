@@ -70,6 +70,8 @@ fn run_test() {
     let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
 
+    println!("{lowercase_stderr}");
+
     if !output.status.success() && !lowercase_stderr.contains("immediate._onImmediate()") {
         log_run_as_bug();
     } else {
