@@ -2,9 +2,11 @@ use std::fs::{self, File};
 use std::io::prelude::*;
 use std::process::Command;
 use std::env;
+use chrono;
 
 use art::*;
 use acv::*;
+use fs_extra::dir;
 use generator::*;
 
 pub fn fuzz() {
@@ -15,12 +17,13 @@ pub fn fuzz() {
 
 pub fn fuzz_once() -> std::io::Result<()> {
     assert!(env::set_current_dir("/home/leu/Documents/projects/fyp/wg-fuzz").is_ok());
+
     match std::fs::remove_dir_all("out/") {
       Ok(_) => {},
       Err(_) => {}
     }
-
     std::fs::create_dir("out")?;
+    let _ = std::fs::create_dir("generated_bugs"); // May already exist
 
     let mut file = File::create("out/test.js")?;
     
@@ -43,25 +46,45 @@ pub fn fuzz_once() -> std::io::Result<()> {
 }
 
 fn run_test() {
-    assert!(env::set_current_dir("out").is_ok());
+    println!("Running WebGPU program...");
+    env::set_current_dir("out").unwrap();
     let output = Command::new("node")
         // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
         .arg("test.js")
         .output()
         .expect("Failed to run test.js");
+    env::set_current_dir("..").unwrap();
 
-    println!("status: {}", output.status);
-    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    // println!("status: {}", output.status);
+    // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+    // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
     let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
 
-    for phrase in ["undefinedbehaviorsanitizer", "error", "core dumped", "sanitizer"] {
-        assert!(!lowercase_stdout.contains(phrase));
-        assert!(!lowercase_stderr.contains(phrase));
+    if !output.status.success() {
+        log_run_as_bug();
+    } else {
+        for phrase in ["undefinedbehaviorsanitizer", "error", "core dumped", "sanitizer"] {
+            if lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase) {
+                log_run_as_bug();
+            }
+        }
     }
+}
 
-    assert!(output.status.success());
+fn log_run_as_bug() {
+    println!("Possible bug found!");
+    let timestamp = chrono::offset::Local::now().format("%Y-%m-%d_%H:%M:%S").to_string();
+
+    let new_folder = format!("generated_bugs/{}", timestamp);
+
+    let _ = Command::new("mkdir")
+        .arg(new_folder.clone())
+        .output()
+        .unwrap();
+
+    fs_extra::copy_items(&["out/"], new_folder, &dir::CopyOptions::new()).unwrap();
+
 }
