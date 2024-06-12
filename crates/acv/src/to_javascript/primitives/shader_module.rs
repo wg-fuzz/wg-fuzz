@@ -5,24 +5,42 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
         CreateShaderModuleCompute(device) => {
             if let Resource::GPUShaderModule(shader_module) = created_resource {
                 let file_name = format!("out/{}.wgsl", shader_module.var_name);
-
                 let file = File::create(&file_name).unwrap();
-
                 let stdio = Stdio::from(file);
 
-                Command::new("target/debug/wgsl_generator")
+                let _ = Command::new("target/debug/wgsl_generator")
                     .arg("--max-block-depth=1")
                     .arg("--max-fns=2")
                     .stdout(stdio)
-                    .output().unwrap();
+                    .output();
 
-                //TODO: add args to generator?
+                let mut recondition = std::panic::catch_unwind(|| 
+                    cli::run(Options {
+                        input: file_name.clone(),
+                        output: file_name.clone(),
+                        enable: Vec::new()
+                    })
+                );
 
-                let _ = cli::run(Options {
-                    input: file_name.clone(),
-                    output: file_name.clone(),
-                    enable: Vec::new()
-                });
+                while let Err(_) = recondition {
+                    let file_name = format!("out/{}.wgsl", shader_module.var_name);
+                    let file = File::create(&file_name).unwrap();
+                    let stdio = Stdio::from(file);
+
+                    let _ = Command::new("target/debug/wgsl_generator")
+                    .arg("--max-block-depth=1")
+                    .arg("--max-fns=2")
+                    .stdout(stdio)
+                    .output();
+
+                    recondition = std::panic::catch_unwind(|| 
+                        cli::run(Options {
+                            input: file_name.clone(),
+                            output: file_name.clone(),
+                            enable: Vec::new()
+                        })
+                    );
+                }
 
                 let var_name = &shader_module.var_name;
                 format!("\
