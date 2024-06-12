@@ -64,7 +64,7 @@ fn run_test() {
     if !output.status.success() {
         log_run_as_bug();
     } else {
-        for phrase in ["undefinedbehaviorsanitizer", "core dumped", "sanitizer"] {
+        for phrase in ["core dumped", "sanitizer"] {
             if lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase) {
                 log_run_as_bug();
             }
