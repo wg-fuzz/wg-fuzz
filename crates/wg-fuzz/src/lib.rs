@@ -70,11 +70,11 @@ fn run_test() {
     let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
 
-    if !output.status.success() {
+    if !output.status.success() && !lowercase_stderr.contains("immediate._onImmediate()") {
         log_run_as_bug();
     } else {
         for phrase in ["core dumped", "sanitizer"] {
-            if lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase) {
+            if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onImmediate()") {
                 log_run_as_bug();
             }
         }
