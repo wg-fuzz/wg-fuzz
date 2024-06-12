@@ -10,6 +10,17 @@ use fs_extra::dir;
 use generator::*;
 
 pub fn fuzz() {
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() == 4 {
+        let swarm_prob: f64 = args[1].parse().unwrap();
+        let fuzzy_prob: f64 = args[2].parse().unwrap();
+        let condor_identifier: i32 = args[3].parse().unwrap();
+        println!("swarm prob: {swarm_prob}");
+        println!("fuzzy prob: {fuzzy_prob}");
+        println!("condor_identifier: {condor_identifier}");
+    }
+
     let start_time = chrono::offset::Local::now();
     let mut current_time = chrono::offset::Local::now();
     while current_time < start_time.checked_add_signed(chrono::TimeDelta::seconds(20)).unwrap() {
