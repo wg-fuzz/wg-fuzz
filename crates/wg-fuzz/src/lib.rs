@@ -56,7 +56,8 @@ fn run_test() {
     println!("Running WebGPU program...");
     env::set_current_dir("out").unwrap();
     let output = Command::new("node")
-        .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so")
+    .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.tsan-x86_64.so")
+        // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so")
         // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
         .arg("test.js")
         .output()
