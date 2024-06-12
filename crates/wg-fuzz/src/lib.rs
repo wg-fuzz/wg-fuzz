@@ -44,7 +44,6 @@ pub fn fuzz_once() -> std::io::Result<()> {
 
 fn run_test() {
     assert!(env::set_current_dir("out").is_ok());
-    println!("Running!");
     let output = Command::new("node")
         // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
         .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
@@ -52,9 +51,9 @@ fn run_test() {
         .output()
         .expect("Failed to run test.js");
 
-    // println!("status: {}", output.status);
-    // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    println!("status: {}", output.status);
+    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
     let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
