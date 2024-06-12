@@ -32,12 +32,14 @@ pub fn fuzz_once() -> std::io::Result<()> {
     let mut program = Program::new();
 
     let args: Vec<String> = env::args().collect();
+    let mut condor_identifier = 0;
 
     if args.len() == 1 {
         generate(&mut program, &mut program_resources, 1.0, 0.0);
     } else {
         let swarm_prob: f64 = args[1].parse().unwrap();
         let fuzzy_prob: f64 = args[2].parse().unwrap();
+        condor_identifier = args[3].parse().unwrap();
     
         generate(&mut program, &mut program_resources, swarm_prob, fuzzy_prob);
     }
@@ -50,12 +52,12 @@ pub fn fuzz_once() -> std::io::Result<()> {
 
     fs::copy("crates/acv/src/code_samples/render_shader.wgsl", "out/render_shader.wgsl").expect("Could not copy render_shader.wgsl to out/render_shader.wgsl");
 
-    run_test();
+    run_test(condor_identifier);
 
     Ok(())
 }
 
-fn run_test() {
+fn run_test(condor_identifier: i32) {
     println!("Running WebGPU program...");
     env::set_current_dir("out").unwrap();
     let output = Command::new("node")
@@ -74,19 +76,19 @@ fn run_test() {
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
 
     if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
-        log_run_as_bug();
+        log_run_as_bug(condor_identifier);
     } else {
         for phrase in ["core dumped", "sanitizer"] {
             if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onimmediate()") {
-                log_run_as_bug();
+                log_run_as_bug(condor_identifier);
             }
         }
     }
 }
 
-fn log_run_as_bug() {
+fn log_run_as_bug(condor_identifier: i32) {
     println!("Possible bug found!");
-    let timestamp = chrono::offset::Local::now().format("%Y-%m-%d_%H:%M:%S").to_string();
+    let timestamp = chrono::offset::Local::now().format(&format!("{condor_identifier}_%Y-%m-%d_%H:%M:%S")).to_string();
 
     let new_folder = format!("generated_bugs/{}", timestamp);
 
