@@ -1,7 +1,5 @@
 use rand::{rngs::ThreadRng, Rng};
 
-const RATIO_INCORRECTNESS: f64 = 0.00000;
-
-pub fn fuzzy(rng: &mut ThreadRng) -> bool {
-    rng.gen_bool(RATIO_INCORRECTNESS)
+pub fn fuzzy(rng: &mut ThreadRng, ratio_incorrectness: f64) -> bool {
+    rng.gen_bool(ratio_incorrectness)
 }

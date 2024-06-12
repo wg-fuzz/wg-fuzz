@@ -60,7 +60,7 @@ pub fn command_encoder_to_js(api_call: &APICall, created_resource: &Resource) ->
         }
         CopyTextureToTexture(command_encoder, texture_src, texture_dst) => {
             format!("\
-    {}.copyTextureToBuffer(
+    {}.copyTextureToTexture(
         {{
             texture: {}
         }},

@@ -1,7 +1,7 @@
 use crate::*;
 use available_calls::fuzzy;
 
-pub fn add_manipulate_bundles(available_api_calls: &mut Vec<APICall>, rng: &mut ThreadRng, device: &GPUDevice) {
+pub fn add_manipulate_bundles(available_api_calls: &mut Vec<APICall>, rng: &mut ThreadRng, fuzzy_prob: f64, device: &GPUDevice) {
     for bundle in &device.render_bundle_encoders {
         // This restricts a bundle encoder to be set up in the following order in the final javascript program for simplicity
         if let None = &bundle.pipeline {
@@ -12,40 +12,40 @@ pub fn add_manipulate_bundles(available_api_calls: &mut Vec<APICall>, rng: &mut 
             available_api_calls.extend([SetBundleBindGroupTemplate(device.clone(), bundle.clone())]);
         } else if let None = &bundle.vertex_buffer {
             for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.VERTEX") || fuzzy(rng) {
+                if buffer.use_case.contains("GPUBufferUsage.VERTEX") || fuzzy(rng, fuzzy_prob) {
                     available_api_calls.extend([SetVertexBufferBundle(bundle.clone(), buffer.clone())])
                 }
             }
-        } else if !bundle.drew || fuzzy(rng) {
+        } else if !bundle.drew || fuzzy(rng, fuzzy_prob) {
             available_api_calls.extend([DrawBundle(bundle.clone())]);
             if let Some(_) = &bundle.index_buffer {
                 available_api_calls.extend([DrawIndexedBundle(bundle.clone())]);
                 for buffer in &device.buffers {
-                    if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng) {
+                    if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng, fuzzy_prob) {
                         available_api_calls.extend([DrawIndexedIndirectBundle(bundle.clone(), buffer.clone())])
                     }
                 }
             }
             for buffer in &device.buffers {
-                if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng) {
+                if buffer.use_case.contains("GPUBufferUsage.INDIRECT") || fuzzy(rng, fuzzy_prob) {
                     available_api_calls.extend([DrawIndirectBundle(bundle.clone(), buffer.clone())])
                 }
-                if buffer.use_case.contains("GPUBufferUsage.INDEX") || fuzzy(rng) {
+                if buffer.use_case.contains("GPUBufferUsage.INDEX") || fuzzy(rng, fuzzy_prob) {
                     available_api_calls.extend([SetIndexBufferBundle(bundle.clone(), buffer.clone())])
                 }
             }
-        } else if !bundle.finished && !bundle.debug_group_active || fuzzy(rng) {
+        } else if !bundle.finished && !bundle.debug_group_active || fuzzy(rng, fuzzy_prob) {
             available_api_calls.extend([EndBundle(bundle.clone())])
         }
 
-        if !bundle.finished || fuzzy(rng) {
+        if !bundle.finished || fuzzy(rng, fuzzy_prob) {
             available_api_calls.extend([InsertDebugMarkerBundle(bundle.clone())]);
-            if !bundle.debug_group_active || fuzzy(rng) {
+            if !bundle.debug_group_active || fuzzy(rng, fuzzy_prob) {
                 available_api_calls.extend([PushDebugGroupBundle(bundle.clone())]);
             }
         }
 
-        if bundle.debug_group_active || fuzzy(rng) {
+        if bundle.debug_group_active || fuzzy(rng, fuzzy_prob) {
             available_api_calls.extend([PopDebugGroupBundle(bundle.clone())])
         }
     }

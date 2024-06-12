@@ -28,7 +28,16 @@ pub fn fuzz_once() -> std::io::Result<()> {
     let mut program_resources = ProgramResources::new();
     let mut program = Program::new();
 
-    generate(&mut program, &mut program_resources);
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() == 1 {
+        generate(&mut program, &mut program_resources, 1.0, 0.0);
+    } else {
+        let swarm_prob: f64 = args[1].parse().unwrap();
+        let fuzzy_prob: f64 = args[2].parse().unwrap();
+    
+        generate(&mut program, &mut program_resources, swarm_prob, fuzzy_prob);
+    }
 
     // println!("{:#?}", &program);
     
