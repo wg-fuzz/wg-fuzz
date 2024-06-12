@@ -55,5 +55,13 @@ fn run_test() {
     println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
     println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
+    let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
+    let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
+
+    for phrase in ["undefinedbehaviorsanitizer", "error", "core dumped", "sanitizer"] {
+        assert!(!lowercase_stdout.contains(phrase));
+        assert!(!lowercase_stderr.contains(phrase));
+    }
+
     assert!(output.status.success());
 }
