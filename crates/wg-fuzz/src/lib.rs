@@ -56,8 +56,8 @@ fn run_test() {
     println!("Running WebGPU program...");
     env::set_current_dir("out").unwrap();
     let output = Command::new("node")
-        // .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.asan-x86_64.so")
-        .env("LD_PRELOAD", "/usr/lib/llvm-15/lib/clang/15.0.7/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
+        // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so")
+        .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
         .arg("test.js")
         .output()
         .expect("Failed to run test.js");
@@ -69,9 +69,6 @@ fn run_test() {
 
     let lowercase_stdout = String::from_utf8(output.stdout).unwrap().to_lowercase();
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
-
-    println!("{lowercase_stderr}");
-    println!("{}", lowercase_stderr.contains("immediate._onimmediate()"));
 
     if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
         log_run_as_bug();
