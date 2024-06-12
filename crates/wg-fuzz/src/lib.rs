@@ -19,6 +19,11 @@ pub fn fuzz() {
         println!("swarm prob: {swarm_prob}");
         println!("fuzzy prob: {fuzzy_prob}");
         println!("condor_identifier: {condor_identifier}");
+
+        if swarm_prob == 0.0 {
+            println!("Swarm prob is 0.0; exiting");
+            return;
+        }
     }
 
     let start_time = chrono::offset::Local::now();
