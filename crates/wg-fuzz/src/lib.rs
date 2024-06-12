@@ -71,13 +71,13 @@ fn run_test() {
     let lowercase_stderr = String::from_utf8(output.stderr).unwrap().to_lowercase();
 
     println!("{lowercase_stderr}");
-    println!("{}", lowercase_stderr.contains("immediate._onImmediate()"));
+    println!("{}", lowercase_stderr.contains("immediate._onimmediate()"));
 
-    if !output.status.success() && !lowercase_stderr.contains("immediate._onImmediate()") {
+    if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
         log_run_as_bug();
     } else {
         for phrase in ["core dumped", "sanitizer"] {
-            if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onImmediate()") {
+            if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onimmediate()") {
                 log_run_as_bug();
             }
         }
