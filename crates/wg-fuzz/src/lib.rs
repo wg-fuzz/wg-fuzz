@@ -10,8 +10,11 @@ use fs_extra::dir;
 use generator::*;
 
 pub fn fuzz() {
-    loop {
+    let start_time = chrono::offset::Local::now();
+    let mut current_time = chrono::offset::Local::now();
+    while current_time < start_time.checked_add_signed(chrono::TimeDelta::seconds(20)).unwrap() {
         fuzz_once().unwrap();
+        current_time = chrono::offset::Local::now();
     }
 }
 
