@@ -18,7 +18,9 @@ pub fn generate(program: &mut Program, resources: &mut ProgramResources, swarm_p
         swarm[i] = rng.gen_bool(swarm_prob);
     }
 
-    for _ in 1..300 {
+    let num_calls = rand::thread_rng().gen_range(1..1000);
+
+    for _ in 0..num_calls {
         let mut available_api_calls = available_api_calls(resources, swarm, fuzzy_incorrectness_prob, false);
         let call_index = rng.gen_range(0..available_api_calls.len());
         let api_call = available_api_calls.remove(call_index);
