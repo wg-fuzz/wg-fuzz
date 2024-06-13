@@ -121,5 +121,8 @@ fn log_run_as_bug(condor_identifier: i32, output: Output) {
     let mut stderr_file = File::create(format!("{}/stderr.txt", new_folder.clone())).unwrap();
     stderr_file.write_all(&output.stderr).unwrap();
     let mut exitcode_file = File::create(format!("{}/exitcode.txt", new_folder.clone())).unwrap();
-    exitcode_file.write_all(output.status.code().unwrap().to_string().as_bytes()).unwrap();
+    match output.status.code() {
+        Some(code) => exitcode_file.write_all(code.to_string().as_bytes()).unwrap(),
+        None => {}
+    }
 }
