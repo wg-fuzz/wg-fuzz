@@ -1,0 +1,19 @@
+node:internal/modules/cjs/loader:1464
+  return process.dlopen(module, path.toNamespacedPath(filename));
+                 ^
+
+Error: /home/leu/Documents/projects/fyp/wg-fuzz/out/dawn.node: undefined symbol: __asan_option_detect_stack_use_after_return
+    at Module._extensions..node (node:internal/modules/cjs/loader:1464:18)
+    at Module.load (node:internal/modules/cjs/loader:1205:32)
+    at Module._load (node:internal/modules/cjs/loader:1021:12)
+    at Module.require (node:internal/modules/cjs/loader:1230:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (/home/leu/Documents/projects/fyp/wg-fuzz/out/test.js:1:29)
+    at Module._compile (node:internal/modules/cjs/loader:1368:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1426:10)
+    at Module.load (node:internal/modules/cjs/loader:1205:32)
+    at Module._load (node:internal/modules/cjs/loader:1021:12) {
+  code: 'ERR_DLOPEN_FAILED'
+}
+
+Node.js v21.7.3

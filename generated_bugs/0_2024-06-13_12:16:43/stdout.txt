@@ -1,0 +1,669 @@
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+bgra8unorm
+bgra8unorm
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+0
+undefined
+bgra8unorm
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+bgra8unorm
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+1
+2d
+depth16unorm
+10
+10
+texture000
+1
+1
+4
+buffer004
+unmapped
+400
+8
+bgra8unorm
+buffer002
+unmapped
+400
+8
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer002
+unmapped
+400
+8
+buffer002
+unmapped
+400
+8
+validation:
+The texture usage (TextureUsage::StorageBinding) includes TextureUsage::StorageBinding, which is incompatible with the format (TextureFormat::RGB10A2Unorm).
+ - While validating [TextureDescriptor "texture100"].
+ - While calling [Device "device10"].CreateTexture([TextureDescriptor "texture100"]).
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer005
+unmapped
+400
+64
+query001
+occlusion
+32
+1
+2d
+r32float
+10
+10
+texture002
+1
+1
+1
+0
+undefined
+buffer100
+unmapped
+400
+128
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+query001
+occlusion
+32
+query001
+occlusion
+32
+buffer006
+unmapped
+400
+64
+buffer0011
+unmapped
+400
+128
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+buffer0013
+unmapped
+400
+264
+buffer008
+unmapped
+400
+64
+query001
+occlusion
+32
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query002
+occlusion
+32
+buffer0014
+unmapped
+400
+64
+buffer0014
+unmapped
+400
+64
+buffer0015
+unmapped
+400
+128
+buffer008
+unmapped
+400
+64
+bgra8unorm
+buffer0013
+unmapped
+400
+264
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+validation:
+HeightInBlocks (10) is > 1, but bytesPerRow is not specified.
+ - While encoding [CommandEncoder "command_encoder005"].CopyTextureToBuffer([Texture "texture003"], [Buffer "buffer0012"], [Extent3D width:10, height:10, depthOrArrayLayers:1]).
+query001
+occlusion
+32
+buffer0012
+unmapped
+400
+264
+buffer0013
+unmapped
+400
+264
+0
+undefined
+0
+undefined
+buffer0013
+unmapped
+400
+264
+buffer0016
+unmapped
+400
+9
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+Float32Array(100) [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0
+]
+buffer104
+unmapped
+400
+128
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+1
+2d
+r32float
+10
+10
+texture004
+1
+1
+4
+destroyed
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+validation:
+The texture usage (TextureUsage::StorageBinding) includes TextureUsage::StorageBinding, which is incompatible with the format (TextureFormat::RG11B10Ufloat).
+ - While validating [TextureDescriptor "texture102"].
+ - While calling [Device "device10"].CreateTexture([TextureDescriptor "texture102"]).
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer105
+unmapped
+400
+4
+Float32Array(100) [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0
+]
+buffer105
+unmapped
+400
+4
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer104
+unmapped
+400
+128
+query001
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer105
+unmapped
+400
+4
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+query001
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+Float32Array(100) [
+      0,     0, -0.5,     0,  0.75,     1,  0.75,  0.25,   0.5,    -1,
+  -0.25,  0.75,    0,  0.25, -0.75,  0.25,    -1,  0.25,     0,     0,
+   0.75,     0,   -1, -0.75,  -0.5,  0.75,  -0.5,    -1,  0.25,   0.5,
+   -0.5, -0.25,  0.5,     1,   0.5,     0, -0.75, -0.75,   0.5,  0.75,
+  -0.75,    -1,   -1,     1,     1,  0.75,  0.25, -0.75,     1,  0.25,
+      1,    -1,    0, -0.25,  0.25,     1,  0.25,    -1,  -0.5,     0,
+  -0.25,  -0.5,   -1, -0.25,     1,    -1,  -0.5, -0.25,  -0.5, -0.75,
+   0.75,    -1,    1,   0.5, -0.25, -0.75,  0.75,     0,    -1,  0.75,
+   -0.5,    -1,   -1,     0, -0.25,     0,     0,     1, -0.75,    -1,
+    0.5,  0.75,    1,  -0.5,  0.25,  -0.5,    -1,    -1, -0.75,  -0.5
+]
+buffer104
+unmapped
+400
+128
+buffer0021
+unmapped
+400
+64
+buffer0019
+unmapped
+400
+64
+bgra8unorm
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer0019
+unmapped
+400
+64
+buffer0019
+unmapped
+400
+64
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer0017
+unmapped
+400
+64
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder005"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder005"]])
+buffer0022
+unmapped
+400
+128
+query001
+occlusion
+32
+query001
+occlusion
+32
+0
+undefined
+validation:
+[Texture "texture101"] usage (TextureUsage::StorageBinding) doesn't include TextureUsage::RenderAttachment.
+ - While validating colorAttachments[0].
+ - While encoding [CommandEncoder "command_encoder101"].BeginRenderPass([null]).
+
+Debug group stack:
+ > "mygroupmarker"
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder101"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder101"]])
+validation:
+[Texture "texture101"] usage (TextureUsage::StorageBinding) doesn't include TextureUsage::RenderAttachment.
+ - While validating colorAttachments[0].
+ - While encoding [CommandEncoder "command_encoder102"].BeginRenderPass([null]).
+
+Debug group stack:
+ > "mygroupmarker"
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder102"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder102"]])
