@@ -107,6 +107,6 @@ pub fn kill_non_terminating(available_api_calls: &mut Vec<APICall>) {
 
         PushRandomErrorScope(_) => false,
         PopErrorScope(_) => true,
-        // AddUncapturedErrorListener(_) => false,
+        AddUncapturedErrorListener(_) => false,
     });
 }

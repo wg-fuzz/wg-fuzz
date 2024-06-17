@@ -70,7 +70,7 @@ impl APICall {
 
             CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => submit_to_js(self, created_resource),
             
-            PushRandomErrorScope(_) | PopErrorScope(_) => error_to_js(self),
+            PushRandomErrorScope(_) | PopErrorScope(_) | AddUncapturedErrorListener(_) => error_to_js(self),
         }
     }
 }

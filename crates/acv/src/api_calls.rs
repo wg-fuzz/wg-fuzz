@@ -107,5 +107,5 @@ pub enum APICall {
     
     PushRandomErrorScope(GPUDevice),
     PopErrorScope(GPUDevice),
-    // AddUncapturedErrorListener(GPUDevice),
+    AddUncapturedErrorListener(GPUDevice),
 }

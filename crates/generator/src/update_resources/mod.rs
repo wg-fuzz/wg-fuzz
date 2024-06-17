@@ -69,7 +69,7 @@ pub fn update_program_resources(resources: &mut ProgramResources, call: &APICall
 
         CreateCommandBuffer(_) | SubmitQueueRandom(_, _) | WaitSubmittedWork(_) => { new_resource = update_submit(resources, call) }
 
-        PushRandomErrorScope(_) | PopErrorScope(_) => { new_resource = update_error(resources, call) }
+        PushRandomErrorScope(_) | PopErrorScope(_) | AddUncapturedErrorListener(_) => { new_resource = update_error(resources, call) }
     }
     new_resource
 }

@@ -107,6 +107,6 @@ pub fn filter_swarm(available_api_calls: &mut Vec<APICall>, swarm: [bool; 89]) {
 
         PushRandomErrorScope(_) => swarm[86],
         PopErrorScope(_) => swarm[87],
-        // AddUncapturedErrorListener(_) => swarm[88],
+        AddUncapturedErrorListener(_) => swarm[88],
     });
 }

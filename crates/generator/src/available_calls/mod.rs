@@ -27,7 +27,7 @@ pub fn available_api_calls(resources: &ProgramResources, swarm: [bool; 89], fuzz
         for device in &adapter.devices {
             if !device.destroyed || fuzzy(&mut rng, fuzzy_prob) {
                 available_api_calls.extend([CreateRandomBuffer(device.clone()), CreateRandomTexture(device.clone()), PrintDeviceInfo(device.clone()), WaitSubmittedWork(device.clone()), 
-                            /*AddUncapturedErrorListener(device.clone()),*/ CreateShaderModuleCompute(device.clone()), CreateShaderModuleRender(device.clone()),
+                            /* AddUncapturedErrorListener(device.clone()), */ CreateShaderModuleCompute(device.clone()), CreateShaderModuleRender(device.clone()),
                             CreateCommandEncoder(device.clone()), CreateSampler(device.clone()), CreateComputeBindGroupLayout(device.clone()), CreateOcclusionQuerySet(device.clone())]);
 
                 for query_set in &device.query_sets {

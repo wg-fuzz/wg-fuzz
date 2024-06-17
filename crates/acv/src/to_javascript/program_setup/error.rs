@@ -21,9 +21,9 @@ pub fn error_to_js(api_call: &APICall) -> String {
         }}
     }});", device.var_name)
         }
-        // AddUncapturedErrorListener(device) => {
-        //     format!("console.log(typeof {}.onuncapturederror);", device.var_name)
-        // },
+        AddUncapturedErrorListener(device) => {
+            format!("console.log(typeof {}.onuncapturederror);", device.var_name)
+        },
         _ => panic!("There is a bug in the to_javascript match calls")
     }
 }
