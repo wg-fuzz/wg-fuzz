@@ -1,0 +1,222 @@
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query000
+occlusion
+32
+query000
+occlusion
+32
+query000
+occlusion
+32
+1
+2d
+r32float
+10
+10
+texture000
+1
+1
+16
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+1
+2d
+r32float
+10
+10
+texture000
+1
+1
+16
+validation:
+Error while parsing WGSL: :162:29 error: parsed as template list
+    let var_0 = !vec4<bool>(~arg_0.d.x < 1i, _wgslsmith_f_op_f32(-_wgslsmith_f_op_f32(ceil(arg_0.a.d))) > arg_0.a.d, true, !(all(vec2<bool>(false, false)) & true));
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:162:29 note: if this is intended to be a less-than expression then wrap in parentheses
+    let var_0 = !vec4<bool>(~arg_0.d.x < 1i, _wgslsmith_f_op_f32(-_wgslsmith_f_op_f32(ceil(arg_0.a.d))) > arg_0.a.d, true, !(all(vec2<bool>(false, false)) & true));
+                            ^^^^^^^^^^^^^^^
+
+
+ - While validating [ShaderModuleDescriptor "shader_module102"]
+ - While calling [Device "device10"].CreateShaderModule([ShaderModuleDescriptor "shader_module102"]).
+warning:
+Compilation log for [Invalid ShaderModule "shader_module102"]:
+1 error(s) generated while compiling the shader:
+:162:29 error: parsed as template list
+    let var_0 = !vec4<bool>(~arg_0.d.x < 1i, _wgslsmith_f_op_f32(-_wgslsmith_f_op_f32(ceil(arg_0.a.d))) > arg_0.a.d, true, !(all(vec2<bool>(false, false)) & true));
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:162:29 note: if this is intended to be a less-than expression then wrap in parentheses
+    let var_0 = !vec4<bool>(~arg_0.d.x < 1i, _wgslsmith_f_op_f32(-_wgslsmith_f_op_f32(ceil(arg_0.a.d))) > arg_0.a.d, true, !(all(vec2<bool>(false, false)) & true));
+                            ^^^^^^^^^^^^^^^
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+query000
+occlusion
+32
+query000
+occlusion
+32
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+bgra8unorm
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+validation:
+[Invalid ShaderModule "shader_module102"] is invalid.
+ - While validating compute stage ([Invalid ShaderModule "shader_module102"], entryPoint: main).
+ - While calling [Device "device10"].CreateComputePipeline([ComputePipelineDescriptor "compute_pipeline102"]).
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
