@@ -1,2 +1,0 @@
-creduce --not-c interesting.sh ../out/*
-echo $?
