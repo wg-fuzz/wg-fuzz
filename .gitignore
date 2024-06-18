@@ -27,3 +27,6 @@ out/
 # Reduction files
 **/*.orig
 reduced/
+
+bugs/
+generated_bugs/
