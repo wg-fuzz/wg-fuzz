@@ -38,7 +38,7 @@
 - A fuzzy condition probability of 0.0 is effectively the same as no fuzzy conditions. The higher the probability, the more likely wg-fuzz is to make slightly invalid WebGPU API calls. 0.1 or possibly a bit lower seems to work well.
 - Once it gets to a stage where Node is running the program, `Running WebGPU program...` will be printed on stdout. If a possible bug is found, `Possible bug found!` will be printed after that and logged inside `generated_bugs/` under a folder named after the timestamp it was found. Everything needed to run the test is copied over, including the dawn.node used at the time. Use `node test.js` to run it. If you compiled with sanitizers, you may need to pass an LD_PRELOAD flag like `LD_PRELOAD="/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so" node test.js`. Again, update with your personal location found with `clang -print-file-name=libclang_rt.asan-x86_64.so`.
 
-## Possible TODOs
+## Possible Future Work
 - Differential testing with other WebGPU implementations, e.g. wgpu
 - Implement `to_javascript()` methods that randomly generate and test more optional arguments in the WebGPU API.
 - More bug finding (try on different platforms like Windows/MacOS, longer fuzzing)
