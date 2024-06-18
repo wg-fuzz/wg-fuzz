@@ -1,0 +1,277 @@
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+0
+undefined
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+buffer201
+unmapped
+400
+128
+buffer202
+unmapped
+400
+64
+0
+undefined
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+validation:
+[Buffer "buffer204"] usage (BufferUsage::Uniform) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer204"], (0 bytes), data, (400 bytes))
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+validation:
+[Buffer "buffer202"] usage (BufferUsage::Uniform) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer202"], (0 bytes), data, (400 bytes))
+1
+2d
+r32float
+10
+10
+texture200
+1
+1
+2
+buffer000
+unmapped
+400
+64
+validation:
+Usage (TextureUsage::TextureBinding) of [Texture "texture000"] does not include TextureUsage::CopyDst.
+ - While calling [Queue].WriteTexture([ImageCopyTexture texture: [Texture "texture000"], mipLevel: 0, origin: [Origin3D x:0, y:0, z:0], aspect: TextureAspect::All], (400 bytes), [TextureDataLayout offset:0, bytesPerRow:40, rowsPerImage:10], [Extent3D width:10, height:10, depthOrArrayLayers:1])
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer203
+unmapped
+400
+128
+buffer000
+unmapped
+400
+64
+query200
+occlusion
+32
+buffer001
+unmapped
+400
+128
+validation:
+Command cannot be recorded while [CommandEncoder "command_encoder000"] is locked and [ComputePassEncoder "compute_pass_encoder0000"] is currently open.
+ - While encoding [CommandEncoder "command_encoder000"].BeginRenderPass([null]).
+
+Debug group stack:
+ > "group_marker"
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].SetBindGroup(0, [BindGroup], 0, ...).
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder000"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder000"]])
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].SetVertexBuffer(0, [Buffer "buffer008"], 0, 18446744073709551615).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].SetBindGroup(0, [BindGroup], 0, ...).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].DrawIndirect([Buffer "buffer0010"], 0).
+validation:
+[CommandBuffer from CommandEncoder "command_encoder100"] cannot be submitted more than once.
+ - While calling [Queue].Submit([[CommandBuffer from CommandEncoder "command_encoder100"]])
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].SetVertexBuffer(0, [Buffer "buffer0010"], 0, 18446744073709551615).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].SetIndexBuffer([Buffer "buffer008"], IndexFormat::Uint16, 0, 18446744073709551615).
+validation:
+Command buffer recording ended before [ComputePassEncoder "compute_pass_encoder2000"] was ended.
+    at Finish (/home/leu/Documents/projects/fyp/dawn/src/dawn/native/EncodingContext.cpp:236)
+    at Finish (/home/leu/Documents/projects/fyp/dawn/src/dawn/native/CommandEncoder.cpp:2051)
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].Draw(3, 1, 0, 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].PopDebugGroup().
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder200"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder200"]])
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].EndOcclusionQuery().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].SetIndexBuffer([Buffer "buffer009"], IndexFormat::Uint16, 0, 18446744073709551615).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].DrawIndexedIndirect([Buffer "buffer002"], 0).
+validation:
+Parent encoder of [ComputePassEncoder "compute_pass_encoder0000"] is already finished.
+ - While encoding [ComputePassEncoder "compute_pass_encoder0000"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].DrawIndirect([Buffer "buffer003"], 0).
+validation:
+Parent encoder of [Invalid ComputePassEncoder "compute_pass_encoder0001"] is already finished.
+ - While encoding [Invalid ComputePassEncoder "compute_pass_encoder0001"].PopDebugGroup().
+validation:
+Parent encoder of [ComputePassEncoder "compute_pass_encoder0000"] is already finished.
+ - While encoding [ComputePassEncoder "compute_pass_encoder0000"].PopDebugGroup().
+validation:
+[Texture "texture001"] usage (TextureUsage::TextureBinding) doesn't include TextureUsage::RenderAttachment.
+ - While validating colorAttachments[0].
+ - While encoding [CommandEncoder "command_encoder001"].BeginRenderPass([null]).
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder001"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder001"]])
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid ComputePassEncoder "compute_pass_encoder0001"] is already finished.
+ - While encoding [Invalid ComputePassEncoder "compute_pass_encoder0001"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].EndOcclusionQuery().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].DrawIndirect([Buffer "buffer006"], 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].EndOcclusionQuery().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0011"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0011"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].Draw(3, 1, 0, 0).
+validation:
+[CommandBuffer from CommandEncoder "command_encoder100"] cannot be submitted more than once.
+ - While calling [Queue].Submit([[CommandBuffer from CommandEncoder "command_encoder100"]])
+validation:
+Parent encoder of [ComputePassEncoder "compute_pass_encoder2000"] is already finished.
+ - While encoding [ComputePassEncoder "compute_pass_encoder2000"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].DrawIndexedIndirect([Buffer "buffer004"], 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].DrawIndexed(3, 1, 0, 0, 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0011"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0011"].SetIndexBuffer([Buffer "buffer005"], IndexFormat::Uint16, 0, 18446744073709551615).
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder200"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder200"]])
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0000"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0000"].DrawIndexedIndirect([Buffer "buffer0012"], 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].DrawIndexedIndirect([Buffer "buffer0013"], 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0011"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0011"].PopDebugGroup().
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0001"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0001"].DrawIndexedIndirect([Buffer "buffer0012"], 0).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0010"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0010"].SetIndexBuffer([Buffer "buffer002"], IndexFormat::Uint16, 0, 18446744073709551615).
+validation:
+Parent encoder of [Invalid RenderPassEncoder "render_pass_encoder0011"] is already finished.
+ - While encoding [Invalid RenderPassEncoder "render_pass_encoder0011"].DrawIndexedIndirect([Buffer "buffer009"], 0).
+validation:
+Command cannot be recorded while [CommandEncoder "command_encoder201"] is locked and [ComputePassEncoder "compute_pass_encoder2010"] is currently open.
+ - While encoding [CommandEncoder "command_encoder201"].PopDebugGroup().
+
+Debug group stack:
+ > "mygroupmarker"
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder201"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder201"]])
+validation:
+[CommandBuffer from CommandEncoder "command_encoder100"] cannot be submitted more than once.
+ - While calling [Queue].Submit([[CommandBuffer from CommandEncoder "command_encoder100"]])

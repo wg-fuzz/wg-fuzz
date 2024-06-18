@@ -1,0 +1,137 @@
+4
+unrestricted_pointer_parameters
+pointer_composite_access
+packed_4x8_integer_dot_product
+readonly_and_readwrite_storage_textures
+4
+unrestricted_pointer_parameters
+pointer_composite_access
+packed_4x8_integer_dot_product
+readonly_and_readwrite_storage_textures
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+unrestricted_pointer_parameters
+pointer_composite_access
+packed_4x8_integer_dot_product
+readonly_and_readwrite_storage_textures
+0
+undefined
+0
+undefined
+0
+undefined
+buffer001
+unmapped
+400
+32
+buffer001
+unmapped
+400
+32
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+destroyed
+0
+undefined
+buffer003
+unmapped
+400
+64
+buffer001
+unmapped
+400
+32
+buffer001
+unmapped
+400
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+validation:
+Command buffer recording ended before [ComputePassEncoder "compute_pass_encoder0030"] was ended.
+    at Finish (/home/leu/Documents/projects/fyp/dawn/src/dawn/native/EncodingContext.cpp:236)
+    at Finish (/home/leu/Documents/projects/fyp/dawn/src/dawn/native/CommandEncoder.cpp:2051)
+validation:
+Parent encoder of [ComputePassEncoder "compute_pass_encoder0030"] is already finished.
+ - While encoding [ComputePassEncoder "compute_pass_encoder0030"].PopDebugGroup().

@@ -1,0 +1,12 @@
+4
+unrestricted_pointer_parameters
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+packed_4x8_integer_dot_product
+bgra8unorm
+bgra8unorm
+bgra8unorm
+bgra8unorm
+bgra8unorm
+0
+undefined

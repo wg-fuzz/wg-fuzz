@@ -1,5 +1,10 @@
 #!/bin/bash
 
-node test.js &> log.txt
+node test.js
 
-grep -q "UNREACHABLE" log.txt
+if [ $? -ne 0 ]
+then 
+	exit 0
+else 
+	exit 1 
+fi

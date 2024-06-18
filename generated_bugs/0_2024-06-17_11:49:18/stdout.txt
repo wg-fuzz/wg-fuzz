@@ -1,0 +1,2199 @@
+bgra8unorm
+bgra8unorm
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+bgra8unorm
+0
+undefined
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query400
+occlusion
+32
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+validation:
+Error while parsing WGSL: :284:127 error: parsed as template list
+    global1 = func_8(func_7(Struct_4(global1.c, func_1(), 1227f, vec4<bool>(true, true, true, true)), func_1().b, !vec2<bool>(global1.d.x < global1.d.x, 0u > global1.c)), func_1().e, _wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(select(vec4<f32>(-796f, global1.d.x, -1509f, global1.d.x), _wgslsmith_f_op_vec4_f32(min(vec4<f32>(2301f, global1.d.x, 917f, global1.d.x), vec4<f32>(2005f, global1.d.x, global1.d.x, global1.d.x))), vec4<bool>(false, false, false, true))))), func_1());
+                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:284:127 note: if this is intended to be a less-than expression then wrap in parentheses
+    global1 = func_8(func_7(Struct_4(global1.c, func_1(), 1227f, vec4<bool>(true, true, true, true)), func_1().b, !vec2<bool>(global1.d.x < global1.d.x, 0u > global1.c)), func_1().e, _wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(select(vec4<f32>(-796f, global1.d.x, -1509f, global1.d.x), _wgslsmith_f_op_vec4_f32(min(vec4<f32>(2301f, global1.d.x, 917f, global1.d.x), vec4<f32>(2005f, global1.d.x, global1.d.x, global1.d.x))), vec4<bool>(false, false, false, true))))), func_1());
+                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+ - While validating [ShaderModuleDescriptor "shader_module401"]
+ - While calling [Device "device40"].CreateShaderModule([ShaderModuleDescriptor "shader_module401"]).
+warning:
+Compilation log for [Invalid ShaderModule "shader_module401"]:
+1 error(s) generated while compiling the shader:
+:284:127 error: parsed as template list
+    global1 = func_8(func_7(Struct_4(global1.c, func_1(), 1227f, vec4<bool>(true, true, true, true)), func_1().b, !vec2<bool>(global1.d.x < global1.d.x, 0u > global1.c)), func_1().e, _wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(select(vec4<f32>(-796f, global1.d.x, -1509f, global1.d.x), _wgslsmith_f_op_vec4_f32(min(vec4<f32>(2301f, global1.d.x, 917f, global1.d.x), vec4<f32>(2005f, global1.d.x, global1.d.x, global1.d.x))), vec4<bool>(false, false, false, true))))), func_1());
+                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:284:127 note: if this is intended to be a less-than expression then wrap in parentheses
+    global1 = func_8(func_7(Struct_4(global1.c, func_1(), 1227f, vec4<bool>(true, true, true, true)), func_1().b, !vec2<bool>(global1.d.x < global1.d.x, 0u > global1.c)), func_1().e, _wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(-_wgslsmith_f_op_vec4_f32(select(vec4<f32>(-796f, global1.d.x, -1509f, global1.d.x), _wgslsmith_f_op_vec4_f32(min(vec4<f32>(2301f, global1.d.x, 917f, global1.d.x), vec4<f32>(2005f, global1.d.x, global1.d.x, global1.d.x))), vec4<bool>(false, false, false, true))))), func_1());
+                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+0
+undefined
+bgra8unorm
+destroyed
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer200
+unmapped
+400
+6
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query101
+occlusion
+32
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query700
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query700
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+query000
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+buffer900
+unmapped
+400
+64
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer900
+unmapped
+400
+64
+buffer900
+unmapped
+400
+64
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer400
+unmapped
+400
+6
+0
+undefined
+destroyed
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+destroyed
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+destroyed
+validation:
+[Buffer "buffer800"] usage (BufferUsage::Vertex) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer800"], (0 bytes), data, (400 bytes))
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query1200
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+4
+readonly_and_readwrite_storage_textures
+pointer_composite_access
+unrestricted_pointer_parameters
+packed_4x8_integer_dot_product
+0
+undefined
+0
+undefined
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query1001
+occlusion
+32
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+validation:
+[Buffer "buffer1303"] usage (BufferUsage::Uniform) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer1303"], (0 bytes), data, (400 bytes))
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+0
+undefined
+buffer1301
+unmapped
+400
+16
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query1500
+occlusion
+32
+bgra8unorm
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query1500
+occlusion
+32
+buffer1302
+unmapped
+400
+8
+buffer1500
+unmapped
+400
+4
+destroyed
+destroyed
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2

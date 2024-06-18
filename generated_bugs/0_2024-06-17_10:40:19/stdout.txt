@@ -1,0 +1,211 @@
+bgra8unorm
+0
+undefined
+buffer000
+unmapped
+400
+64
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+1
+2d
+r32float
+10
+10
+texture001
+1
+1
+2
+query000
+occlusion
+32
+validation:
+Entry point "main" doesn't exist in the shader module [ShaderModule "shader_module000"].
+ - While validating compute stage ([ShaderModule "shader_module000"], entryPoint: main).
+ - While calling [Device "device00"].CreateComputePipeline([ComputePipelineDescriptor "compute_pipeline003"]).
+1
+2d
+r32float
+10
+10
+texture003
+1
+1
+2
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query000
+occlusion
+32
+Float32Array(100) [
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  0, 0, 0, 0
+]
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+buffer000
+unmapped
+400
+64
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query000
+occlusion
+32
+buffer000
+unmapped
+400
+64
+buffer001
+unmapped
+400
+9
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+query000
+occlusion
+32
+validation:
+[Buffer "buffer004"] usage (BufferUsage::Uniform) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer004"], (0 bytes), data, (400 bytes))
+buffer003
+unmapped
+400
+128
+12
+chromium-experimental-subgroup-uniform-control-flow
+chromium-experimental-subgroups
+float32-filterable
+bgra8unorm-storage
+rg11b10ufloat-renderable
+shader-f16
+indirect-first-instance
+texture-compression-etc2
+texture-compression-bc
+timestamp-query
+depth32float-stencil8
+depth-clip-control
+false
+undefined
+amd
+gcn-5
+AMD Radeon Vega 8 Graphics (RADV RAVEN)
+radv: Mesa 23.2.1-1ubuntu3.1~22.04.2
+validation:
+[Buffer "buffer002"] usage (BufferUsage::Uniform) doesn't include BufferUsage::CopyDst.
+ - While calling [Queue].WriteBuffer([Buffer "buffer002"], (0 bytes), data, (400 bytes))
+Float32Array(100) [
+      0,  -0.5, -0.25,     0,     1,     0,    -1,     1,  0.25,     1,
+   0.25,     1,  -0.5,   0.5,     0, -0.75,     0, -0.75,  0.75, -0.75,
+    0.5,   0.5,    -1,     0,  0.25,     0,  0.75,     1, -0.25,     1,
+  -0.25,  -0.5,  -0.5,  -0.5, -0.25,    -1, -0.75,     0,     0,   0.5,
+     -1, -0.25, -0.75,     1,     0,     0, -0.25, -0.75, -0.25,  0.75,
+   -0.5, -0.75,  0.75,  0.25,  0.25,    -1, -0.25,     1,   0.5,   0.5,
+      0,     0,     1, -0.75,  0.75,  0.75,  0.25,  0.75,   0.5,    -1,
+   0.25, -0.25,    -1,  0.25,  0.75,   0.5, -0.75,    -1,     1,  -0.5,
+   -0.5,  -0.5, -0.25,  0.75,    -1,    -1,     1,  -0.5,   0.5,  0.75,
+  -0.25, -0.25,  -0.5, -0.75,  0.25,     1, -0.75,     0,     0,    -1
+]
+0
+undefined
+0
+undefined
+validation:
+[Texture "texture001"] usage (TextureUsage::CopyDst) doesn't include TextureUsage::RenderAttachment.
+ - While validating colorAttachments[0].
+ - While encoding [CommandEncoder "command_encoder000"].BeginRenderPass([null]).
+validation:
+[Invalid CommandBuffer from CommandEncoder "command_encoder000"] is invalid.
+ - While calling [Queue].Submit([[Invalid CommandBuffer from CommandEncoder "command_encoder000"]])

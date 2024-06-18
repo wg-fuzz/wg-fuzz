@@ -1,0 +1,77 @@
+
+=================================================================
+==16697==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 2436 byte(s) in 28 object(s) allocated from:
+    #0 0x7f0dbed64add in operator new[](unsigned long) (/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so+0xdbadd) (BuildId: a6105a816e63299474c1078329a59ed80f244fbf)
+    #1 0x7f0db300d812 in dawn::native::AdapterBase::APIGetInfo(dawn::native::AdapterInfo*) const /home/leu/Documents/projects/fyp/dawn/src/dawn/native/Adapter.cpp:132:17
+    #2 0x7f0db2ff5d01 in dawn::native::Adapter::GetInfo(WGPUAdapterInfo*) const /home/leu/Documents/projects/fyp/dawn/src/dawn/native/DawnNative.cpp:93:19
+    #3 0x7f0db2aab047 in wgpu::binding::GPUAdapter::getInfo(Napi::Env) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/binding/GPUAdapter.cpp:118:14
+    #4 0x7f0db2c35b13 in wgpu::interop::GPUAdapter::Bind(Napi::Env, std::unique_ptr<wgpu::interop::GPUAdapter, std::default_delete<wgpu::interop::GPUAdapter> >&&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:9435:38
+    #5 0x7f0db2a96ba5 in wgpu::interop::Interface<wgpu::interop::GPUAdapter> wgpu::interop::GPUAdapter::Create<wgpu::binding::GPUAdapter, dawn::native::Adapter&, wgpu::binding::Flags const&, std::shared_ptr<wgpu::binding::AsyncRunner>&>(Napi::Env, dawn::native::Adapter&, wgpu::binding::Flags const&, std::shared_ptr<wgpu::binding::AsyncRunner>&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.h:2760:12
+    #6 0x7f0db2a9206b in wgpu::binding::GPU::requestAdapter(Napi::Env, wgpu::interop::GPURequestAdapterOptions) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/binding/GPU.cpp:262:23
+    #7 0x7f0db2e3bc61 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapterInner(Napi::CallbackInfo const&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2845:31
+    #8 0x7f0db2e3b551 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()::operator()() const /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2834:75
+    #9 0x7f0db2e3b066 in Napi::Value wgpu::interop::CatchExceptionIntoPromise<wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()>(Napi::Env, wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()&&) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/interop/Core.h:814:26
+    #10 0x7f0db2e321d1 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2834:14
+    #11 0x7f0db2e39a83 in Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()::operator()() const /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:4375:23
+    #12 0x7f0db2e3946e in napi_value__* Napi::details::WrapCallback<Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()>(Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()) /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:87:10
+    #13 0x7f0db2e385fc in Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*) /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:4368:10
+    #14 0x557230ff401c in v8impl::(anonymous namespace)::FunctionCallbackWrapper::Invoke(v8::FunctionCallbackInfo<v8::Value> const&) js_native_api_v8.cc
+    #15 0x5571d1b4eadc  (<unknown module>)
+    #16 0x5571d1b4cf17  (<unknown module>)
+    #17 0x5571d1b89e42  (<unknown module>)
+    #18 0x5571d1c561b0  (<unknown module>)
+    #19 0x5571d1b774e7  (<unknown module>)
+    #20 0x5571d1b4aa42  (<unknown module>)
+    #21 0x5572313ca025 in v8::internal::(anonymous namespace)::Invoke(v8::internal::Isolate*, v8::internal::(anonymous namespace)::InvokeParams const&) execution.cc
+    #22 0x5572313cae1f in v8::internal::(anonymous namespace)::InvokeWithTryCatch(v8::internal::Isolate*, v8::internal::(anonymous namespace)::InvokeParams const&) execution.cc
+    #23 0x5572313cb0d7 in v8::internal::Execution::TryRunMicrotasks(v8::internal::Isolate*, v8::internal::MicrotaskQueue*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xdcb0d7) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+    #24 0x5572313f9a16 in v8::internal::MicrotaskQueue::RunMicrotasks(v8::internal::Isolate*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xdf9a16) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+    #25 0x5572313f9d82 in v8::internal::MicrotaskQueue::PerformCheckpointInternal(v8::Isolate*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xdf9d82) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+    #26 0x5571d1b4eadc  (<unknown module>)
+    #27 0x5571d1b4cf17  (<unknown module>)
+    #28 0x5571d1b4ab1b  (<unknown module>)
+    #29 0x5571d1b4a842  (<unknown module>)
+
+Direct leak of 128 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0dbed56c16 in realloc (/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so+0xcdc16) (BuildId: a6105a816e63299474c1078329a59ed80f244fbf)
+    #1 0x7f0da5453448  (<unknown module>)
+
+Direct leak of 128 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0dbed56c16 in realloc (/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so+0xcdc16) (BuildId: a6105a816e63299474c1078329a59ed80f244fbf)
+    #1 0x7f0dafb18ca8  (<unknown module>)
+
+Direct leak of 87 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0dbed64add in operator new[](unsigned long) (/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so+0xdbadd) (BuildId: a6105a816e63299474c1078329a59ed80f244fbf)
+    #1 0x7f0db300d812 in dawn::native::AdapterBase::APIGetInfo(dawn::native::AdapterInfo*) const /home/leu/Documents/projects/fyp/dawn/src/dawn/native/Adapter.cpp:132:17
+    #2 0x7f0db2ff5d01 in dawn::native::Adapter::GetInfo(WGPUAdapterInfo*) const /home/leu/Documents/projects/fyp/dawn/src/dawn/native/DawnNative.cpp:93:19
+    #3 0x7f0db2aab047 in wgpu::binding::GPUAdapter::getInfo(Napi::Env) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/binding/GPUAdapter.cpp:118:14
+    #4 0x7f0db2c35b13 in wgpu::interop::GPUAdapter::Bind(Napi::Env, std::unique_ptr<wgpu::interop::GPUAdapter, std::default_delete<wgpu::interop::GPUAdapter> >&&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:9435:38
+    #5 0x7f0db2a96ba5 in wgpu::interop::Interface<wgpu::interop::GPUAdapter> wgpu::interop::GPUAdapter::Create<wgpu::binding::GPUAdapter, dawn::native::Adapter&, wgpu::binding::Flags const&, std::shared_ptr<wgpu::binding::AsyncRunner>&>(Napi::Env, dawn::native::Adapter&, wgpu::binding::Flags const&, std::shared_ptr<wgpu::binding::AsyncRunner>&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.h:2760:12
+    #6 0x7f0db2a9206b in wgpu::binding::GPU::requestAdapter(Napi::Env, wgpu::interop::GPURequestAdapterOptions) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/binding/GPU.cpp:262:23
+    #7 0x7f0db2e3bc61 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapterInner(Napi::CallbackInfo const&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2845:31
+    #8 0x7f0db2e3b551 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()::operator()() const /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2834:75
+    #9 0x7f0db2e3b066 in Napi::Value wgpu::interop::CatchExceptionIntoPromise<wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()>(Napi::Env, wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&)::'lambda'()&&) /home/leu/Documents/projects/fyp/dawn/src/dawn/node/interop/Core.h:814:26
+    #10 0x7f0db2e321d1 in wgpu::interop::(anonymous namespace)::Wrappers::WGPU::requestAdapter(Napi::CallbackInfo const&) /home/leu/Documents/projects/fyp/dawn/out/asan/gen/node/src/dawn/node/interop/WebGPU.cpp:2834:14
+    #11 0x7f0db2e39a83 in Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()::operator()() const /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:4375:23
+    #12 0x7f0db2e3946e in napi_value__* Napi::details::WrapCallback<Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()>(Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*)::'lambda'()) /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:87:10
+    #13 0x7f0db2e385fc in Napi::InstanceWrap<wgpu::interop::(anonymous namespace)::Wrappers::WGPU>::InstanceMethodCallbackWrapper(napi_env__*, napi_callback_info__*) /home/leu/Documents/projects/fyp/dawn/third_party/node-addon-api/napi-inl.h:4368:10
+    #14 0x557230ff401c in v8impl::(anonymous namespace)::FunctionCallbackWrapper::Invoke(v8::FunctionCallbackInfo<v8::Value> const&) js_native_api_v8.cc
+    #15 0x5571d1b4eadc  (<unknown module>)
+    #16 0x5571d1b4cf17  (<unknown module>)
+    #17 0x5571d1b4cf17  (<unknown module>)
+    #18 0x5571d1b4cf17  (<unknown module>)
+    #19 0x5571d1b4cf17  (<unknown module>)
+    #20 0x5571d1b4cf17  (<unknown module>)
+    #21 0x5571d1b4cf17  (<unknown module>)
+    #22 0x5571d1b4cf17  (<unknown module>)
+    #23 0x5571d1b4cf17  (<unknown module>)
+    #24 0x5571d1b4ab1b  (<unknown module>)
+    #25 0x5571d1b4a842  (<unknown module>)
+    #26 0x5572313c9dfa in v8::internal::(anonymous namespace)::Invoke(v8::internal::Isolate*, v8::internal::(anonymous namespace)::InvokeParams const&) execution.cc
+    #27 0x5572313caba1 in v8::internal::Execution::Call(v8::internal::Isolate*, v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Object>, int, v8::internal::Handle<v8::internal::Object>*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xdcaba1) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+    #28 0x557231295bd6 in v8::Object::CallAsFunction(v8::Local<v8::Context>, v8::Local<v8::Value>, int, v8::Local<v8::Value>*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xc95bd6) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+    #29 0x55723103724d in node::builtins::BuiltinLoader::CompileAndCall(v8::Local<v8::Context>, char const*, node::Realm*) (/home/linuxbrew/.linuxbrew/Cellar/node/21.7.3/bin/node+0xa3724d) (BuildId: 0d36d9e07656c1b6a4dd9a2b03ac478fb98b3e5f)
+
+SUMMARY: AddressSanitizer: 2779 byte(s) leaked in 31 allocation(s).
