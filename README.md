@@ -51,3 +51,7 @@
 - Copy reduction/interesting.sh to the root of the repo.
 - You might need to modify it to use LD_PRELOAD.
 - Run `chmod +x interesting.sh`, and then run `creduce --not-c interesting.sh generated_bugs/<bug>/out/*`. You should get some .orig files at the root of the repo, and the test.js file etc should be modified in-plae in the path you specified.
+
+## Notes on bugs
+- There was a bug that came up quite frequently (writing this on 2024/6/28) - so crates/acv/src/to_javascript/program_setup/submit.rs:22 was changed to stop the onSubmittedWorkDone() API call from executing to enable further testing. Uncomment if this does not cause an issue for you.
+- Similarly, another bug is avoided by limiting the number of GPUDevices created to 1 per adapter. Remove the line containing `adapter.devices.len() < 1` roughly at around crates/generator/src/available_calls/mod.rs:22 if this does not cause an issue for you.
