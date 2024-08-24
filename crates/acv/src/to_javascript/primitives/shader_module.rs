@@ -46,7 +46,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 format!("\
     var {}_code = \"\";
     try {{
-        {}_code = await fs.readFile('{}.wgsl', 'utf8');
+        {}_code = await fs.readFile('/Users/matthew/Documents/msc/final_proj/dawn_coverage_final/third_party/webgpu-cts/src/webgpu/api/operation/wg_fuzz/{}.wgsl', 'utf8');
     }} catch (err) {{
         console.log(err);
     }}
@@ -63,7 +63,7 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 format!("\
     var {}_code = \"\";
     try {{
-        {}_code = await fs.readFile('render_shader.wgsl', 'utf8');
+        {}_code = await fs.readFile('/Users/matthew/Documents/msc/final_proj/dawn_coverage_final/third_party/webgpu-cts/src/webgpu/api/operation/wg_fuzz/render_shader.wgsl', 'utf8');
     }} catch (err) {{
         console.log(err);
     }}
