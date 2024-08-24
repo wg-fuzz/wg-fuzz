@@ -34,7 +34,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
             entryPoint: \"fragment_main\",
             targets: [
                 {{
-                    format: navigator.gpu.getPreferredCanvasFormat(),
+                    format: gpu.getPreferredCanvasFormat(),
                 }},
             ],
         }},
@@ -80,7 +80,7 @@ pub fn render_pipeline_to_js(api_call: &APICall, created_resource: &Resource) ->
             entryPoint: \"fragment_main\",
             targets: [
                 {{
-                    format: navigator.gpu.getPreferredCanvasFormat(),
+                    format: gpu.getPreferredCanvasFormat(),
                 }},
             ],
         }},

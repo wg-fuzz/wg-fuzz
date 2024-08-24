@@ -13,7 +13,7 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
                     _ => "undefined",
                 };
                 format!("\
-    const {} = await navigator.gpu.requestAdapter({{
+    const {} = await gpu.requestAdapter({{
         powerPreference: {},
         label: \"{}\"
     }});", 

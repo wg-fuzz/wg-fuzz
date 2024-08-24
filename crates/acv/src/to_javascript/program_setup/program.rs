@@ -4,14 +4,14 @@ pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String 
     match api_call {
         PrintWGSLLanguageFeatures() => {
             String::from("\
-    console.log(navigator.gpu.wgslLanguageFeatures.size);
+    console.log(gpu.wgslLanguageFeatures.size);
 
-    for (const value of navigator.gpu.wgslLanguageFeatures.keys()) {
+    for (const value of gpu.wgslLanguageFeatures.keys()) {
         console.log(value);
     }")
         }
         PrintPreferredCanvasFormat() => {
-            String::from("console.log(navigator.gpu.getPreferredCanvasFormat());")
+            String::from("console.log(gpu.getPreferredCanvasFormat());")
         }
         CreateArray() => {
             if let Resource::RandomArray(array) = created_resource {
