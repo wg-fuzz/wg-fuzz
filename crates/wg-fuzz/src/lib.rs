@@ -1,12 +1,12 @@
 use std::fs::{self, File};
 use std::io::prelude::*;
-use std::process::{Command, Output};
+// use std::process::{Command, Output};
 use std::env;
 use chrono;
 
 use art::*;
 use acv::*;
-use fs_extra::dir;
+// use fs_extra::dir;
 use generator::*;
 
 pub fn fuzz() {
@@ -48,14 +48,14 @@ pub fn fuzz_once() -> std::io::Result<()> {
     let mut program = Program::new();
 
     let args: Vec<String> = env::args().collect();
-    let mut condor_identifier = 0;
+    // let mut condor_identifier = 0;
 
     if args.len() == 1 {
         generate(&mut program, &mut program_resources, 1.0, 0.0);
     } else {
         let swarm_prob: f64 = args[1].parse().unwrap();
         let fuzzy_prob: f64 = args[2].parse().unwrap();
-        condor_identifier = args[3].parse().unwrap();
+        // condor_identifier = args[3].parse().unwrap();
     
         generate(&mut program, &mut program_resources, swarm_prob, fuzzy_prob);
     }
@@ -64,65 +64,65 @@ pub fn fuzz_once() -> std::io::Result<()> {
     
     file.write_all(program.to_javascript().as_bytes())?;
 
-    fs::copy("dawn.node", "out/dawn.node").expect("Could not copy dawn.node to out/dawn.node");
+    // fs::copy("dawn.node", "out/dawn.node").expect("Could not copy dawn.node to out/dawn.node");
 
     fs::copy("crates/acv/src/code_samples/render_shader.wgsl", "out/render_shader.wgsl").expect("Could not copy render_shader.wgsl to out/render_shader.wgsl");
 
-    run_test(condor_identifier);
+    // run_test(condor_identifier);
 
     Ok(())
 }
 
-fn run_test(condor_identifier: i32) {
-    println!("Running WebGPU program...");
-    env::set_current_dir("out").unwrap();
-    let output = Command::new("node")
-        .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so")
-        // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
-        // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.tsan-x86_64.so")
-        .arg("test.js")
-        .output()
-        .expect("Failed to run test.js");
-    env::set_current_dir("..").unwrap();
+// fn run_test(condor_identifier: i32) {
+//     println!("Running WebGPU program...");
+//     env::set_current_dir("out").unwrap();
+//     let output = Command::new("node")
+//         .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.so")
+//         // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.ubsan_standalone-x86_64.so")
+//         // .env("LD_PRELOAD", "/usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.tsan-x86_64.so")
+//         .arg("test.js")
+//         .output()
+//         .expect("Failed to run test.js");
+//     env::set_current_dir("..").unwrap();
 
-    // println!("status: {}", output.status);
-    // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+//     // println!("status: {}", output.status);
+//     // println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+//     // println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
 
-    let lowercase_stdout = String::from_utf8(output.stdout.clone()).unwrap().to_lowercase();
-    let lowercase_stderr = String::from_utf8(output.stderr.clone()).unwrap().to_lowercase();
+//     let lowercase_stdout = String::from_utf8(output.stdout.clone()).unwrap().to_lowercase();
+//     let lowercase_stderr = String::from_utf8(output.stderr.clone()).unwrap().to_lowercase();
 
-    if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
-        log_run_as_bug(condor_identifier, output.clone());
-    } else {
-        for phrase in ["core dumped", "sanitizer"] {
-            if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onimmediate()") {
-                log_run_as_bug(condor_identifier, output.clone());
-            }
-        }
-    }
-}
+//     if !output.status.success() && !lowercase_stderr.contains("immediate._onimmediate()") {
+//         log_run_as_bug(condor_identifier, output.clone());
+//     } else {
+//         for phrase in ["core dumped", "sanitizer"] {
+//             if (lowercase_stdout.contains(phrase) || lowercase_stderr.contains(phrase)) && !lowercase_stderr.contains("immediate._onimmediate()") {
+//                 log_run_as_bug(condor_identifier, output.clone());
+//             }
+//         }
+//     }
+// }
 
-fn log_run_as_bug(condor_identifier: i32, output: Output) {
-    println!("Possible bug found!");
-    let timestamp = chrono::offset::Local::now().format(&format!("{condor_identifier}_%Y-%m-%d_%H:%M:%S")).to_string();
+// fn log_run_as_bug(condor_identifier: i32, output: Output) {
+//     println!("Possible bug found!");
+//     let timestamp = chrono::offset::Local::now().format(&format!("{condor_identifier}_%Y-%m-%d_%H:%M:%S")).to_string();
 
-    let new_folder = format!("generated_bugs/{}", timestamp);
+//     let new_folder = format!("generated_bugs/{}", timestamp);
 
-    let _ = Command::new("mkdir")
-        .arg(new_folder.clone())
-        .output()
-        .unwrap();
+//     let _ = Command::new("mkdir")
+//         .arg(new_folder.clone())
+//         .output()
+//         .unwrap();
 
-    fs_extra::copy_items(&["out/"], new_folder.clone(), &dir::CopyOptions::new()).unwrap();
+//     fs_extra::copy_items(&["out/"], new_folder.clone(), &dir::CopyOptions::new()).unwrap();
 
-    let mut stdout_file = File::create(format!("{}/stdout.txt", new_folder.clone())).unwrap();
-    stdout_file.write_all(&output.stdout).unwrap();
-    let mut stderr_file = File::create(format!("{}/stderr.txt", new_folder.clone())).unwrap();
-    stderr_file.write_all(&output.stderr).unwrap();
-    let mut exitcode_file = File::create(format!("{}/exitcode.txt", new_folder.clone())).unwrap();
-    match output.status.code() {
-        Some(code) => exitcode_file.write_all(code.to_string().as_bytes()).unwrap(),
-        None => {}
-    }
-}
+//     let mut stdout_file = File::create(format!("{}/stdout.txt", new_folder.clone())).unwrap();
+//     stdout_file.write_all(&output.stdout).unwrap();
+//     let mut stderr_file = File::create(format!("{}/stderr.txt", new_folder.clone())).unwrap();
+//     stderr_file.write_all(&output.stderr).unwrap();
+//     let mut exitcode_file = File::create(format!("{}/exitcode.txt", new_folder.clone())).unwrap();
+//     match output.status.code() {
+//         Some(code) => exitcode_file.write_all(code.to_string().as_bytes()).unwrap(),
+//         None => {}
+//     }
+// }
