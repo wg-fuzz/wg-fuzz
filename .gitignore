@@ -21,9 +21,6 @@ target/
 dawns/
 *.node
 
-# Output files
-out/
-
 # Reduction files
 **/*.orig
 reduced/
