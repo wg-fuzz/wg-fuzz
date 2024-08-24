@@ -15,16 +15,8 @@ pub fn buffer_to_js(api_call: &APICall, created_resource: &Resource) -> String {
                 panic!("created_resource for CreateRandomBuffer() call is not a buffer!")
             }
         }
-        PrintBufferInfo(buffer) => {
-            format!("\
-    {{
-        const buffer = {}
-        console.log(buffer.label);
-        console.log(buffer.mapState);
-        console.log(buffer.size);
-        console.log(buffer.usage);
-    }}", 
-                buffer.var_name)
+        PrintBufferInfo(_) => {
+            format!("")
         }
         ReadMappedBuffer(buffer) => {
             format!("\

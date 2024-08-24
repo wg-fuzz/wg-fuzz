@@ -10,26 +10,8 @@ pub fn device_to_js(api_call: &APICall, created_resource: &Resource) -> String {
                 panic!("created_resource for CreateDevice() call is not a device!")
             }
         }
-        PrintDeviceInfo(device) => {
-            format!("\
-    console.log({}.features.size);
-
-    for (const value of {}.features.keys()) {{
-        console.log(value);
-    }}
-
-    console.log({}.limits.size);
-
-    for (const [key, value] of Object.entries({}.limits)) {{
-        console.log(key);
-        console.log(value);
-    }}
-
-    {}.lost.then((info) => {{
-        console.error(`WebGPU device was lost: ${{info.message}}`);
-        console.log(info.reason);
-    }});", 
-                device.var_name, device.var_name, device.var_name, device.var_name, device.var_name)
+        PrintDeviceInfo(_) => {
+            format!("")
         }
         DestroyDevice(device) => {
             format!("{}.destroy();", device.var_name)

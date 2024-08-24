@@ -3,15 +3,10 @@ use crate::*;
 pub fn program_to_js(api_call: &APICall, created_resource: &Resource) -> String {
     match api_call {
         PrintWGSLLanguageFeatures() => {
-            String::from("\
-    console.log(gpu.wgslLanguageFeatures.size);
-
-    for (const value of gpu.wgslLanguageFeatures.keys()) {
-        console.log(value);
-    }")
+            String::from("")
         }
         PrintPreferredCanvasFormat() => {
-            String::from("console.log(gpu.getPreferredCanvasFormat());")
+            String::from("")
         }
         CreateArray() => {
             if let Resource::RandomArray(array) = created_resource {

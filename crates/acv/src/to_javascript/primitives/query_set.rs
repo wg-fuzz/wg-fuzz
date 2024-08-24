@@ -15,14 +15,8 @@ pub fn query_set_to_js(api_call: &APICall, created_resource: &Resource) -> Strin
                 panic!("created_resource for CreateOcclusionQuerySet() call is not a query set!")
             }
         }
-        PrintQuerySet(query_set) => {
-            format!("\
-    console.log({}.label);
-    
-    console.log({}.type);
-    
-    console.log({}.count);",
-                query_set.var_name, query_set.var_name, query_set.var_name)
+        PrintQuerySet(_) => {
+            format!("")
         } 
         DestroyQuerySet(query_set) => {
             format!("{}.destroy()", query_set.var_name)

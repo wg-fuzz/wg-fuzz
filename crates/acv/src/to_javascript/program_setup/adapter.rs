@@ -14,40 +14,15 @@ pub fn adapter_to_js(api_call: &APICall, created_resource: &Resource) -> String 
                 };
                 format!("\
     const {} = await gpu.requestAdapter({{
-        powerPreference: {},
-        label: \"{}\"
+        powerPreference: {}
     }});", 
-                    adapter.var_name, random_power_preference, adapter.var_name)
+                    adapter.var_name, random_power_preference)
             } else {
                 panic!("created_resource for CreateAdapter() call is not an adapter!")
             }
         }
-        PrintAdapterInfo(adapter) => {
-            format!("\
-    console.log({}.features.size);
-
-    for (const value of {}.features.keys()) {{
-        console.log(value);
-    }}
-
-    console.log({}.isFallbackAdapter);
-
-    console.log({}.limits.size);
-
-    for (const [key, value] of Object.entries({}.limits)) {{
-        console.log(key);
-        console.log(value);
-    }}
-
-    {{
-        const adapter = {};
-        console.log(adapter.info.vendor);
-        console.log(adapter.info.architecture);
-        console.log(adapter.info.device);
-        console.log(adapter.info.description);
-    }}", 
-                adapter.var_name, adapter.var_name, adapter.var_name, 
-                adapter.var_name, adapter.var_name, adapter.var_name)
+        PrintAdapterInfo(_) => {
+            format!("")
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }

@@ -74,18 +74,8 @@ pub fn shader_module_to_js(api_call: &APICall, created_resource: &Resource) -> S
                 panic!("created_resource for CreateShaderModuleRender() call is not a shader module!")
             }
         }
-        PrintShaderModuleInfo(shader_module) => {
-            format!("\
-    {{
-        const shaderInfo = await {}.getCompilationInfo();
-
-        for (const message in shaderInfo.messages) {{
-            console.log(message.lineNum);
-            console.log(message.message);
-            console.log(message.type);
-        }}
-    }}", 
-                shader_module.var_name)
+        PrintShaderModuleInfo(_) => {
+            format!("")
         }
         _ => panic!("There is a bug in the to_javascript match calls")
     }
